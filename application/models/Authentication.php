@@ -9,7 +9,6 @@ class Authentication extends CI_Model {
     public function checkDBConnection(){
         $CI = & get_instance();
         $CI->db = $this->load->database('default', true);
-        //print_r('<pre />'); print_r($CI->db);
         return true;     
     }
     public function usermanager_insert(){
@@ -27,6 +26,15 @@ class Authentication extends CI_Model {
         );
 
         $this->db->insert('usermanager',$data);
+    }
+    
+    public function check_user_login($username,$password) 
+    {
+        $sql = "SELECT * FROM UserManager WHERE UserId = '$username' limit 1" ;
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
     }
 
 }

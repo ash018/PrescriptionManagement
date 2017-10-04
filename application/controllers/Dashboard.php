@@ -8,11 +8,12 @@ class Dashboard extends CI_Controller {
     }
 	
     public function index(){
-        
-        if($this->Authentication->checkDBConnection()){
-            $this->Authentication->usermanager_insert();
-            $this->load->view('welcome_message');
-        }
+         //$this->load->view('login_page');
+         $this->load->view('home');
+//        if($this->Authentication->checkDBConnection()){
+//            $this->Authentication->usermanager_insert();
+//            $this->load->view('welcome_message');
+//        }
     }
 }
 ?>
