@@ -24,7 +24,7 @@ class LoginCheck extends CI_Controller {
     }
     
     public function user_login_check() {
-        //echo '<pre/>'.$uname.'--'.$pass; exit(); 
+       
         $userName = $this->input->post('username');
         $password = $this->input->post('password');
         $remember = $this->input->post('remember');
@@ -63,6 +63,28 @@ class LoginCheck extends CI_Controller {
            $this->load->view("login_page", $data);
        }
    }
+   public function checkLogin(){
+        if($this->session->userdata('is_log_user') != TRUE){
+            redirect('LoginCheck','refresh'); 
+        }
+    }
+    public function logOut(){
+        $this->session->unset_userdata('is_log_user');
+	$this->session->unset_userdata('UserId');
+        $this->session->unset_userdata('UserName');
+        $this->session->unset_userdata('UserEmail');
+        $this->session->unset_userdata('UserPhone');
+        $this->session->unset_userdata('DoctorId');
+        
+       
+        $data = array();
+        $data['message'] = "Successfully logged out";
+        $this->session->set_userdata($data);
+	 
+        redirect('Dashboard','refresh');
+		exit();
+        
+    }
     
 }
 ?>
