@@ -1,6 +1,39 @@
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
+<style>
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+
+</style>
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -39,7 +72,39 @@
                         <li>
                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
+                      <!--  <li>
+                        <a href="#">
+                            <i class="fa fa-wrench fa-fw"></i>
+                            Doctor
+                            <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level collapse in" aria-expanded="true" style="">
+                            <li>
+                            <a href="panels-wells.html">Doctor List</a>
+                            </li>
+                            <li>
+                            <a href="buttons.html">Edit Doctor Information</a>
+                            </li>
+                            </ul>
+                        </li> -->
                         
+                        <li class="dropdown">
+                        <a href="#">
+                            <i class="fa fa-wrench fa-fw"></i>
+                            Doctor
+                            <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level" aria-expanded="true" style="">
+                                <li>
+                                    <a href="<?php echo site_url('doctor/DocList/doctorList') ?>">Doctor List</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="<?php echo site_url('doctor/welcome/doctorList') ?>">Edit Doctor Information</a>
+                                </li>  
+                                 
+                            </ul>
+                        </li>
                         
                     </ul>
                 </div>
