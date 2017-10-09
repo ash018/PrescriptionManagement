@@ -1,13 +1,15 @@
 <html lang="en">
+    
 <?php
-   $head;
+
+    echo $Header;
 ?>
 
 <body>
-
     <div id="wrapper">
         <?php 
-            include 'left_menu.php';
+            //include 'left_menu.php';
+              echo $leftMenu;
         ?>
         <div id="page-wrapper">
             <div class="container-fluid">
@@ -23,9 +25,11 @@
         </div>
        
     </div>
-    <?php include 'footer.php';?>
+    <?php echo $footer; ?>
     
 
 </body>
 
 </html>
+
+<?php //exit(); ?>

@@ -31,8 +31,6 @@
     text-decoration: none;
     display: block;
 }
-
-
 </style>
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -57,43 +55,48 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="<?php echo base_url();?>LoginCheck/logOut"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
             </ul>
             <!-- /.navbar-top-links -->
-
+            
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="<?php echo base_url(); ?>Dashboard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-                      <!--  <li>
-                        <a href="#">
+                        
+                        <li>
+                            <a href="#">
                             <i class="fa fa-wrench fa-fw"></i>
-                            Doctor
+                            User Manager
                             <span class="fa arrow"></span>
                             </a>
-                            <ul class="nav nav-second-level collapse in" aria-expanded="true" style="">
+                            <ul class="nav nav-second-level " aria-expanded="true" style="">
                             <li>
-                            <a href="panels-wells.html">Doctor List</a>
+                            <a href="<?php echo base_url(); ?>UserManager">User List</a>
                             </li>
                             <li>
-                            <a href="buttons.html">Edit Doctor Information</a>
+                            <a href="<?php echo base_url(); ?>UserManager/userCreate">User create</a>
                             </li>
                             </ul>
-                        </li> -->
+                        </li>
                         
-                        <li class="dropdown">
-                        <a href="#">
+                        
+
+                        <li>
+                            <a href="#">
+
                             <i class="fa fa-wrench fa-fw"></i>
                             Doctor
                             <span class="fa arrow"></span>
                             </a>
+
                             <ul class="nav nav-second-level" aria-expanded="true" style="">
                                 <li>
                                     <a href="<?php echo site_url('doctor/DocList/doctorList') ?>">Doctor List</a>
@@ -103,7 +106,8 @@
                                     <a href="<?php echo site_url('doctor/welcome/doctorList') ?>">Edit Doctor Information</a>
                                 </li>  
                                  
-                            </ul>
+
+                       
                         </li>
                         
                     </ul>
