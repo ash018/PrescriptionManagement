@@ -1,10 +1,6 @@
 <html lang="en">
-
 <?php
-   include 'header.php';
-   $header = new Header();
-   $header->setFirstName('Home');
-   echo $header->getFirstName();
+   $head;
 ?>
 
 <body>
