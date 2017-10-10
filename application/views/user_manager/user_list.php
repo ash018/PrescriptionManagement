@@ -44,7 +44,7 @@
                                                 <td><?php echo $user['UserPhone'];?></td>
                                                 <td class="center"><?php echo $user['UserEmail'];?></td>
                                                 <td class="center"><?php echo $user['EntryDate'];?></td>
-                                                <td class="center"><?php echo $user['UserName'];?></td>
+                                                <td class="center"><input type="button" class="btn btn-info" value="Edit"/></td>
                                             </tr>
                                             <?php $c++; }?>
                                         </tbody>
