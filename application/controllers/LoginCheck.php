@@ -54,12 +54,12 @@ class LoginCheck extends CI_Controller {
                redirect('Dashboard');
            } else {
                $data = array();
-               $data['login_error'] = "Wrong email or password!!!";
+               $data['login_error'] = "Wrong UserId or Password!!!";
                $this->load->view("login_page", $data);
            }
        } else {
            $data = array();
-           $data['login_error'] = "Wrong email or password!!!";
+           $data['login_error'] = "Wrong UserId or Password!!!";
            $this->load->view("login_page", $data);
        }
    }
