@@ -15,7 +15,7 @@ class UserManagerModel extends CI_Model {
     }
     
     public function getAllDoctor(){
-        $sql = "select A.DoctorId as DoctorId, A.DoctorName as DoctorName, A.DoctorAddress as DoctorAddress from doctor as A, usermanager as B where B.DoctorId != A.DoctorId;";
+        $sql = "select  DoctorId, DoctorName, DoctorAddress from doctor where DoctorId not in (select DoctorId from usermanager);";
         $query=$this->db->query($sql);
 
         $result = $query->result_array();
@@ -31,8 +31,13 @@ class UserManagerModel extends CI_Model {
     }
     
     public function saveUser($data){
-        $result = $this->db->insert('usermanager',$data);
-        return $result;
+        //$this->db->_error_number();
+        if($this->db->insert('usermanager',$data)){
+            return true; 
+        }
+        else{
+            return false; 
+        }
     }
 }
 ?>

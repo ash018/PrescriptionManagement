@@ -14,34 +14,52 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <?php $notify = $this->session->userdata('notifyuser');
+                            <br>
+                            <?php
+                            $notify = $this->session->userdata('notifyuser');
+                            $userData = '';
+                            $userId = '';
+                            $password = '';
+                            $userName = '';
+                            $userEmail = '';
+                            $userPhone = '';
+                            $userAddress = '';
+                            $isAdmin = '';
+                            $doctorId = 0;
                             if (sizeof($notify) > 0 && $notify != '') {
-                                
+
                                 if ($notify['type'] == 1) {
                                     ?>
                                     <div class="alert alert-success alert-dismissable">
                                         <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
-                                        <?php echo $notify['message'];?>
+                                    <?php echo $notify['message']; ?>
                                     </div>
-                                <?php }
+                                <?php
+                                }
                                 if ($notify['type'] == 0) {
+                                    $userData = $this->session->userdata('userdata');
+                                    
+                                    $userId = $userData['UserId'];
+                                    $password = $userData['Password'];
+                                    $userName = $userData['UserName'];
+                                    $userEmail = $userData['UserEmail'];
+                                    $userPhone = $userData['UserPhone'];
+                                    $userAddress = $userData['UserAddress'];
+                                    $isAdmin = $userData['IsAdmin'];
+                                    $doctorId = $userData['DoctorId'];
                                     ?>
                                     <div class="alert alert-danger alert-dismissable">
                                         <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
-                                        <?php echo $notify['message'];?>
+                                    <?php echo $notify['message']; ?>
                                     </div>
-                                <?php }
+                                <?php
+                                    $this->session->unset_userdata('userdata');
+                                }
                                 $this->session->unset_userdata('notifyuser');
                             }
                             ?>
-
-
                             <h1 class="page-header">New User</h1>
                         </div>
-
-
-
-
                     </div>
                     <?php
                     //$this->session->unset_userdata('notifyuser');
@@ -62,7 +80,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-6 col-md-6 col-sm-6">
                                                             <label>User Id</label>
-                                                            <input type="text" class="form-control" id="UserId" name="UserId" placeholder="User Id" required="True">
+                                                            <input type="text" class="form-control" id="UserId" name="UserId" value="<?php echo $userId;?>" placeholder="User Id" required="True">
                                                         </div>
                                                         <div class="col-lg-6 col-md-6 col-sm-6">
                                                             <div id="divUserId" class="alert alert-danger" style="display: none;">
@@ -76,7 +94,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-6 col-md-6 col-sm-6">
                                                             <label>Name</label>
-                                                            <input type="text" class="form-control" id="UserName" name="UserName" placeholder="Name" required="True">
+                                                            <input type="text" class="form-control" id="UserName" name="UserName" value="<?php echo $userName;?>" placeholder="Name" required="True">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -84,7 +102,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-6 col-md-6 col-sm-6">
                                                             <label>Email</label>
-                                                            <input type="email" class="form-control" id="UserEmail" name="UserEmail" placeholder="Email">
+                                                            <input type="email" class="form-control" id="UserEmail" name="UserEmail" placeholder="Email" value="<?php echo $userEmail;?>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -92,7 +110,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-6 col-md-6 col-sm-6">
                                                             <label>Mobile Number</label>
-                                                            <input type="number" maxlength="11" class="form-control" id="UserPhone" name="UserPhone" placeholder="Mobile Number" required="True">
+                                                            <input type="number" maxlength="11" class="form-control" id="UserPhone" name="UserPhone" placeholder="Mobile Number" required="True" value="<?php echo $userPhone;?>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -100,7 +118,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-6 col-md-6 col-sm-6">
                                                             <label for="Password">Password</label>
-                                                            <input type="password" class="form-control" id="Password" name="Password" placeholder="Password" required="True">
+                                                            <input type="password" class="form-control" id="Password" name="Password" placeholder="Password" required="True" value="<?php echo $password;?>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -109,7 +127,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-6 col-md-6 col-sm-6">
                                                             <label for="UserAddress">Address</label>
-                                                            <input type="text" class="form-control" id="UserAddress" name="UserAddress" placeholder="Address" required="True">
+                                                            <input type="text" class="form-control" id="UserAddress" name="UserAddress" placeholder="Address" required="True" value="<?php echo $userAddress;?>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -119,9 +137,9 @@
                                                         <div class="col-lg-6 col-md-6 col-sm-6">
                                                             <label>Selects Doctor</label>
                                                             <select class="form-control" id="DoctorId" name="DoctorId"  required="True">
-                                                                <option value="0" selected="selected">Select</option>
+                                                                <option value="0" <?php if($doctorId == 0){echo 'selected="selected"';}?> >Select</option>
                                                                 <?php foreach ($allDoctor as $doctor) { ?>
-                                                                    <option value="<?php echo $doctor['DoctorId']; ?>"><?php echo $doctor['DoctorName']; ?></option>
+                                                                    <option value="<?php echo $doctor['DoctorId']; ?>" <?php if($doctorId != 0 && $doctorId == $doctor['DoctorId']){echo 'selected="selected"';}?>><?php echo $doctor['DoctorName']; ?></option>
                                                                 <?php } ?>
                                                             </select>
                                                         </div>
@@ -130,7 +148,7 @@
 
                                                 <div class="checkbox">
                                                     <label>
-                                                        <input type="checkbox" value="1" id="IsAdmin" name="IsAdmin">Is Admin
+                                                        <input type="checkbox" value="1" <?php if($isAdmin != '' && $isAdmin == 1){echo 'checked="True"';}?> id="IsAdmin" name="IsAdmin">Is Admin
                                                     </label>
                                                 </div>
 
