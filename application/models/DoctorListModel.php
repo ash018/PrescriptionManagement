@@ -18,7 +18,7 @@ class DoctorListModel extends CI_Model{
 		
     }
     
-    function selectDoctorList(){
+    public function selectDoctorList(){
         
         $sql = "Select * FROM doctor";
        
@@ -27,5 +27,25 @@ class DoctorListModel extends CI_Model{
         $result = $query->result_array();
         
         return $query->result_array();
+    }
+    
+    public function insertDoctor($data){
+        
+        $DoctorName =  $data['DoctorName'];
+        $DoctorAddress = $data['DoctorAddress'];
+        $DoctorEmailAddress = $data['DoctorEmailAddress'];
+        $DoctorRegistrationNo = $data['DoctorRegistrationNo'];
+        $DoctorContactNo = $data['DoctorContactNo'];
+        $EntryBy = $data['EntryBy'];
+        
+        $EditedBy = null;
+        $EditedDate = null;
+        
+//        var_dump($data);
+//        echo $EntryBy;
+//        exit();
+        $sql = "INSERT into doctor (DoctorName,DoctorRegistrationNo,DoctorAddress,DoctorContactNo,DoctorEmailAddress,EntryBy,EditedBy,EditedDate) values('$DoctorName','$DoctorRegistrationNo','$DoctorAddress','$DoctorContactNo','$DoctorEmailAddress','$EntryBy','$EditedBy','$EditedDate')";
+        $query = $this->db->query($sql);
+        $this->load->view('welcome_message');
     }
 }

@@ -98,8 +98,13 @@
                             </a>
 
                             <ul class="nav nav-second-level" aria-expanded="true" style="">
+                                
                                 <li>
-                                    <a href="<?php echo site_url('doctor/DocList/doctorList') ?>">Doctor List</a>
+                                    <a href="<?php echo site_url('DocList') ?>">New Doctor Info Creation</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="<?php echo site_url('DocList/doctorList') ?>">Doctor List</a>
                                 </li>
                                 
                                 <li>
