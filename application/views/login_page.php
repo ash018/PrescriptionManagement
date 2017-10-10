@@ -39,6 +39,11 @@
                         <h3 class="panel-title">Please Sign In</h3>
                     </div>
                     <div class="panel-body">
+                    <?php if(isset($login_error) && $login_error != ''){?>
+                        <div class="alert alert-danger">
+                            <?php echo $login_error;?>
+                        </div>
+                    <?php }?>
                         <form role="form" action="<?php echo base_url(); ?>LoginCheck/user_login_check" method="post">
                             <fieldset>
                                 <div class="form-group">
