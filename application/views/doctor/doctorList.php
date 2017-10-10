@@ -28,7 +28,8 @@
 
     <!-- Custom Fonts -->
     <link href=<?php echo site_url('vendor/font-awesome/css/font-awesome.min.css') ?> rel="stylesheet" type="text/css">
-
+    
+    <link href=<?php echo base_url('dist/css/test.css')?> rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -93,7 +94,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Basic Doctor Information
+                             Basic Doctor Information 
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -105,7 +106,7 @@
                                         <th>Doctor Address</th>
                                         <th>Contact No</th>
                                         <th>Email Address</th>
-                                        <th>Action</th>
+                                        <th colspan="2" style="text-align:center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -113,9 +114,11 @@
 
                                     //echo $size;
                                     $x = 0;
-                                        
+                                    while($x<$size){        
+                                    
+                                    $i = 0;    
                                     foreach($this->data as $row){
-                                        
+                                      if($i%2==0){  
                                     ?>
                                     <tbody>
                                     <tr>
@@ -124,11 +127,103 @@
                                         <td><?php echo $row[$x]['DoctorAddress'];?></td>
                                         <td><?php echo $row[$x]['DoctorContactNo'];?></td>
                                         <td><?php echo $row[$x]['DoctorEmailAddress'];?></td>
-                                        
+                                        <td>
+                                            <button id="editButton" class="btn btn-info btn-adn" data-toggle="modal"
+                                                data-target="#myModal">Edit
+                                            </button>
+                                            
+                                            <div class="modal fade" id="myModal" role="dialog">
+                                                <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <h4 class="modal-title" style="text-align: center">Edit Doctor Information</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form id="editForm" class="form-group" method="post" enctype="multipart/form-data"
+                                                                  action="/managedashboard">
+
+                                                                <div class="form-group">
+                                                                    <label class="control-label" for="title">Doctor Name</label>
+                                                                    <input value="<?php echo $row[$x]['DoctorName'];?>" type="text" name="title" class="form-control" data-error="Please enter title."
+                                                                           required/>
+                                                                    <div class="help-block with-errors"></div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label class="control-label" for="title">Registration No</label>
+                                                                    <input value="<?php echo $row[$x]['DoctorRegistrationNo'];?>" type="text" name="description" class="form-control"
+                                                                           data-error="Please enter description." required/>
+                                                                    <div class="help-block with-errors"></div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label class="control-label" for="title">Doctor Address</label>
+                                                                    <input value="<?php echo $row[$x]['DoctorAddress'];?>" type="text" name="url" class="form-control" data-error="Please enter Url."
+                                                                           required/>
+                                                                    <div class="help-block with-errors"></div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label class="control-label" for="title">Doctor Contact No</label>
+                                                                    <input value="<?php echo $row[$x]['DoctorContactNo'];?>" type="text" name="groupId" class="form-control" data-error="Please enter GroupID"
+                                                                           required/>
+                                                                    <div class="help-block with-errors"></div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label class="control-label" for="title">ReportID:</label>
+                                                                    <input type="text" name="reportId" class="form-control" data-error="Please enter ReportID"
+                                                                           required/>
+                                                                    <div class="help-block with-errors"></div>
+                                                                </div>
+
+                                                                <input type="hidden" name="actionType" value="AddDashboard">
+
+                                                                <div class="modal-footer">
+                                                                    <button type="submit" class="btn btn-primary">Add</button>
+                                                                    <button type="button" class="btn btn-white" data-dismiss="modal">Cancel</button>
+                                                                </div>
+
+                                                            </form>
+                                                        </div>
+
+                                                    </div>
+
+            </div>
+        </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        </td>
+                                        <td>
+                                            <form class="form-horizontal" method="post" enctype=""
+                                            action="">
+
+                                                <input type="hidden" name="actionType" value="">
+                                                <input type="hidden" name="dashboardId" value="">
+                                                <button class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                     <?php  
-                                           $x+=1;
-                                            
+                                           
+                                            $i+=1;
+                                    
+                                            }
+                                    }
+                                           
+                                            $x+=1;
                                         }
                                     
                                     ?>
@@ -139,6 +234,15 @@
                                
                             </div>
                         </div>
+                        
+                        
+                        
+                        <!-- Modal -->
+                        
+                         
+                        
+                        
+                        
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
@@ -152,28 +256,33 @@
             <!-- /.row -->
             
             <!-- /.row -->
+         </div>
+            
         </div>
+    
         <!-- /#page-wrapper -->
-
-    </div>
+           
+      
+        
+    
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src=<?php echo site_url('vendor/jquery/jquery.min.js')?></script>
+    <script src=<?php echo site_url('vendor/jquery/jquery.min.js')?>></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src=<?php echo site_url('vendor/bootstrap/js/bootstrap.min.js')?></script>
+    <script src=<?php echo site_url('vendor/bootstrap/js/bootstrap.min.js')?>></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src=<?php echo site_url('vendor/metisMenu/metisMenu.min.js')?></script>
+    <script src=<?php echo site_url('vendor/metisMenu/metisMenu.min.js')?>></script>
 
     <!-- DataTables JavaScript -->
-    <script src=<?php echo site_url('vendor/datatables/js/jquery.dataTables.min.js')?></script>
-    <script src=<?php echo site_url('vendor/datatables-plugins/dataTables.bootstrap.min.js')?></script>
-    <script src=<?php echo site_url('vendor/datatables-responsive/dataTables.responsive.js')?></script>
+    <script src=<?php echo site_url('vendor/datatables/js/jquery.dataTables.min.js')?>></script>
+    <script src=<?php echo site_url('vendor/datatables-plugins/dataTables.bootstrap.min.js')?>></script>
+    <script src=<?php echo site_url('vendor/datatables-responsive/dataTables.responsive.js')?>></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src=<?php echo site_url('dist/js/sb-admin-2.js')?></script>
+    <script src=<?php echo site_url('dist/js/sb-admin-2.js')?>></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
