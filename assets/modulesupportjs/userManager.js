@@ -1,5 +1,5 @@
 /*
- * User Module Related JS
+ * User Module Related js
  */
 function checkUserId(url){
      $("#UserId").focusin(function(){
@@ -19,6 +19,27 @@ function checkUserId(url){
                         $("#divUserId").attr('style','display : block');
                         $("#saveUser").prop("disabled",true);
                     }
+                }
+            });
+    });
+}
+
+function editUser(url){
+    $(".editUseGetData").on('click',function(){
+        var userId = $(this).attr("data-node");
+        console.log(userId);
+        $.ajax({
+                url: url+"UserManager/getUserData",
+                type: "get",
+                data: "userId="+userId,
+                cache: false,
+                success: function(data){
+                    console.log('Return Data' + data);
+                    $("#editUserModuleData").append(data);
+//                    if(data == 0){
+//                        $("#divUserId").attr('style','display : block');
+//                        $("#saveUser").prop("disabled",true);
+//                    }
                 }
             });
     });
