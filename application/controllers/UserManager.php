@@ -34,7 +34,7 @@ class UserManager extends MY_Controller {
         $userPhone = $this->input->post('UserPhone', TRUE);
         $userAddress = $this->input->post('UserAddress', TRUE);
         $isAdmin = $this->input->post('IsAdmin', TRUE);
-        $doctorId = $this->input->post('DoctorId', TRUE);
+        $doctorId = $this->input->post('DoctorId', TRUE) ? 0 : NULL;
         $entryBy = $this->session->userdata()['UserId'];
 
         $data = array(
@@ -108,7 +108,7 @@ class UserManager extends MY_Controller {
         $userPhone = $this->input->post('UserPhone', TRUE);
         $userAddress = $this->input->post('UserAddress', TRUE);
         $isAdmin = $this->input->post('IsAdmin', TRUE);
-        $doctorId = $this->input->post('DoctorId', TRUE);
+        $doctorId = $this->input->post('DoctorId', TRUE) ? 0 : NULL;
         $editBy = $this->session->userdata()['UserId'];
 
         $data = array(
@@ -142,7 +142,6 @@ class UserManager extends MY_Controller {
 
         redirect('UserManager');
     }
-
 }
 ?>
 
