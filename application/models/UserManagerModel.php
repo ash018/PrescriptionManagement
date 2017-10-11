@@ -38,5 +38,13 @@ class UserManagerModel extends CI_Model {
             return false; 
         }
     }
+    
+    public function getUserDoctor($userId){
+        $sql = "select A.DoctorId as DoctorId, A.DoctorName as DoctorName, A.DoctorAddress as DoctorAddress FROM doctor as A, usermanager as B where A.DoctorId = B.DoctorId and B.UserId = '$userId';";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
 }
 ?>

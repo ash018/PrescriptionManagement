@@ -89,7 +89,9 @@ class UserManager extends MY_Controller{
     public function getUserData() {
        $userId = $this->input->get("userId",TRUE); 
        $data['userData']=$this->UserManagerModel->checkUserId($userId);
-       $data['allDoctor'] = $this->UserManagerModel->getAllDoctor();
+       $doctors = $this->UserManagerModel->getAllDoctor();
+       $userDoctors = $this->UserManagerModel->getUserDoctor($userId);
+       $data['allDoctor'] = array_merge($userDoctors,$doctors);
        $userEditFrom = $this->load->view('user_manager/user_edit',$data,TRUE);
        
        echo $userEditFrom;

@@ -27,19 +27,15 @@ function checkUserId(url){
 function editUser(url){
     $(".editUseGetData").on('click',function(){
         var userId = $(this).attr("data-node");
-        console.log(userId);
+        //console.log(userId);
+        $("#editUserModuleData").empty();
         $.ajax({
                 url: url+"UserManager/getUserData",
                 type: "get",
                 data: "userId="+userId,
                 cache: false,
                 success: function(data){
-                    console.log('Return Data' + data);
                     $("#editUserModuleData").append(data);
-//                    if(data == 0){
-//                        $("#divUserId").attr('style','display : block');
-//                        $("#saveUser").prop("disabled",true);
-//                    }
                 }
             });
     });
