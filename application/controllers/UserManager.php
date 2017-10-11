@@ -86,6 +86,18 @@ class UserManager extends MY_Controller{
             echo 1;
         }
     }
+    public function getUserData() {
+       $userId = $this->input->get("userId",TRUE); 
+       $data['userData']=$this->UserManagerModel->checkUserId($userId);
+       $data['allDoctor'] = $this->UserManagerModel->getAllDoctor();
+       $userEditFrom = $this->load->view('user_manager/user_edit',$data,TRUE);
+       
+       echo $userEditFrom;
+    }
+    
+    public function updateUser(){
+        
+    }
 }
 ?>
 

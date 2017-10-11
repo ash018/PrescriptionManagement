@@ -31,7 +31,6 @@ class UserManagerModel extends CI_Model {
     }
     
     public function saveUser($data){
-        //$this->db->_error_number();
         if($this->db->insert('usermanager',$data)){
             return true; 
         }
