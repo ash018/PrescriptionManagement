@@ -107,9 +107,7 @@
                                     <a href="<?php echo site_url('DocList/doctorList') ?>">Doctor List</a>
                                 </li>
                                 
-                                <li>
-                                    <a href="<?php echo site_url('doctor/welcome/doctorList') ?>">Edit Doctor Information</a>
-                                </li>  
+                                 
                                  
 
                        

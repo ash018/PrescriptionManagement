@@ -96,6 +96,13 @@
                         <div class="panel-heading">
                              Basic Doctor Information 
                         </div>
+                        <?php if($listView['editCheck']==1){ ?>
+                            <div class="alert alert-success alert-dismissable">
+                                            <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
+
+                                            <?php echo 'Successfully Updated Doctor Information';  ?>
+                             </div>
+                        <?php }?>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
@@ -114,7 +121,8 @@
 
                                     //echo $size;
                                     $x = 0;
-                                    //var_dump($listView[0]);
+                                    //var_dump($listView['editCheck']);
+                                    $size=($listView['size']);
                                     while($x<$size){        
                                     
                                     $i = 0;    
@@ -129,85 +137,14 @@
                                         <td><?php echo $row[$x]['DoctorContactNo'];?></td>
                                         <td><?php echo $row[$x]['DoctorEmailAddress'];?></td>
                                         <td>
-                                            <button id="<?php echo $row[$x]['DoctorId'];?>" class="btn btn-info btn-adn" data-toggle="modal"
-                                                data-target="#myModal">Edit
+                                            <button id="<?php echo $row[$x]['DoctorId'];?>" class="btn btn-info btn-adn  editDoctorGetData" style="margin-left: 30%" data-toggle="modal"
+                                                data-target="#myModal" data-node="<?php echo $row[$x]['DoctorId'];?>">Edit
                                             </button>
                                             
                                             
                                             
-                                            <div class="modal fade" id="myModal" role="dialog">
-                                                <div class="modal-dialog">
-
-                                            <!-- Modal content-->
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                            <h4 class="modal-title" style="text-align: center">Edit Doctor Information</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form id="editForm" class="form-group" method="post" enctype="multipart/form-data"
-                                                                  action="/managedashboard">
-
-                                                                <div class="form-group">
-                                                                    <label class="control-label" for="title">Doctor Name</label>
-                                                                    <input id="ModalDoctorName" value="<?php echo $row[$x]['DoctorName'];?>" type="text" name="title" class="form-control" data-error="Please enter title."
-                                                                           required/>
-                                                                    <div class="help-block with-errors"></div>
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label class="control-label" for="title">Registration No</label>
-                                                                    <input value="<?php echo $row[$x]['DoctorRegistrationNo'];?>" type="text" name="description" class="form-control"
-                                                                           data-error="Please enter description." required/>
-                                                                    <div class="help-block with-errors"></div>
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label class="control-label" for="title">Doctor Address</label>
-                                                                    <input value="<?php echo $row[$x]['DoctorAddress'];?>" type="text" name="url" class="form-control" data-error="Please enter Url."
-                                                                           required/>
-                                                                    <div class="help-block with-errors"></div>
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label class="control-label" for="title">Doctor Contact No</label>
-                                                                    <input value="<?php echo $row[$x]['DoctorContactNo'];?>" type="text" name="groupId" class="form-control" data-error="Please enter GroupID"
-                                                                           required/>
-                                                                    <div class="help-block with-errors"></div>
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label class="control-label" for="title">ReportID:</label>
-                                                                    <input type="text" name="reportId" class="form-control" data-error="Please enter ReportID"
-                                                                           required/>
-                                                                    <div class="help-block with-errors"></div>
-                                                                </div>
-
-                                                                <input type="hidden" name="actionType" value="AddDashboard">
-
-                                                                <div class="modal-footer">
-                                                                    <button type="submit" class="btn btn-primary">Add</button>
-                                                                    <button type="button" class="btn btn-white" data-dismiss="modal">Cancel</button>
-                                                                </div>
-
-                                                            </form>
-                                                        </div>
-
-                                                    </div>
-
-                                            </div>
-                                    </div>
                                             
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
+                                         
                                         </td>
                                         <td>
                                             <form class="form-horizontal" method="post" enctype=""
@@ -215,7 +152,7 @@
 
                                                 <input type="hidden" name="actionType" value="">
                                                 <input type="hidden" name="dashboardId" value="">
-                                                <button class="btn btn-danger">Delete</button>
+                                                <button class="btn btn-danger" style="margin-left: 30%">Delete</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -232,10 +169,32 @@
                                     ?>
                                 </tbody>
                             </table>
+                            
+                            <div class="modal fade" id="myModal" role="dialog">
+                                        <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title" style="text-align: center">Edit Doctor Information</h4>
+                                                </div>
+                                                <div id="editDoctorModuleData" class="modal-body">
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                            
+                            
                             <!-- /.table-responsive -->
                             <div class="well">
                                
                             </div>
+                            
+                            
                         </div>
                         
                         
@@ -297,16 +256,25 @@
     </script>
     
     <script>
-        $(".btn-info").click(function() {
-            //var id = parseInt(this.id,10)+mod;
-            var id = this.id;
-            var tem = "<?php echo $listView[0]['DoctorName'];?>";
-            alert(id);
-            console.log("ID:"+id);
-            document.getElementById("ModalDoctorName").value="<?php echo $listView[0]['DoctorName']?>";
+        
+//        $(".btn-info").click(function() {
+//            //var id = parseInt(this.id,10)+mod;
+//            var id = this.id;
+//            //var tem = "<?php// echo $listView[0]['DoctorName'];?>";
+//           
+//            alert(id);
+//            console.log("ID:"+id);
+//            //document.getElementById("ModalDoctorName").value="<?php //echo $listView[$abc]['DoctorName']?>";
         
         });
      </script>
+     <script src="/PrescriptionManagementSoftware/assets/modulesupportjs/doctorManager.js"></script>
+     <script type="text/javascript">
+            $(document).ready(function () {
+                var baseUrl = "<?php echo base_url(); ?>";
+                editDoctor(baseUrl);
+            });
+      </script>
 
 </body>
 
