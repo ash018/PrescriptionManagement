@@ -105,7 +105,29 @@ class DrugManagement extends MY_Controller {
         }
         $this->session->set_userdata('notifyuser', $notice);
         redirect('DrugManagement/drugTypelist');
-    }    
- }
+    }
+
+    public function drugCategoryList(){
+        $data['header'] = 'Drug Type List';
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['allDrugType'] = $this->DrugManagementModel->getAllDrugType();
+        $this->load->view('drug_management/drug_type/drug_category_list', $data);
+        
+    }
+    
+    public function drugCategoryCreate(){
+        
+    }
+    
+    public function drugCategoryEdit(){
+        
+    }
+    
+    public function drugCategoryUpdate(){
+        
+    }
+}
 ?>
 

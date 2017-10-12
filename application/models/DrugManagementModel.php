@@ -31,7 +31,6 @@ class DrugManagementModel extends CI_Model {
     }
     
     public function getDrugTypeData($dTypeId){
-        
         $sql = "SELECT DrugTypeId, DrugTypeName, DrugTypeIsActive FROM drugtype where DrugTypeId = '$dTypeId';";
         $query=$this->db->query($sql);
 
@@ -48,6 +47,14 @@ class DrugManagementModel extends CI_Model {
         else{
             return false; 
         }
+    }
+    
+    public function getAllDrugCategory(){
+        $sql = "SELECT DrugCategoryId, DrugCategoryName, DrugCategoryIsActive, DATE_FORMAT(EntryDate,'%d/%m/%Y') as EntryDate FROM drugcategory;";
+        
+        $query=$this->db->query($sql);
+        $result = $query->result_array();
+        return $result;
     }
 }
 ?>
