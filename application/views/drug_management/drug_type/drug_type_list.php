@@ -67,9 +67,9 @@
                                                 <tr class="odd gradeX">
                                                     <td class="center"><?php echo $c; ?></td>
                                                     <td class="center"><?php echo $dType['DrugTypeName']; ?></td>
-                                                    <td class="center"><?php echo $dType['DrugTypeIsActive']; ?></td>
+                                                    <td class="center"><?php if($dType['DrugTypeIsActive'] == 1){echo 'Active';} else{echo 'Inactive';} ?></td>
                                                     <td class="center"><?php echo $dType['EntryDate']; ?></td>
-                                                    <td class="center"><input type="button" class="btn btn-info editUseGetData" data-toggle="modal" data-target="#myModal" data-node="<?php echo $dType['DrugTypeId']; ?>" value="Edit"/></td>
+                                                    <td class="center"><input type="button" class="btn btn-info editDTypeData" data-toggle="modal" data-target="#myModal" data-node="<?php echo $dType['DrugTypeId']; ?>" value="Edit"/></td>
                                                 </tr>
                                                 <?php
                                                 $c++;
@@ -84,9 +84,9 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title" style="text-align: center">Edit User</h4>
+                                                    <h4 class="modal-title" style="text-align: center">Edit Drug Type</h4>
                                                 </div>
-                                                <div id="editUserModuleData" class="modal-body">
+                                                <div id="editDtypeModuleData" class="modal-body">
 
                                                 </div>
 
@@ -113,7 +113,7 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 var baseUrl = "<?php echo base_url(); ?>";
-                //editUser(baseUrl);
+                editDrugType(baseUrl);
 
             });
         </script>

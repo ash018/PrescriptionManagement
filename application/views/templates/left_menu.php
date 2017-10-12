@@ -87,10 +87,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </a>
                             <ul class="nav nav-third-level" aria-expanded="true" style="">
                                 <li>
-                                    <a href="<?php base_url()?>drugTypelist">Drug Type List</a>
+                                    <a href="<?php echo base_url().'DrugManagement/drugTypelist'?>">Drug Type List</a>
                                 </li>
                                 <li>
-                                    <a href="<?php base_url()?>drugTypeCreate">Create Drug Type </a>
+                                    <a href="<?php echo base_url().'DrugManagement/drugTypeCreate'?>">Create Drug Type </a>
                                 </li>
                             </ul>
                         </li>

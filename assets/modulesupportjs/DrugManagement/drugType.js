@@ -3,7 +3,7 @@
  */
 function checkDrugTypeName(url){
     $("#DrugTypeName").focusin(function(){
-        $("#divUserId").attr('style','display : none');
+        $("#divDtypeName").attr('style','display : none');
         $("#saveDtype").prop("disabled",false);
     });
     $("#DrugTypeName").focusout(function(){
@@ -23,22 +23,19 @@ function checkDrugTypeName(url){
     });
 }
 
-function editUser(url){
-    $(".editUseGetData").on('click',function(){
-        var userId = $(this).attr("data-node");
-        //console.log(userId);
-        $("#editUserModuleData").empty();
+function editDrugType(url){
+    $(".editDTypeData").on('click',function(){
+        var dTypeId = $(this).attr("data-node");
+        
+        $("#editDtypeModuleData").empty();
         $.ajax({
-                url: url+"UserManager/getUserData",
+                url: url+"DrugManagement/drugTypeEdit",
                 type: "get",
-                data: "userId="+userId,
+                data: "dTypeId="+dTypeId,
                 cache: false,
                 success: function(data){
-                    $("#editUserModuleData").append(data);
+                    $("#editDtypeModuleData").append(data);
                 }
             });
     });
 }
-
-
-

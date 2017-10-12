@@ -12,6 +12,42 @@ class DrugManagementModel extends CI_Model {
         $result = $query->result_array();
         return $result;
     }
-}
+    
+    public function checkDtypeName($dTypeName){
+        $sql = "SELECT * FROM drugtype where DrugTypeName = '$dTypeName';";
+        $query=$this->db->query($sql);
 
+        $result = $query->result_array();
+        return $result;
+    }
+    
+     public function saveDtype($data){
+        if($this->db->insert('drugtype',$data)){
+            return true;
+        }
+        else{
+            return false; 
+        }
+    }
+    
+    public function getDrugTypeData($dTypeId){
+        
+        $sql = "SELECT DrugTypeId, DrugTypeName, DrugTypeIsActive FROM drugtype where DrugTypeId = '$dTypeId';";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function updateDtype($data,$dTypeId){
+        $this->db->where('DrugTypeId', $dTypeId);
+        
+        if($this->db->update('drugtype', $data)){
+            return true; 
+        }
+        else{
+            return false; 
+        }
+    }
+}
 ?>

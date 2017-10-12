@@ -123,7 +123,7 @@ class UserManager extends MY_Controller {
             'EditedDate' => date('Y-m-d H:i:s')
         );
 
-        $result = $this->UserManagerModel->updateuser($userId, $data);
+        $result = $this->UserManagerModel->updateUser($userId, $data);
 
         $notice = array();
         if ($result) {

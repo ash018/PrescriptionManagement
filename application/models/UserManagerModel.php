@@ -47,7 +47,7 @@ class UserManagerModel extends CI_Model {
         return $result;
     }
     
-    public function updateuser($userId, $data){
+    public function updateUser($userId, $data){
         $this->db->where('UserId', $userId);
         
         if($this->db->update('usermanager', $data)){
