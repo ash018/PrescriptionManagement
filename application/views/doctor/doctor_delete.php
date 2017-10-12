@@ -16,7 +16,7 @@ $EntryBy = $doctorData[0]['EntryBy'];
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body">
-        <form id="editUser" class="form-group" method="post" enctype="multipart/form-data" action="<?php base_url() ?>updateDoctor">
+        <form id="editUser" class="form-group" method="post" enctype="multipart/form-data" action="<?php base_url() ?>deleteDoctor">
 
             <div class="form-group center">
                 <div class="row">
@@ -32,54 +32,14 @@ $EntryBy = $doctorData[0]['EntryBy'];
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         
-                        <input type="hidden" class="form-control" id="DoctorId" name="EntryBy" value="<?php echo $EntryBy; ?>" placeholder="Doctor Id" required="True">
+                        <h3>You Sure you want to delete all the information regarding <?php echo $doctorName?> ?</h3>
                     </div>
 
                 </div>
             </div>
-
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <label>Doctor Name</label>
-                        <input type="text" class="form-control" id="DoctorName" name="DoctorName" value="<?php echo $doctorName; ?>" placeholder="Name" required="True">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <label>Registration No</label>
-                        <input type="text" class="form-control" id="DoctorRegistrationNo" name="DoctorRegistrationNo" placeholder="Registration No" value="<?php echo $DoctorRegistrationNo; ?>">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <label>Doctor Address</label>
-                        <input type="text" class="form-control" id="DoctorAddress" name="DoctorAddress" placeholder="Doctor Address" required="True" value="<?php echo $DoctorAddress; ?>">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <label>Contact No</label>
-                        <input type="text" class="form-control" id="DoctorContactNo" name="DoctorContactNo" placeholder="Contact No" required="True" value="<?php echo $DoctorContactNo; ?>">
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <label for="UserAddress">E-mail Address</label>
-                        <input type="text" class="form-control" id="UserAddress" name="DoctorEmailAddress" placeholder="" required="True" value="<?php echo $DoctorEmailAddress; ?>">
-                    </div>
-                </div>
-            </div>
-            <button type="submit" id="editUser" class="btn btn-primary">Update</button>
+            
+            
+            <button type="submit" id="editUser" class="btn btn-danger">Delete</button>
         </form>
     </div>
 </div>

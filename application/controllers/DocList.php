@@ -12,21 +12,50 @@ class DocList extends MY_Controller {
     
     public function index()
     {
-         $this->load->view('doctor/docInfoCreation');
+        $data['header'] = 'Doctor List';
+        //$data['Header'] = $this->load->view('templates/header', $data,TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu','',TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '',TRUE);   
+        $this->load->view('doctor/docInfoCreation',$data);
+    }
+    
+     public function checkDoctorName(){
+        $checkDoctor = $this->input->get("regisId");
+        //echo $checkDoctor;
+        $checkDoctor = $this->DoctorListModel->checkDoctorRegistration($checkDoctor);
+        
+        if(sizeof($checkDoctor)> 0){
+            echo 0;
+        }
+        else{
+            echo 1;
+        }
+    }
+    
+    public function checkDoctorContactNo(){
+        $checkDoctor = $this->input->get("contactNo");
+        
+        $checkDoctor = $this->DoctorListModel->checkDoctorContactNo($checkDoctor);
+        
+        if(sizeof($checkDoctor)> 0){
+            echo 0;
+        }
+        else{
+            echo 1;
+        }
     }
 
     public function doctorList()
     {
-        $data = array();
+        //$data = array();
         $data['page_title'] = "Doctor List";
-        $doctorList = array();
-        #$this->load->model('DoctorListModel');
-        $this->data['listView'] = $this->DoctorListModel->selectDoctorList();
-       
-//        var_dump($this->data);
-//        exit();
-       // $this->data['size'] = $dataSize;
-        $this->load->view('doctor/doctorList',$this->data);
+        $data['Header'] = $this->load->view('templates/header', $data,TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu','',TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '',TRUE); 
+
+        $data['listView'] = $this->DoctorListModel->selectDoctorList();
+
+        $this->load->view('doctor/doctorList',$data);
     }
     
     public function getDoctorData(){
@@ -34,11 +63,18 @@ class DocList extends MY_Controller {
        $data['doctorData']=$this->DoctorListModel->checkDoctorId($doctorId);
        $data['allDoctor'] = $this->DoctorListModel->getAllDoctor();
        $doctorEditFrom = $this->load->view('doctor/doctor_edit',$data,TRUE);
-       
-//       var_dump($data);
-//       exit();
-       
+
        echo $doctorEditFrom;
+    }
+    
+    public function getDoctorDataDelete(){
+       $doctorId = $this->input->get("doctorId",TRUE); 
+       $data['doctorData']=$this->DoctorListModel->checkDoctorId($doctorId);
+       $data['allDoctor'] = $this->DoctorListModel->getAllDoctor();
+       
+       $doctorDeleteFrom = $this->load->view('doctor/doctor_delete',$data,TRUE);
+
+       echo $doctorDeleteFrom;
     }
     
      
@@ -58,7 +94,13 @@ class DocList extends MY_Controller {
         
 //        var_dump($doctorSave);
 //        exit();
-        $this->DoctorListModel->insertDoctor($doctorSave);
+        $data = array();
+        $data['page_title'] = "Doctor List";
+        $data['Header'] = $this->load->view('templates/header', $data,TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu','',TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '',TRUE); 
+        $data['listView'] = $this->DoctorListModel->insertDoctor($doctorSave);
+        $this->load->view('doctor/doctorList',$data);
     }
     
     public function updateDoctor(){
@@ -72,18 +114,47 @@ class DocList extends MY_Controller {
                         'DoctorContactNo' => $this->input->post('DoctorContactNo'),
                         'DoctorEmailAddress' => $this->input->post('DoctorEmailAddress'),
                         'EntryBy' => $this->input->post('EntryBy'),
-                        
+                       
                         'EditedBy' => $this->session->userdata()['UserId'],
         
 	);
         
 //        var_dump($updateDoctorSave);
 //        exit();
+        
         $data = array();
-        $this->data['listView'] = $this->DoctorListModel->updateDoctor($updateDoctorSave);
+        $data['page_title'] = "Doctor List";
+        $data['Header'] = $this->load->view('templates/header', $data,TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu','',TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '',TRUE); 
+        $data['listView'] = $this->DoctorListModel->updateDoctor($updateDoctorSave);
 //        var_dump($this->data);
 //        exit();
-        $this->load->view('doctor/doctorList',$this->data);
+        $this->load->view('doctor/doctorList',$data);
+        
+    }
+    
+    public function deleteDoctor(){
+        
+        $deleteDoctorSave = array(
+         
+			'DoctorId'  => $this->input->post('DoctorId'),
+			
+        
+	);
+        
+//        var_dump($updateDoctorSave);
+//        exit();
+        
+        $data = array();
+        $data['page_title'] = "Doctor List";
+        $data['Header'] = $this->load->view('templates/header', $data,TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu','',TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '',TRUE); 
+        $data['listView'] = $this->DoctorListModel->deleteDoctor($deleteDoctorSave);
+//        var_dump($this->data);
+//        exit();
+        $this->load->view('doctor/doctorList',$data);
         
     }
    
