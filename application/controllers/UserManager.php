@@ -81,6 +81,7 @@ class UserManager extends MY_Controller {
 
     public function checkUserName() {
         $checkUser = $this->input->get("userName");
+        echo $checkUser;
         $checkUser = $this->UserManagerModel->checkUserId($checkUser);
         if (sizeof($checkUser) > 0) {
             echo 0;
