@@ -28,6 +28,33 @@ function checkDoctorId(url){
     });
 }
 
+function checkDoctorEditId(url,prevDoctorId){
+     $("#DoctorRegistrationNo").focusin(function(){
+         $("#divDoctorRegistration").attr('style','display : none');
+         $("#editDoctor").prop("disabled",false);
+     });
+     console.log("Hello");
+    $("#DoctorRegistrationNo").focusout(function(){
+        var regisId = $(this).val();
+        console.log(regisId,prevDoctorId);
+        if(regisId != prevDoctorId){
+        $.ajax({
+                url: url+"DocList/checkDoctorName",
+                type: "get",
+                data: "regisId="+regisId,
+                cache: false,
+                success: function(data){
+                    console.log('Return Data' + data);
+                    if(data == 0){
+                        $("#divDoctorRegistration").attr('style','display : block');
+                        $("#editDoctor").prop("disabled",true);
+                    }
+                }
+            });
+        }
+    });
+}
+
 function checkContactNoId(url){
      $("#DoctorContactNo").focusin(function(){
          $("#divDoctorContactNo").attr('style','display : none');

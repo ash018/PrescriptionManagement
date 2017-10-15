@@ -12,7 +12,7 @@ $EntryBy = $doctorData[0]['EntryBy'];
 ?>
 <div class="panel panel-default">
     <div class="panel-heading">
-        Doctor - <?php echo  $doctorName;?>
+        Doctor - <?php echo $doctorName; ?>
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body">
@@ -21,17 +21,17 @@ $EntryBy = $doctorData[0]['EntryBy'];
             <div class="form-group center">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6">
-                        
+
                         <input type="hidden" class="form-control" id="DoctorId" name="DoctorId" value="<?php echo $doctorId; ?>" placeholder="Doctor Id" required="True">
                     </div>
 
                 </div>
             </div>
-            
+
             <div class="form-group center">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6">
-                        
+
                         <input type="hidden" class="form-control" id="DoctorId" name="EntryBy" value="<?php echo $EntryBy; ?>" placeholder="Doctor Id" required="True">
                     </div>
 
@@ -54,6 +54,13 @@ $EntryBy = $doctorData[0]['EntryBy'];
                     </div>
                 </div>
             </div>
+
+            <div class="form-group">
+                <div id="divDoctorRegistration" class="alert alert-danger" style="display: none;">
+                    This Registration ID Already Exist in the system
+                </div>  
+            </div>
+
             <div class="form-group">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -79,24 +86,40 @@ $EntryBy = $doctorData[0]['EntryBy'];
                     </div>
                 </div>
             </div>
-            <button type="submit" id="editUser" class="btn btn-primary">Update</button>
+            <button type="submit" id="editDoctor" class="btn btn-primary">Update</button>
         </form>
     </div>
 </div>
+
+<script src="/PrescriptionManagementSoftware/assets/modulesupportjs/doctorManager.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var baseUrl = "<?php echo base_url(); ?>";
+        var prevDoctorId =  "<?php echo $DoctorRegistrationNo; ?>";       
+        checkDoctorEditId(baseUrl,prevDoctorId);
+        //checkContactNoId(baseUrl);
+    });
+</script>
+
+
 <!--
             <div class="form-group">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <label>Selects Doctor</label>
                         <select class="form-control" id="DoctorId" name="DoctorId"  required="True">
-                            <option value="0" //<?php //if ($doctorId == 0) {
+                            <option value="0" //<?php
+//if ($doctorId == 0) {
 //                                echo 'selected="selected"';
-//                            } ?> >Select</option>
+//                            } 
+?> >Select</option>
                             //<?php //foreach ($allDoctor as $doctor) { ?>
-                                <option value="//<?php //echo $doctor['DoctorId']; ?>" <?php //if ($doctorId != 0 && $doctorId == $doctor['DoctorId']) {
+                                <option value="//<?php //echo $doctor['DoctorId']; ?>" <?php
+//if ($doctorId != 0 && $doctorId == $doctor['DoctorId']) {
 //                                echo 'selected="selected"';
-//                            } ?>><?php //echo $doctor['DoctorName']; ?></option>
-                            //<?php //} ?>
+//                            } 
+?>><?php //echo $doctor['DoctorName'];  ?></option>
+                            //<?php //}  ?>
                         </select>
                     </div>
                 </div>
@@ -105,7 +128,8 @@ $EntryBy = $doctorData[0]['EntryBy'];
             <div class="checkbox">
                 <label>
                     <input type="checkbox" value="1" <?php //if ($isAdmin != '' && $isAdmin == 1) {echo 'checked="True"';
-//} ?> id="IsAdmin" name="IsAdmin">Is Admin
+//} 
+?> id="IsAdmin" name="IsAdmin">Is Admin
                 </label>
             </div>
 

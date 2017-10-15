@@ -48,7 +48,7 @@ class DocList extends MY_Controller {
     public function doctorList()
     {
         //$data = array();
-        $data['page_title'] = "Doctor List";
+        $data['header'] = "Doctor List";
         $data['Header'] = $this->load->view('templates/header', $data,TRUE);
         $data['leftMenu'] = $this->load->view('templates/left_menu','',TRUE);
         $data['footer'] = $this->load->view('templates/footer', '',TRUE); 
