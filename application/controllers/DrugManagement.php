@@ -303,6 +303,8 @@ class DrugManagement extends MY_Controller {
         $this->session->set_userdata('notifyuser', $notice);
         redirect('DrugManagement/drugStrengthlist');
     }
+    
+    
 }
 ?>
 
