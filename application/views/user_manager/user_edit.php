@@ -14,7 +14,7 @@ $doctorId = $userData[0]['DoctorId'];
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body">
-        <form id="editUser" class="form-group" method="post" enctype="multipart/form-data" action="<?php base_url() ?>UserManager/updateUser">
+        <form id="editUser" class="form-group" method="post" enctype="multipart/form-data" action="<?php echo base_url().'UserManager/updateUser' ?>">
 
             <div class="form-group center">
                 <div class="row">

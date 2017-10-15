@@ -26,7 +26,6 @@
                                 }
                                 if ($notify['type'] == 0) {
                                     ?>
-
                                     <div class="alert alert-danger alert-dismissable">
                                         <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
                                     <?php echo $notify['message']; ?>
