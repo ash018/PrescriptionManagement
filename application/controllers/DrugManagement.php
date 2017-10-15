@@ -203,6 +203,30 @@ class DrugManagement extends MY_Controller {
         $this->session->set_userdata('notifyuser', $notice);
         redirect('DrugManagement/drugCategorylist');
     }
+    
+    public function drugStrengthList(){
+        
+    }
+    
+    public function drugStrengthCreate(){
+        
+    }
+    
+    public function checkDrugStrengthName(){
+        
+    }
+    
+    public function drugStrengthSave(){
+        
+    }
+    
+    public function drugStrengthEdit(){
+        
+    }
+    
+    public function drugStrengthUpdate(){
+        
+    }
 }
 ?>
 
