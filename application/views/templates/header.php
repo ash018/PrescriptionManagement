@@ -5,7 +5,7 @@
                     <meta name="description" content="">
                     <meta name="author" content="">
 
-                    <title><?php echo $page_title ;?></title>
+                    <title><?php echo $header;?></title>
 
                     <!-- Bootstrap Core CSS -->
                     <link href="/PrescriptionManagementSoftware/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

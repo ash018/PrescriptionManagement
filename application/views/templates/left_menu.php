@@ -86,6 +86,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </li>
                     </ul>
                 </li>
+                
+                <li>
+                    <a href="#">
+                    <i class="fa fa-wrench fa-fw"></i>
+                    Doctor
+                    <span class="fa arrow"></span>
+                    </a>
+
+                    <ul class="nav nav-second-level" aria-expanded="true" style="">
+
+                        <li>
+                            <a href="<?php echo site_url('DocList') ?>">New Doctor Info Creation</a>
+                        </li>
+
+                        <li>
+                            <a href="<?php echo site_url('DocList/doctorList') ?>">Doctor List</a>
+                        </li>
+
+                    </ul>
+
+                </li>
                 <li class="">
                     <a href="#">
                         <i class="fa fa-sitemap fa-fw"></i>
@@ -141,26 +162,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     </ul>
 
-                <li>
-                    <i class="fa fa-wrench fa-fw"></i>
-                    Doctor
-                    <span class="fa arrow"></span>
-                    </a>
 
-                    <ul class="nav nav-second-level" aria-expanded="true" style="">
-
-                        <li>
-                            <a href="<?php echo site_url('DocList') ?>">New Doctor Info Creation</a>
-                        </li>
-
-                        <li>
-                            <a href="<?php echo site_url('DocList/doctorList') ?>">Doctor List</a>
-                        </li>
-
-                    </ul>
-
-                </li>
             </ul>
+                </li>
+            
         </div>
         <!-- /.sidebar-collapse -->
     </div>
