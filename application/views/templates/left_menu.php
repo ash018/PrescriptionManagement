@@ -86,12 +86,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </li>
                     </ul>
                 </li>
-                
+
                 <li>
                     <a href="#">
-                    <i class="fa fa-wrench fa-fw"></i>
-                    Doctor
-                    <span class="fa arrow"></span>
+                        <i class="fa fa-wrench fa-fw"></i>
+                        Doctor
+                        <span class="fa arrow"></span>
                     </a>
 
                     <ul class="nav nav-second-level" aria-expanded="true" style="">
@@ -129,43 +129,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </li>
                             </ul>
                         </li>
+                        
+                         <li class="">
+                            <a href="#">
+                                Drug Category
+                                <span class="fa arrow"></span>
+                            </a>
 
-                        <ul class="nav nav-second-level " aria-expanded="true" style="">
-                            <li>
-                                <a href="<?php echo base_url(); ?>UserManager">User List</a>
-                            </li>
-                            <li>
-                                <a href="<?php echo base_url(); ?>UserManager/userCreate">User create</a>
-                            </li>
-                        </ul>
-                </li>
-
-                <li>
-                    <a href="#">Second Level Item</a>
-                </li>
-                <li class="">
-                    <a href="#">
-
-                        Third Level
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-third-level" aria-expanded="true" style="">
-                        <li>
-                            <a href="#">Third Level Item</a>
-                        </li>
-                        <li>
-                            <a href="#">Third Level Item</a>
-                        </li>
-                        <li>
-                            <a href="#">Third Level Item</a>
+                            <ul class="nav nav-third-level" aria-expanded="true" style="">
+                                <li>
+                                    <a href="<?php echo base_url() . 'DrugManagement/drugCategoryList' ?>">Drug Category List</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url() . 'DrugManagement/drugCategoryCreate' ?>">Create Drug Category</a>
+                                </li>
+                            </ul>
                         </li>
 
                     </ul>
-
-
-            </ul>
                 </li>
-            
+
         </div>
         <!-- /.sidebar-collapse -->
     </div>

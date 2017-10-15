@@ -2,40 +2,40 @@
 /*
  * Drug Category Module Related js
  */
-function checkDrugTypeName(url){
-    $("#DrugTypeName").focusin(function(){
-        $("#divDtypeName").attr('style','display : none');
-        $("#saveDtype").prop("disabled",false);
+function checkDrugCategoryName(url){
+    $("#DrugCategoryName").focusin(function(){
+        $("#divDcategoryName").attr('style','display : none');
+        $("#saveDcategory").prop("disabled",false);
     });
-    $("#DrugTypeName").focusout(function(){
-        var dTypeName = $(this).val();
+    $("#DrugCategoryName").focusout(function(){
+        var dCategoryName = $(this).val();
         $.ajax({
-                url: url+"DrugManagement/checkDrugTypeName",
+                url: url+"DrugManagement/checkDrugCategoryName",
                 type: "get",
-                data: "drugTypeName="+dTypeName,
+                data: "drugCategoryName="+dCategoryName,
                 cache: false,
                 success: function(data){
                     if(data == 0){
-                        $("#divDtypeName").attr('style','display : block');
-                        $("#saveDtype").prop("disabled",true);
+                        $("#divDcategoryName").attr('style','display : block');
+                        $("#saveDcategory").prop("disabled",true);
                     }
                 }
             });
     });
 }
 
-function editDrugType(url){
-    $(".editDTypeData").on('click',function(){
-        var dTypeId = $(this).attr("data-node");
+function editDrugCategory(url){
+    $(".editDCategoryData").on('click',function(){
+        var dCategoryId = $(this).attr("data-node");
         
-        $("#editDtypeModuleData").empty();
+        $("#editDcategoryModuleData").empty();
         $.ajax({
-                url: url+"DrugManagement/drugTypeEdit",
+                url: url+"DrugManagement/drugCategoryEdit",
                 type: "get",
-                data: "dTypeId="+dTypeId,
+                data: "dCategoryId="+dCategoryId,
                 cache: false,
                 success: function(data){
-                    $("#editDtypeModuleData").append(data);
+                    $("#editDcategoryModuleData").append(data);
                 }
             });
     });

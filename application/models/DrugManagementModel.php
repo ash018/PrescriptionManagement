@@ -56,5 +56,41 @@ class DrugManagementModel extends CI_Model {
         $result = $query->result_array();
         return $result;
     }
+    
+    public function checkDcategoryName($drugCategroyName){
+        $sql = "SELECT * FROM drugcategory where DrugCategoryName = '$drugCategroyName';";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function saveDcategory($data){
+        if($this->db->insert('drugcategory',$data)){
+            return true;
+        }
+        else{
+            return false; 
+        }
+    }
+    
+    public function getDrugCategoryData($dCategoryId){
+        $sql = "SELECT DrugCategoryId, DrugCategoryName, DrugCategoryIsActive  FROM drugcategory where DrugCategoryId = '$dCategoryId';";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function updateDcategory($data,$dCategoryId){
+        $this->db->where('DrugCategoryId', $dCategoryId);
+        
+        if($this->db->update('drugcategory', $data)){
+            return true; 
+        }
+        else{
+            return false; 
+        }
+    }
 }
 ?>

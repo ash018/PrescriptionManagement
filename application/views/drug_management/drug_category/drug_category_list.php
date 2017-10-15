@@ -35,7 +35,7 @@
                                 $this->session->unset_userdata('notifyuser');
                             }
                             ?>
-                            <h1 class="page-header">All Drug Type</h1>
+                            <h1 class="page-header">All Drug Category</h1>
                         </div>
                     </div>
                     <?php ?>
@@ -44,7 +44,7 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    All Drug Type
+                                    All Drug Category
                                 </div>
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
@@ -53,7 +53,7 @@
                                         <thead>
                                             <tr>
                                                 <th>SL</th>
-                                                <th>Drug Type Name</th>
+                                                <th>Drug Category Name</th>
                                                 <th>Status</th>
                                                 <th>Creation Date</th>
                                                 <th>Actions</th>
@@ -62,14 +62,14 @@
                                         <tbody>
                                             <?php
                                             $c = 1;
-                                            foreach ($allDrugType as $dType) {
+                                            foreach ($allDrugCategory as $dCategory) {
                                                 ?>
                                                 <tr class="odd gradeX">
                                                     <td class="center"><?php echo $c; ?></td>
-                                                    <td class="center"><?php echo $dType['DrugTypeName']; ?></td>
-                                                    <td class="center"><?php if($dType['DrugTypeIsActive'] == 1){echo 'Active';} else{echo 'Inactive';} ?></td>
-                                                    <td class="center"><?php echo $dType['EntryDate']; ?></td>
-                                                    <td class="center"><input type="button" class="btn btn-info editDTypeData" data-toggle="modal" data-target="#myModal" data-node="<?php echo $dType['DrugTypeId']; ?>" value="Edit"/></td>
+                                                    <td class="center"><?php echo $dCategory['DrugCategoryName']; ?></td>
+                                                    <td class="center"><?php if($dCategory['DrugCategoryIsActive'] == 1){echo 'Active';} else{echo 'Inactive';} ?></td>
+                                                    <td class="center"><?php echo $dCategory['EntryDate']; ?></td>
+                                                    <td class="center"><input type="button" class="btn btn-info editDCategoryData" data-toggle="modal" data-target="#myModal" data-node="<?php echo $dCategory['DrugCategoryId']; ?>" value="Edit"/></td>
                                                 </tr>
                                                 <?php
                                                 $c++;
@@ -86,7 +86,7 @@
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                     <h4 class="modal-title" style="text-align: center">Edit Drug Type</h4>
                                                 </div>
-                                                <div id="editDtypeModuleData" class="modal-body">
+                                                <div id="editDcategoryModuleData" class="modal-body">
 
                                                 </div>
 
@@ -106,14 +106,13 @@
                 </div>
 
             </div>
-
         </div>
-<?php echo $footer; ?>
-        <script src="/PrescriptionManagementSoftware/assets/modulesupportjs/DrugManagement/drugType.js"></script>
+        <?php echo $footer; ?>
+        <script src="/PrescriptionManagementSoftware/assets/modulesupportjs/DrugManagement/drugCategory.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 var baseUrl = "<?php echo base_url(); ?>";
-                editDrugType(baseUrl);
+                editDrugCategory(baseUrl);
 
             });
         </script>
