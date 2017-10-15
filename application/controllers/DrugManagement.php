@@ -192,12 +192,12 @@ class DrugManagement extends MY_Controller {
         if ($result) {
             $notice = array(
                 'type' => 1,
-                'message' => 'Update Drug Type Success'
+                'message' => 'Update Drug Category Success'
             );
         } else {
             $notice = array(
                 'type' => 0,
-                'message' => 'Drug Type Update Fail, Please Give All Informatoin'
+                'message' => 'Drug Category Update Fail, Please Give All Informatoin'
             );
         }
         $this->session->set_userdata('notifyuser', $notice);
@@ -205,27 +205,103 @@ class DrugManagement extends MY_Controller {
     }
     
     public function drugStrengthList(){
-        
+        $data['header'] = 'Drug Strength List';
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['allDrugStrength'] = $this->DrugManagementModel->getAllDrugStrength();
+        $this->load->view('drug_management/drug_strength/drug_strength_list', $data);
     }
     
     public function drugStrengthCreate(){
-        
+        $data['header'] = 'Create Drug Strength';
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        //$data['allDrugStrength'] = $this->DrugManagementModel->getAllDrugStrength();
+        $this->load->view('drug_management/drug_strength/drug_strength_create', $data);
     }
     
     public function checkDrugStrengthName(){
-        
+        $drugStrengthName = $this->input->get("drugStrengthName",TRUE);
+        $dCategoryName = $this->DrugManagementModel->checkDstrengthName($drugStrengthName);
+        if (sizeof($dCategoryName) > 0) {
+            echo 0;
+        } else {
+            echo 1;
+        }
     }
     
     public function drugStrengthSave(){
+        $drugStrengthName = $this->input->post('DrugStrengthUnitName', TRUE);
+        $drugStrengthCode = $this->input->post('DrugStrengthUnitCode', TRUE);
+        $drugStrengthIsActive = $this->input->post('DrugStrengthUnitIsActive', TRUE);
+        $entryBy = $this->session->userdata()['UserId'];
         
+        $data = array(
+            'DrugStrengthUnitName' => $drugStrengthName,
+            'DrugStrengthUnitCode' => $drugStrengthCode,
+            'DrugStrengthUnitIsActive' => $drugStrengthIsActive,
+            'EntryBy' => $entryBy,
+            'EditedBy' => '0'
+        );
+        
+        $result = $this->DrugManagementModel->saveDstrengrh($data);
+        $notice = array();
+        if ($result) {
+            $notice = array(
+                'type' => 1,
+                'message' => 'Drug Strength Creation Success'
+            );
+        } else {
+            $notice = array(
+                'type' => 0,
+                'message' => 'Drug Strength Creation Fail, Please Give All Informatoin'
+            );
+        }
+        $this->session->set_userdata('notifyuser', $notice);
+        redirect('DrugManagement/drugStrengthCreate');
     }
     
     public function drugStrengthEdit(){
-        
+        $dStrengthId = $this->input->get("dStrengthId", TRUE);
+        $data['dStrength'] = $this->DrugManagementModel->getDrugStrengthData($dStrengthId);
+       
+        $dCategoryEditFrom = $this->load->view('drug_management/drug_strength/drug_strength_edit', $data, TRUE);
+
+        echo $dCategoryEditFrom;
     }
     
     public function drugStrengthUpdate(){
+        $dTypeId = $this->input->post('DrugStrengthUnitId', TRUE);
+        $drugTypeName = $this->input->post('DrugStrengthUnitName', TRUE);
+        $drugTypeCode = $this->input->post('DrugStrengthUnitCode', TRUE);
+        $drugTypeIsActive = $this->input->post('DrugStrengthUnitIsActive', TRUE);
+        $editedBy = $this->session->userdata()['UserId'];
         
+        $data = array(
+            'DrugStrengthUnitName' => $drugTypeName,
+            'DrugStrengthUnitCode' => $drugTypeCode,
+            'DrugStrengthUnitIsActive' => $drugTypeIsActive,
+            'EditedBy' => $editedBy,
+            'EditedDate' => date('Y-m-d H:i:s')
+        );
+        
+        $result = $this->DrugManagementModel->updateDstrengrh($data,$dTypeId);
+        $notice = array();
+        if ($result) {
+            $notice = array(
+                'type' => 1,
+                'message' => 'Update Strength Success'
+            );
+        } else {
+            $notice = array(
+                'type' => 0,
+                'message' => 'Strength Update Fail, Please Give All Informatoin'
+            );
+        }
+        $this->session->set_userdata('notifyuser', $notice);
+        redirect('DrugManagement/drugStrengthlist');
     }
 }
 ?>

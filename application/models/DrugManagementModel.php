@@ -21,7 +21,7 @@ class DrugManagementModel extends CI_Model {
         return $result;
     }
     
-     public function saveDtype($data){
+    public function saveDtype($data){
         if($this->db->insert('drugtype',$data)){
             return true;
         }
@@ -91,6 +91,50 @@ class DrugManagementModel extends CI_Model {
         else{
             return false; 
         }
+    }
+    
+    public function getAllDrugStrength(){
+        $sql = "SELECT DrugStrengthUnitId, DrugStrengthUnitName, DrugStrengthUnitCode, DrugStrengthUnitIsActive,  DATE_FORMAT(EntryDate,'%d/%m/%Y') as EntryDate FROM drugstrengthunit;";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function checkDstrengthName($drugStrengthName){
+        $sql = "SELECT * FROM drugstrengthunit where DrugStrengthUnitName = '$drugStrengthName';";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function saveDstrengrh($data){
+        if($this->db->insert('drugstrengthunit',$data)){
+            return true;
+        }
+        else{
+            return false; 
+        }
+    }
+    
+    public function getDrugStrengthData($dStrengthId){
+        $sql = "SELECT DrugStrengthUnitId, DrugStrengthUnitName, DrugStrengthUnitCode, DrugStrengthUnitIsActive FROM drugstrengthunit where DrugStrengthUnitId = '$dStrengthId';";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function updateDstrengrh($data,$dCategoryId){
+        $this->db->where('DrugStrengthUnitId', $dCategoryId);
+        
+        if($this->db->update('drugstrengthunit', $data)){
+            return true; 
+        }
+        else{
+            return false; 
+        } 
     }
 }
 ?>

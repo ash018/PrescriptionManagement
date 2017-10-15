@@ -145,6 +145,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </li>
                             </ul>
                         </li>
+                        
+                        <li class="">
+                            <a href="#">
+                                Drug Strength
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-third-level" aria-expanded="true" style="">
+                                <li>
+                                    <a href="<?php echo base_url() . 'DrugManagement/drugStrengthList' ?>">Drug Strength List</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url() . 'DrugManagement/drugStrengthCreate' ?>">Create Drug Strength</a>
+                                </li>
+                            </ul>
+                        </li>
 
                     </ul>
                 </li>
