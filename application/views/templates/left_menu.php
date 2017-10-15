@@ -56,23 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </ul>
                 </li>
 
-                <li>
-                    <a href="#">
-                        <i class="fa fa-wrench fa-fw"></i>
-                        Doctor
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level" aria-expanded="true" style="">
-                        <li>
-                            <a href="panels-wells.html">Panels and Wells</a>
-                        </li>
-                        <li>
-                            <a href="buttons.html">Buttons</a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- Multi Level Drop Down Menu-->
-
+               
                 <li class="">
                     <a href="#">
                         <i class="fa fa-sitemap fa-fw"></i>
