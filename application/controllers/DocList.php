@@ -53,6 +53,18 @@ class DocList extends MY_Controller {
 
         $this->load->view('doctor/doctorList', $data);
     }
+    
+    public function clinicList() {
+        //$data = array();
+        $data['header'] = "Clinic List";
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+
+        $data['listView'] = $this->DoctorListModel->selectClinicList();
+
+        $this->load->view('doctor/clinicList', $data);
+    }
 
     public function getDoctorData() {
         $doctorId = $this->input->get("doctorId", TRUE);
@@ -61,6 +73,26 @@ class DocList extends MY_Controller {
         $doctorEditFrom = $this->load->view('doctor/doctor_edit', $data, TRUE);
 
         echo $doctorEditFrom;
+    }
+    
+    public function getClinicData2() {
+        $clinicId = $this->input->get("clinicId", TRUE);
+        $data['clinicData'] = $this->DoctorListModel->checkClinicId2($clinicId);
+        //$data['allDoctor'] = $this->DoctorListModel->getAllDoctor();
+        $clinicEditFrom = $this->load->view('doctor/clinic_edit', $data, TRUE);
+
+        echo $clinicEditFrom;
+    }
+    
+     public function getClinicData() {
+        $clinicId = $this->input->get("clinicId", TRUE);
+        
+        $data['clinicData'] = $this->DoctorListModel->checkClinicId($clinicId);
+       $data['allClinic'] = $this->DoctorListModel->getAllClinic();
+        
+        $clinicEditFrom = $this->load->view('doctor/clinic_edit', $data, TRUE);
+
+        echo $clinicEditFrom;
     }
 
     public function getDoctorDataDelete() {
@@ -71,6 +103,24 @@ class DocList extends MY_Controller {
         $doctorDeleteFrom = $this->load->view('doctor/doctor_delete', $data, TRUE);
 
         echo $doctorDeleteFrom;
+    }
+    
+    public function getClinicDataDelete() {
+        $clinicId =  $this->input->get("clinicId", TRUE);
+        //echo $clinicId;
+        $data['clinicData'] = $this->DoctorListModel->checkClinicId($clinicId);
+        $clinicDeleteFrom = $this->load->view('doctor/clinic_delete', $data, TRUE);
+        echo $clinicDeleteFrom;
+        //exit();
+//        $clinicId = $this->input->get("clinicId", TRUE);
+////        var_dump($clinicId);
+////        exit();
+//        $data['clinicData'] = $this->DoctorListModel->checkClinicId($clinicId);
+//        $data['allClinic'] = $this->DoctorListModel->getAllClinic();
+//
+//        $clinicDeleteFrom = $this->load->view('doctor/clinic_delete', $data, TRUE);
+//
+//        echo $clinicDeleteFrom;
     }
 
     public function doctorInfo() {
@@ -114,6 +164,29 @@ class DocList extends MY_Controller {
 
         $this->load->view('doctor/doctorList', $data);
     }
+    
+    public function updateClinic() {
+        $updateClinicSave = array(
+            'ClinicId' => $this->input->post('ClinicId'),
+            'ClinicName' => $this->input->post('ClinicName'),
+            'ClinicAddress' => $this->input->post('ClinicAddress'),
+            'ClinicContactNumber' => $this->input->post('ClinicContactNumber'),
+            'ClinicEmailAddress' => $this->input->post('ClinicEmailAddress'),
+            'EntryBy' => $this->input->post('EntryBy'),
+            'EditedBy' => $this->session->userdata()['UserId']
+        );
+
+//        var_dump($updateClinicSave);
+//        exit();
+        $data = array();
+        $data['header'] = "Doctor List";
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['listView'] = $this->DoctorListModel->updateClinic($updateClinicSave);
+
+        $this->load->view('doctor/clinicList', $data);
+    }
 
     public function deleteDoctor() {
 
@@ -128,6 +201,48 @@ class DocList extends MY_Controller {
         $data['listView'] = $this->DoctorListModel->deleteDoctor($deleteDoctorSave);
 
         $this->load->view('doctor/doctorList', $data);
+    }
+    
+    public function deleteClinic() {
+
+        $deleteClinicSave = array(
+            'ClinicId' => $this->input->post('ClinicId')
+        );
+        $data = array();
+        $data['header'] = "Clinic List";
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['listView'] = $this->DoctorListModel->deleteClinic($deleteClinicSave);
+        
+        $this->load->view('doctor/clinicList', $data);
+    }
+    
+    public function clinicInfoCreate(){
+        $data['header'] = 'Clinic Info';
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $this->load->view('doctor/clinicInfoCreation', $data);
+    }
+    
+    public function clinicInfo() {
+        $clinicSave = array(
+            'ClinicName' => $this->input->post('ClinicName'),
+            'ClinicAddress' => $this->input->post('ClinicAddress'),
+            'ClinicEmailAddress' => $this->input->post('ClinicEmailAddress'),
+            'ClinicContactNumber' => $this->input->post('ClinicContactNumber'),
+            'EntryBy' => $this->session->userdata()['UserId']
+        );
+
+        $data = array();
+        $data['header'] = "Clinic Info";
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['listView'] = $this->DoctorListModel->insertClinic($clinicSave);
+        //$data['editCheck'] = 0;
+        $this->load->view('doctor/clinicList', $data);
     }
 
 }
