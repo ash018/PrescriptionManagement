@@ -28,6 +28,8 @@ function checkDoctorId(url){
     });
 }
 
+
+
 function checkDoctorEditId(url,prevDoctorId){
      $("#DoctorRegistrationNo").focusin(function(){
          $("#divDoctorRegistration").attr('style','display : none');
@@ -76,6 +78,32 @@ function checkContactNoId(url){
                     }
                 }
             });
+    });
+}
+
+function checkContactNoEditId(url,prevDoctorContactNo){
+     $("#DoctorContactNo").focusin(function(){
+         $("#divDoctorContactNo").attr('style','display : none');
+         $("#editDoctor").prop("disabled",false);
+     });
+     console.log("Hello");
+    $("#DoctorContactNo").focusout(function(){
+        var contactNo = $(this).val();
+        if(contactNo != prevDoctorContactNo){
+        $.ajax({
+                url: url+"DocList/checkDoctorContactNo",
+                type: "get",
+                data: "contactNo="+contactNo,
+                cache: false,
+                success: function(data){
+                    console.log('Return Data' + data);
+                    if(data == 0){
+                        $("#divDoctorContactNo").attr('style','display : block');
+                        $("#editDoctor").prop("disabled",true);
+                    }
+                }
+            });
+        }
     });
 }
 

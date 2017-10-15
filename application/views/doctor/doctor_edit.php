@@ -77,6 +77,12 @@ $EntryBy = $doctorData[0]['EntryBy'];
                     </div>
                 </div>
             </div>
+            
+            <div class="form-group">
+                <div id="divDoctorContactNo" class="alert alert-danger" style="display: none;">
+                    This Contact No Already Exist in the system
+                </div>  
+            </div>
 
             <div class="form-group">
                 <div class="row">
@@ -95,9 +101,10 @@ $EntryBy = $doctorData[0]['EntryBy'];
 <script type="text/javascript">
     $(document).ready(function () {
         var baseUrl = "<?php echo base_url(); ?>";
-        var prevDoctorId =  "<?php echo $DoctorRegistrationNo; ?>";       
+        var prevDoctorId =  "<?php echo $DoctorRegistrationNo; ?>";
+        var prevDoctorContactNo = "<?php echo $DoctorContactNo; ?>";
         checkDoctorEditId(baseUrl,prevDoctorId);
-        //checkContactNoId(baseUrl);
+        checkContactNoEditId(baseUrl,prevDoctorContactNo);
     });
 </script>
 
