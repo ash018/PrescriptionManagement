@@ -136,5 +136,57 @@ class DrugManagementModel extends CI_Model {
             return false; 
         } 
     }
+    
+    public function getAllCountry(){
+        $sql = "SELECT DrugFormId, DrugFormName, DrugFormIsActive,  DATE_FORMAT(EntryDate,'%d/%m/%Y') as EntryDate FROM drugform;";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function checkCountryName($dCountry){
+        $sql = "SELECT DrugFormId, DrugFormName, DrugFormIsActive,  DATE_FORMAT(EntryDate,'%d/%m/%Y') as EntryDate FROM drugform where DrugFormName = '$dCountry';";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function saveCountry($data){
+        if($this->db->insert('drugform',$data)){
+            return true;
+        }
+        else{
+            return false; 
+        }
+    }
+    
+    public function getCountryData($countryId){
+        $sql = "SELECT DrugFormId, DrugFormName, DrugFormIsActive  FROM drugform where DrugFormId = '$countryId';";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    public function updateCountry($data,$dCategoryId){
+        $this->db->where('DrugFormId', $dCategoryId);
+        
+        if($this->db->update('drugform', $data)){
+            return true; 
+        }
+        else{
+            return false; 
+        } 
+    }
+    
+    public function getAllSubCategory(){
+        $sql = "SELECT A.DrugSubcategoryId as DrugSubcategoryId, A.DrugSubcategoryName as DrugSubcategoryName, B.DrugCategoryName as DrugCategoryName, A.DrugSubcategoryIsActive as DrugSubcategoryIsActive, DATE_FORMAT(A.EntryDate,'%d/%m/%Y') as EntryDate FROM drugsubcategory as A, drugcategory as B where A.DrugCategoryId = B.DrugCategoryId;";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+        
+    }
 }
 ?>

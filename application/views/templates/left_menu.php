@@ -148,6 +148,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         
                         <li class="">
                             <a href="#">
+                                Drug Sub Category
+                                <span class="fa arrow"></span>
+                            </a>
+
+                            <ul class="nav nav-third-level" aria-expanded="true" style="">
+                                <li>
+                                    <a href="<?php echo base_url() . 'DrugManagement/drugSubCategoryList' ?>">Sub Category List</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url() . 'DrugManagement/drugSubCategoryCreate' ?>">Create Sub Category</a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li class="">
+                            <a href="#">
                                 Drug Strength
                                 <span class="fa arrow"></span>
                             </a>
@@ -157,6 +173,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </li>
                                 <li>
                                     <a href="<?php echo base_url() . 'DrugManagement/drugStrengthCreate' ?>">Create Drug Strength</a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li class="">
+                            <a href="#">
+                                Country
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-third-level" aria-expanded="true" style="">
+                                <li>
+                                    <a href="<?php echo base_url() . 'DrugManagement/drugFromList' ?>">Country List</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url() . 'DrugManagement/drugFromCreate' ?>">Create Country</a>
                                 </li>
                             </ul>
                         </li>

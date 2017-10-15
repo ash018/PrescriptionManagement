@@ -304,7 +304,129 @@ class DrugManagement extends MY_Controller {
         redirect('DrugManagement/drugStrengthlist');
     }
     
+    public function drugFromList(){
+        $data['header'] = 'Country List';
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['allCountry'] = $this->DrugManagementModel->getAllCountry();
+        $this->load->view('drug_management/drug_country/drug_country_list', $data); 
+    }
     
-}
+    public function drugFromCreate(){
+        $data['header'] = 'New Country';
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $this->load->view('drug_management/drug_country/drug_country_create', $data); 
+        
+    }
+    
+    public function drugFromSave(){
+        $drugStrengthName = $this->input->post('DrugFormName', TRUE);
+        $drugStrengthIsActive = $this->input->post('DrugFormIsActive', TRUE);
+        $entryBy = $this->session->userdata()['UserId'];
+        
+        $data = array(
+            'DrugFormName' => $drugStrengthName,
+            'DrugFormIsActive' => $drugStrengthIsActive,
+            'EntryBy' => $entryBy,
+            'EditedBy' => '0'
+        );
+        
+        $result = $this->DrugManagementModel->saveCountry($data);
+        $notice = array();
+        if ($result) {
+            $notice = array(
+                'type' => 1,
+                'message' => 'Country Creation Success'
+            );
+        } else {
+            $notice = array(
+                'type' => 0,
+                'message' => 'Country Creation Fail, Please Give All Informatoin'
+            );
+        }
+        $this->session->set_userdata('notifyuser', $notice);
+        redirect('DrugManagement/drugFromCreate');
+    }
+    
+    public function drugFromCheck(){
+        $dCountryName = $this->input->get('dCountryName',TRUE);
+        $coun = $this->DrugManagementModel->checkCountryName($dCountryName);
+        if (sizeof($coun) > 0) {
+            echo 0;
+        } else {
+            echo 1;
+        }
+    }
+    
+    public function drugFromEdit(){
+        $dStrengthId = $this->input->get("dCountryId", TRUE);
+        $data['dCountry'] = $this->DrugManagementModel->getCountryData($dStrengthId);
+        $dCategoryEditFrom = $this->load->view('drug_management/drug_country/drug_country_edit', $data, TRUE);
+
+        echo $dCategoryEditFrom;
+    }
+    
+    public function drugFromUpdate(){
+        $dTypeId = $this->input->post('DrugFormId', TRUE);
+        $drugStrengthName = $this->input->post('DrugFormName', TRUE);
+        $drugStrengthIsActive = $this->input->post('DrugFormIsActive', TRUE);
+        $editedBy = $this->session->userdata()['UserId'];
+        
+        $data = array(
+            'DrugFormName' => $drugStrengthName,
+            'DrugFormIsActive' => $drugStrengthIsActive,
+            'EditedBy' => $editedBy,
+            'EditedDate' => date('Y-m-d H:i:s')
+        );
+        
+        $result = $this->DrugManagementModel->updateCountry($data,$dTypeId);
+        $notice = array();
+        if ($result) {
+            $notice = array(
+                'type' => 1,
+                'message' => 'Update Country Success'
+            );
+        } else {
+            $notice = array(
+                'type' => 0,
+                'message' => 'Country Update Fail, Please Give All Informatoin'
+            );
+        }
+        $this->session->set_userdata('notifyuser', $notice);
+        redirect('DrugManagement/drugFromList');
+    }
+    
+    public function drugSubCategoryList(){
+        $data['header'] = 'Sub Category List';
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['allSubCategory'] = $this->DrugManagementModel->getAllSubCategory();
+        $this->load->view('drug_management/sub_category/sub_category_list', $data); 
+    }
+    
+    public function drugSubCategoryCreate(){
+        
+    }
+    
+    public function checkdrugSubCategoryName(){
+        
+    }
+    
+    public function drugSubCategorySave(){
+        
+    }
+    
+    public function drugSubCategoryEdit(){
+        
+    }
+    
+    public function drugSubCategoryUpdate(){
+        
+    }
+ }
 ?>
 
