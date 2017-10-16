@@ -81,6 +81,33 @@ function checkClinicEditId(url,prevClinicId){
                     console.log('Return Data' + data);
                     if(data == 0){
                         $("#divClinicRegistration").attr('style','display : block');
+                        $("#editClinicType").prop("disabled",true);
+                    }
+                }
+            });
+        }
+    });
+}
+
+function checkClinicTypeEditId(url,prevClinicId){
+     $("#ClinicType").focusin(function(){
+         $("#divClinictypeName").attr('style','display : none');
+         $("#editClinic").prop("disabled",false);
+     });
+     console.log("kkkk" + prevClinicId);
+    $("#ClinicType").focusout(function(){
+        var regisId = $(this).val();
+        console.log(regisId,prevClinicId);
+        if(regisId != prevClinicId){
+        $.ajax({
+                url: url+"DocList/checkClinicType",
+                type: "get",
+                data: "regisId="+regisId,
+                cache: false,
+                success: function(data){
+                    console.log('Return Data' + data);
+                    if(data == 0){
+                        $("#divClinictypeName").attr('style','display : block');
                         $("#editClinic").prop("disabled",true);
                     }
                 }
@@ -154,6 +181,29 @@ function editClinic(url){
                 success: function(data){
                     console.log('Return Data' + data);
                     $("#editClinicModuleData").append(data);
+//                    if(data == 0){
+//                        $("#divUserId").attr('style','display : block');
+//                        $("#saveUser").prop("disabled",true);
+//                    }
+                }
+            });
+    });
+}
+
+function editClinicType(url){
+    
+    $(".btn-info").on('click',function(){
+        var clinicId = $(this).attr("data-node");
+        console.log("hello"+clinicId);
+        $("#editClinicTypeModuleData").empty();
+        $.ajax({
+                url: url+"DocList/getClinicTypeData2",
+                type: "get",
+                data: "clinicId="+clinicId,
+                cache: false,
+                success: function(data){
+                    console.log('Return Data' + data);
+                    $("#editClinicTypeModuleData").append(data);
 //                    if(data == 0){
 //                        $("#divUserId").attr('style','display : block');
 //                        $("#saveUser").prop("disabled",true);

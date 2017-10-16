@@ -32,7 +32,7 @@ class DocList extends MY_Controller {
     
     public function checkClinicReg() {
         $checkClinic = $this->input->get("regisId");
-        //echo $checkDoctor;
+       // echo $checkClinic;
         $checkClinic = $this->DoctorListModel->checkClinicRegistration($checkClinic);
 
         if (sizeof($checkClinic) > 0) {
@@ -41,7 +41,7 @@ class DocList extends MY_Controller {
             echo 1;
         }
     }
-
+    
     public function checkDoctorContactNo() {
         $checkDoctor = $this->input->get("contactNo");
 
@@ -64,6 +64,18 @@ class DocList extends MY_Controller {
         $data['listView'] = $this->DoctorListModel->selectDoctorList();
 
         $this->load->view('doctor/doctorList', $data);
+    }
+    
+    public function clinicTypeList() {
+        //$data = array();
+        $data['header'] = "Clinic Type List";
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+
+        $data['listView'] = $this->DoctorListModel->selectClinicTypeList();
+
+        $this->load->view('doctor/clinicTypeList', $data);
     }
     
     public function clinicList() {
@@ -94,6 +106,15 @@ class DocList extends MY_Controller {
         $clinicEditFrom = $this->load->view('doctor/clinic_edit', $data, TRUE);
 
         echo $clinicEditFrom;
+    }
+    
+    public function getClinicTypeData2() {
+        $clinicId = $this->input->get("clinicId", TRUE);
+        $data['clinicData'] = $this->DoctorListModel->checkClinicTypeId2($clinicId);
+        //$data['allDoctor'] = $this->DoctorListModel->getAllDoctor();
+        $clinicTypeEditFrom = $this->load->view('doctor/clinic_type_edit', $data, TRUE);
+
+        echo $clinicTypeEditFrom;
     }
     
      public function getClinicData() {
@@ -200,6 +221,25 @@ class DocList extends MY_Controller {
 
         $this->load->view('doctor/clinicList', $data);
     }
+    
+    public function updateClinicType() {
+        $updateClinicTypeSave = array(
+            'ClinicTypeId' => $this->input->post('ClinicTypeId'),
+            'ClinicType' => $this->input->post('ClinicType'),
+            'EditedBy' => $this->session->userdata()['UserId']
+        );
+
+//        var_dump($updateClinicSave);
+//        exit();
+        $data = array();
+        $data['header'] = "Doctor List";
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['listView'] = $this->DoctorListModel->updateClinicType($updateClinicTypeSave);
+
+        $this->load->view('doctor/clinicTypeList', $data);
+    }
 
     public function deleteDoctor() {
 
@@ -288,7 +328,7 @@ class DocList extends MY_Controller {
     public function checkClinicType(){
         $checkClinicType = $this->input->get("regisId");
         //echo $checkDoctor;
-        $checkClinicType = $this->DoctorListModel->checkClinicType($checkClinicType);
+        $checkClinicType = $this->DoctorListModel->checkClinicType2($checkClinicType);
 
         if (sizeof($checkClinicType) > 0) {
             echo 0;

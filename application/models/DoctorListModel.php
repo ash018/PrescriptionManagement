@@ -35,6 +35,23 @@ class DoctorListModel extends CI_Model{
         return $result;
     }
     
+    public function selectClinicTypeList(){
+        
+        $sql = "Select * FROM clinictype";
+       
+        $query = $this->db->query($sql);
+        
+        $result = $query->result_array();
+        
+        $nsize =sizeof($result);
+        $result['size'] = $nsize;
+        $result['editCheck'] = 0;
+//        var_dump($result);
+//        exit();
+        
+        return $result;
+    }
+    
     public function selectClinicList(){
         
         $sql = "Select * FROM clinic";
@@ -75,6 +92,13 @@ class DoctorListModel extends CI_Model{
        return $result;
     }
     
+    public function checkClinicTypeId2($clinictypeId){
+       $sql = "SELECT * FROM clinictype where ClinicTypeId = '$clinictypeId';";
+       $query=$this->db->query($sql);
+       $result = $query->result_array();
+       return $result;
+    }
+    
     public function checkClinicId($clinicId){
        
        $sql = "SELECT * FROM clinic where ClinicId = '$clinicId';";
@@ -107,6 +131,18 @@ class DoctorListModel extends CI_Model{
        return $result;
     }
     
+    
+    
+    public function checkClinicType2($clinicRegId){
+       
+       $sql = "SELECT * FROM clinictype where ClinicType = '$clinicRegId';";
+       $query=$this->db->query($sql);
+
+       $result = $query->result_array();
+       
+       return $result;
+    }
+    
     public function checkDoctorContactNo($doctorContactNo){
        
        $sql = "SELECT * FROM doctor where DoctorContactNo = '$doctorContactNo';";
@@ -129,6 +165,17 @@ class DoctorListModel extends CI_Model{
     
      public function getAllClinic(){
         $sql = "select  ClinicId, ClinicName, ClinicRegistrationNo ,ClinicAddress,ClinicContactNumber, ClinicEmailAddress, EntryBy from clinic";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        
+
+        
+        return $result;
+    }
+    
+    public function getAllClinicType(){
+        $sql = "select  ClinicTypeId, ClinicType, EntryBy, EntryDate from clinictype";
         $query=$this->db->query($sql);
 
         $result = $query->result_array();
@@ -205,6 +252,25 @@ class DoctorListModel extends CI_Model{
         $query = $this->db->query($sql);
         
         $ndata = $this->DoctorListModel->getAllClinic();
+
+        $nsize =sizeof($ndata);
+        
+        $ndata['size'] = $nsize;
+        $ndata['editCheck'] = 1;
+//        var_dump($ndata);
+//        exit();
+        return $ndata;
+    }
+    
+    public function updateClinicType($data){
+        $ClinicTypeId = $data['ClinicTypeId'];
+        $ClinicType =  $data['ClinicType'];
+        
+        $EditedBy = $data['EditedBy'];
+        $sql = "UPDATE clinictype SET ClinicType='$ClinicType',EditedBy='$EditedBy' where ClinicTypeId='$ClinicTypeId'" ;
+        $query = $this->db->query($sql);
+        
+        $ndata = $this->DoctorListModel->getAllClinicType();
 
         $nsize =sizeof($ndata);
         
