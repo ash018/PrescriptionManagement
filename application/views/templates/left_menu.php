@@ -2,35 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <style>
-    .dropbtn {
-        background-color: #4CAF50;
-        color: white;
-        padding: 16px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-    }
-
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-    }
-
-    .dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-    }
+   
 </style>
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
@@ -87,22 +59,64 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </ul>
                 </li>
 
-                <li>
+                <li class="">
                     <a href="#">
-                        <i class="fa fa-wrench fa-fw"></i>
-                        Doctor
+                        <i class="fa fa-sitemap fa-fw"></i>
+                        Doctor Management
                         <span class="fa arrow"></span>
                     </a>
 
                     <ul class="nav nav-second-level" aria-expanded="true" style="">
+                        <li class="">
+                            <a href="#">
+                                Doctor Information
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-third-level" aria-expanded="true" style="">
+                                <li>
+                                    <a href="<?php echo site_url('DocList') ?>">New Doctor Info Creation</a>
+                                </li>
 
-                        <li>
-                            <a href="<?php echo site_url('DocList') ?>">New Doctor Info Creation</a>
+                                <li>
+                                    <a href="<?php echo site_url('DocList/doctorList') ?>">Doctor List</a>
+                                </li>
+                            </ul>
                         </li>
+                        
+                        <li class="">
+                            <a href="#">
+                                Clinic Type Information
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-third-level" aria-expanded="true" style="">
+                                <li>
+                                    <a href="<?php echo site_url('DocList/clinicTypeCreate') ?>">Create Clinic Type</a>
+                                </li>
 
-                        <li>
-                            <a href="<?php echo site_url('DocList/doctorList') ?>">Doctor List</a>
+                                <li>
+                                    <a href="<?php echo site_url('DocList/clinicTypeList') ?>">Clinic Type List</a>
+                                </li>
+                            </ul>
                         </li>
+                        
+                        
+                        <li class="">
+                            <a href="#">
+                                Clinic Information
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-third-level" aria-expanded="true" style="">
+                                <li>
+                                    <a href="<?php echo site_url('DocList/clinicInfoCreate') ?>">New Clinic Info Creation</a>
+                                </li>
+
+                                <li>
+                                    <a href="<?php echo site_url('DocList/clinicList') ?>">Clinic List</a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        
 
                     </ul>
 

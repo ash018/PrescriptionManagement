@@ -69,9 +69,9 @@
                                                 <input type="email" class="form-control" placeholder="E-mail Address" name="DoctorEmailAddress">
                                             </div>
 
-                                            <button style="float: right" type="reset" class="btn btn-bitbucket">Reset Button</button>
+                                            
                                             <button id="saveDoctor" style="float: right" type="submit" class="btn btn-success right">Submit Button</button>
-
+                                            <button style="float: right" type="reset" class="btn btn-bitbucket">Reset Button</button>        
 
                                         </div>
                                         <!-- /.col-lg-6 (nested) -->
