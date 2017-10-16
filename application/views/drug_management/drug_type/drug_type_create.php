@@ -48,27 +48,26 @@
                                 </div>
                                 <div class="panel-body">
                                     <div class="row">
-                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
                                             <form role="form" action="<?php echo base_url().'DrugManagement/drugTypeSave'?>" method="post">
                                                 <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                                    <div class="form-group">
                                                             <label>Drug Type Name</label>
                                                             <input type="text" class="form-control" id="DrugTypeName" name="DrugTypeName" value="" placeholder="Drug Type Name" required="True">
                                                         </div>
-                                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                                    </div>
+                                                 <div class="form-group">
                                                             <div id="divDtypeName" class="alert alert-danger" style="display: none;">
                                                                 This Drug Type Already Exist in the System.
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
+                                                 </div>
+                                                <div class="form-group">
                                                 <div class="checkbox">
                                                     <label>
                                                         <input type="checkbox" value="1" id="DrugTypeIsActive" name="DrugTypeIsActive">Is Active
                                                     </label>
                                                 </div>
+                                                    </div>
 
                                                 <button type="reset" class="btn btn-danger">Reset</button>
                                                 <button type="submit" id="saveDtype" class="btn btn-primary">Save</button>

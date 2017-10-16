@@ -35,7 +35,7 @@
                                 $this->session->unset_userdata('notifyuser');
                             }
                             ?>
-                            <h1 class="page-header">All Sub Category</h1>
+                            <h1 class="page-header">All Manufacturer</h1>
                         </div>
                     </div>
                     <?php ?>
@@ -44,7 +44,7 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    All Sub Category
+                                    Manufacturer
                                 </div>
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
@@ -52,30 +52,30 @@
                                     <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                         <thead>
                                             <tr>
-                                                <th class="center">SL</th>
-                                                <th class="center">Sub Category Name</th>
-                                                <th class="center">Category Name</th>
-                                                <th class="center">Status</th>
-                                                <th class="center">Creation Date</th>
-                                                <th class="center">Actions</th>
+                                                <th>SL</th>
+                                                <th>Manufacturer Name</th>
+                                                <th>Web Link</th>
+                                                <th>Mobile Number</th>
+                                                <th>Email</th>
+                                                <th>Status</th>
+                                                <th>Creation Date</th>
+                                                <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $c = 1;
-                                                foreach ($allSubCategory as $dsub) {
+                                            $c = 1; 
+                                            foreach ($allManufacturer as $manF) {
                                                 ?>
                                                 <tr class="odd gradeX">
                                                     <td class="center"><?php echo $c; ?></td>
-                                                    <td class="center"><?php echo $dsub['DrugSubcategoryName']; ?></td>
-                                                    <td class="center"><?php echo $dsub['DrugCategoryName']; ?></td>
-                                                    <td class="center"><?php if ($dsub['DrugSubcategoryIsActive'] == 1) {
-                                                echo 'Active';
-                                            } else {
-                                                echo 'Inactive';
-                                            } ?></td>
-                                                    <td class="center"><?php echo $dsub['EntryDate']; ?></td>
-                                                    <td class="center"><input type="button" class="btn btn-info editDCategoryData" data-toggle="modal" data-target="#myModal" data-node="<?php echo $dsub['DrugSubcategoryId']; ?>" value="Edit"/></td>
+                                                    <td class="center"><?php echo $manF['ManufacturerName']; ?></td>
+                                                    <td class="center"><?php echo $manF['ManufacturerWebsite']; ?></td>
+                                                    <td class="center"><?php echo $manF['ManufacturerPhone']; ?></td>
+                                                    <td class="center"><?php echo $manF['ManufacturerEmail']; ?></td>
+                                                    <td class="center"><?php if($manF['ManufacturerIsActive'] == 1){echo 'Active';} else{echo 'Inactive';} ?></td>
+                                                    <td class="center"><?php echo $manF['EntryDate']; ?></td>
+                                                    <td class="center"><input type="button" class="btn btn-info editDTypeData" data-toggle="modal" data-target="#myModal" data-node="<?php echo $manF['ManufacturerId']; ?>" value="Edit"/></td>
                                                 </tr>
                                                 <?php
                                                 $c++;
@@ -90,9 +90,9 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title" style="text-align: center">Edit Drug Sub Category</h4>
+                                                    <h4 class="modal-title" style="text-align: center">Edit Manufacturer</h4>
                                                 </div>
-                                                <div id="editDcategoryModuleData" class="modal-body">
+                                                <div id="editDtypeModuleData" class="modal-body">
 
                                                 </div>
 
@@ -112,9 +112,10 @@
                 </div>
 
             </div>
+
         </div>
-        <?php echo $footer; ?>
-        <script src="/PrescriptionManagementSoftware/assets/modulesupportjs/DrugManagement/subCategory.js"></script>
+<?php echo $footer; ?>
+        <script src="/PrescriptionManagementSoftware/assets/modulesupportjs/DrugManagement/manufacturer.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 var baseUrl = "<?php echo base_url(); ?>";
