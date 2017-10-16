@@ -90,7 +90,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </a>
                             <ul class="nav nav-third-level" aria-expanded="true" style="">
                                 <li>
-                                    <a href="<?php echo site_url('DocList') ?>">New Doctor Info Creation</a>
+                                    <a href="<?php echo site_url('DocList/clinicTypeCreate') ?>">Create Clinic Type</a>
                                 </li>
 
                                 <li>

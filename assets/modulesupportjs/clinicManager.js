@@ -11,12 +11,37 @@
  * and open the template in the editor.
  */
 
+function checkClinicType(url){
+    $("#ClinicType").focusin(function(){
+         $("#divClinictypeName").attr('style','display : none');
+         $("#saveClinictype").prop("disabled",false);
+     });
+     console.log("Hello!!");
+    $("#ClinicType").focusout(function(){
+        var regisId = $(this).val();
+        $.ajax({
+                url: url+"DocList/checkClinicType",
+                type: "get",
+                data: "regisId="+regisId,
+                cache: false,
+                success: function(data){
+                    console.log('Return Data' + data);
+                    if(data == 0){
+                        $("#divClinictypeName").attr('style','display : block');
+                        $("#saveClinictype").prop("disabled",true);
+                    }
+                }
+            });
+    });
+}
+
+
 function checkDoctorId(url){
      $("#DoctorRegistrationNo").focusin(function(){
          $("#divDoctorRegistration").attr('style','display : none');
          $("#saveDoctor").prop("disabled",false);
      });
-     console.log("Hello");
+     console.log("Hello!!");
     $("#DoctorRegistrationNo").focusout(function(){
         var regisId = $(this).val();
         $.ajax({
@@ -37,26 +62,26 @@ function checkDoctorId(url){
 
 
 
-function checkDoctorEditId(url,prevDoctorId){
-     $("#DoctorRegistrationNo").focusin(function(){
-         $("#divDoctorRegistration").attr('style','display : none');
-         $("#editDoctor").prop("disabled",false);
+function checkClinicEditId(url,prevClinicId){
+     $("#ClinicRegistrationNo").focusin(function(){
+         $("#divClinicRegistration").attr('style','display : none');
+         $("#editClinic").prop("disabled",false);
      });
-     console.log("Hello");
-    $("#DoctorRegistrationNo").focusout(function(){
+     console.log("Hello!!" + prevClinicId);
+    $("#ClinicRegistrationNo").focusout(function(){
         var regisId = $(this).val();
-        console.log(regisId,prevDoctorId);
-        if(regisId != prevDoctorId){
+        console.log(regisId,prevClinicId);
+        if(regisId != prevClinicId){
         $.ajax({
-                url: url+"DocList/checkDoctorName",
+                url: url+"DocList/checkClinicReg",
                 type: "get",
                 data: "regisId="+regisId,
                 cache: false,
                 success: function(data){
                     console.log('Return Data' + data);
                     if(data == 0){
-                        $("#divDoctorRegistration").attr('style','display : block');
-                        $("#editDoctor").prop("disabled",true);
+                        $("#divClinicRegistration").attr('style','display : block');
+                        $("#editClinic").prop("disabled",true);
                     }
                 }
             });

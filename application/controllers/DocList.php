@@ -29,6 +29,18 @@ class DocList extends MY_Controller {
             echo 1;
         }
     }
+    
+    public function checkClinicReg() {
+        $checkClinic = $this->input->get("regisId");
+        //echo $checkDoctor;
+        $checkClinic = $this->DoctorListModel->checkClinicRegistration($checkClinic);
+
+        if (sizeof($checkClinic) > 0) {
+            echo 0;
+        } else {
+            echo 1;
+        }
+    }
 
     public function checkDoctorContactNo() {
         $checkDoctor = $this->input->get("contactNo");
@@ -169,6 +181,7 @@ class DocList extends MY_Controller {
         $updateClinicSave = array(
             'ClinicId' => $this->input->post('ClinicId'),
             'ClinicName' => $this->input->post('ClinicName'),
+            'ClinicRegistrationNo' => $this->input->post('ClinicRegistrationNo'),
             'ClinicAddress' => $this->input->post('ClinicAddress'),
             'ClinicContactNumber' => $this->input->post('ClinicContactNumber'),
             'ClinicEmailAddress' => $this->input->post('ClinicEmailAddress'),
@@ -243,6 +256,45 @@ class DocList extends MY_Controller {
         $data['listView'] = $this->DoctorListModel->insertClinic($clinicSave);
         //$data['editCheck'] = 0;
         $this->load->view('doctor/clinicList', $data);
+    }
+    
+    public function clinicTypeCreate(){
+        $data['header'] = "Clinic Type Create";
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['typeAdd'] = 0;
+        $this->load->view('doctor/clinicType', $data);
+    }
+    
+     public function clinicTypeSave(){
+       
+       $data['header'] = "Clinic Type Create";
+       $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+       $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+       $data['footer'] = $this->load->view('templates/footer', '', TRUE); 
+        
+       $typedata = array(
+            'ClinicType' => $this->input->post('ClinicType', TRUE),
+            'EntryBy' => $this->session->userdata()['UserId'],
+           
+            'EditedBy' => '0'
+        );
+        $result = $this->DoctorListModel->saveClinicType($typedata);
+        $data['typeAdd'] = 1;
+        $this->load->view('doctor/clinicType',$data);
+    }
+    
+    public function checkClinicType(){
+        $checkClinicType = $this->input->get("regisId");
+        //echo $checkDoctor;
+        $checkClinicType = $this->DoctorListModel->checkClinicType($checkClinicType);
+
+        if (sizeof($checkClinicType) > 0) {
+            echo 0;
+        } else {
+            echo 1;
+        }
     }
 
 }

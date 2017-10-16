@@ -25,7 +25,7 @@
                                 </div>
                             <?php } ?>
 
-                            <?php if ($listView['editCheck'] == 0) { ?>
+                            <?php if ($listView['editCheck'] == 4) { ?>
                                 <div class="alert alert-success alert-dismissable">
                                     <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
 
@@ -63,6 +63,7 @@
                                     <thead>
                                         <tr>
                                             <th>Clinic Name</th>
+                                            <th>Clinic Registration No</th>
                                             <th>Clinic Address</th>
                                             <th>Clinic Contact Number</th>
                                             <th>Clinic Email Address</th>
@@ -86,6 +87,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td><?php echo $row['ClinicName']; ?></td>
+                                                    <td><?php echo $row['ClinicRegistrationNo']; ?></td>
                                                     <td><?php echo $row['ClinicAddress']; ?></td>
                                                     <td><?php echo $row['ClinicContactNumber']; ?></td>
                                                     <td><?php echo $row['ClinicEmailAddress']; ?></td>

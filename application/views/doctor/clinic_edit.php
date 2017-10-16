@@ -4,7 +4,7 @@
 
 $clinicId = $clinicData[0]['ClinicId'];
 $clinicName = $clinicData[0]['ClinicName'];
-
+$ClinicRegistrationNo = $clinicData[0]['ClinicRegistrationNo'];
 $ClinicAddress = $clinicData[0]['ClinicAddress'];
 $ClinicContactNumber = $clinicData[0]['ClinicContactNumber'];
 $ClinicEmailAddress = $clinicData[0]['ClinicEmailAddress'];
@@ -47,9 +47,19 @@ $EntryBy = $clinicData[0]['EntryBy'];
                 </div>
             </div>
             
+            
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <label>Clinic Registration No</label>
+                        <input type="text" class="form-control" id="ClinicRegistrationNo" name="ClinicRegistrationNo" placeholder="Clinic Registration No" required="True" value="<?php echo $ClinicRegistrationNo; ?>">
+                    </div>
+                </div>
+            </div>
+            
 
             <div class="form-group">
-                <div id="divDoctorRegistration" class="alert alert-danger" style="display: none;">
+                <div id="divClinicRegistration" class="alert alert-danger" style="display: none;">
                     This Registration ID Already Exist in the system
                 </div>  
             </div>
@@ -85,19 +95,21 @@ $EntryBy = $clinicData[0]['EntryBy'];
                     </div>
                 </div>
             </div>
-            <button type="submit" id="editDoctor" class="btn btn-primary">Update</button>
+            <button type="submit" id="editClinic" class="btn btn-primary">Update</button>
         </form>
     </div>
 </div>
-
-<script src="/PrescriptionManagementSoftware/assets/modulesupportjs/doctorManager.js"></script>
+<?php //echo $footer;?>
+<script src="/PrescriptionManagementSoftware/assets/modulesupportjs/clinicManager.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         var baseUrl = "<?php echo base_url(); ?>";
-        var prevDoctorId =  "<?php echo $DoctorRegistrationNo; ?>";
-        var prevDoctorContactNo = "<?php echo $DoctorContactNo; ?>";
-        checkDoctorEditId(baseUrl,prevDoctorId);
-        checkContactNoEditId(baseUrl,prevDoctorContactNo);
+        var prevClinicId =  "<?php echo $ClinicRegistrationNo; ?>";
+        //var prevDoctorContactNo = "<?php //echo $DoctorContactNo; ?>";
+        checkClinicEditId(baseUrl,prevClinicId);
+        //checkDoctorEditId(baseUrl,prevClinicId);
+        //checkContactNoEditId(baseUrl,prevDoctorContactNo);
+//        checkDoctorId(baseUrl);
     });
 </script>
 
