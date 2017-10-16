@@ -609,7 +609,30 @@ class DrugManagement extends MY_Controller {
         $this->session->set_userdata('notifyuser', $notice);
         redirect('DrugManagement/manufacturerList');
     }
-
+    
+    public function drugAppMethodList(){
+        
+    }
+    
+    public function drugAppMethodCreate(){
+        
+    }
+    
+    public function checkdrugAppMethodName(){
+        
+    }
+    
+    public function drugAppMethodSave(){
+        
+    }
+    
+    public function drugAppMethodEdit(){
+        
+    }
+    
+    public function drugAppMethodUpdate(){
+        
+    }
 }
 ?>
 

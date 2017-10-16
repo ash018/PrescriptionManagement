@@ -221,6 +221,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </li>
                             </ul>
                         </li>
+                        
+                        <li class="">
+                            <a href="#">
+                                Drug Application Method
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-third-level" aria-expanded="true" style="">
+                                <li>
+                                    <a href="<?php echo base_url() . 'DrugManagement/drugAppMethodList' ?>">Drug Application List</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url() . 'DrugManagement/drugAppMethodCreate' ?>">Create Application Method</a>
+                                </li>
+                            </ul>
+                        </li>
 
                     </ul>
                 </li>
