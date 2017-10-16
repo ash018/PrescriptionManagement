@@ -144,16 +144,7 @@ class DocList extends MY_Controller {
         $data['clinicData'] = $this->DoctorListModel->checkClinicId($clinicId);
         $clinicDeleteFrom = $this->load->view('doctor/clinic_delete', $data, TRUE);
         echo $clinicDeleteFrom;
-        //exit();
-//        $clinicId = $this->input->get("clinicId", TRUE);
-////        var_dump($clinicId);
-////        exit();
-//        $data['clinicData'] = $this->DoctorListModel->checkClinicId($clinicId);
-//        $data['allClinic'] = $this->DoctorListModel->getAllClinic();
-//
-//        $clinicDeleteFrom = $this->load->view('doctor/clinic_delete', $data, TRUE);
-//
-//        echo $clinicDeleteFrom;
+        
     }
 
     public function doctorInfo() {
@@ -210,8 +201,7 @@ class DocList extends MY_Controller {
             'EditedBy' => $this->session->userdata()['UserId']
         );
 
-//        var_dump($updateClinicSave);
-//        exit();
+
         $data = array();
         $data['header'] = "Doctor List";
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
@@ -229,8 +219,7 @@ class DocList extends MY_Controller {
             'EditedBy' => $this->session->userdata()['UserId']
         );
 
-//        var_dump($updateClinicSave);
-//        exit();
+
         $data = array();
         $data['header'] = "Doctor List";
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
@@ -294,7 +283,7 @@ class DocList extends MY_Controller {
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
         $data['listView'] = $this->DoctorListModel->insertClinic($clinicSave);
-        //$data['editCheck'] = 0;
+       
         $this->load->view('doctor/clinicList', $data);
     }
     
@@ -324,7 +313,7 @@ class DocList extends MY_Controller {
          } else {
              $notice = array(
                  'type' => 0,
-                 'message' => 'Clinic Type Creation Fail, Please Give All Informatoin'
+                 'message' => 'Clinic Type Already Exists, Please Give New Type'
              );
          }
          $this->session->set_userdata('notifyuser', $notice);
