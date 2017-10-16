@@ -6,7 +6,6 @@ class DocList extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
-
         $this->load->model('DoctorListModel'); //Load the Model here   
     }
 
@@ -17,12 +16,18 @@ class DocList extends MY_Controller {
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
         $this->load->view('doctor/docInfoCreation', $data);
     }
+    
+    public function doctorEducation(){
+        $data['header'] = 'Doctor Education';
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $this->load->view('doctor/doctorEducation', $data);
+    }
 
     public function checkDoctorName() {
         $checkDoctor = $this->input->get("regisId");
-        //echo $checkDoctor;
         $checkDoctor = $this->DoctorListModel->checkDoctorRegistration($checkDoctor);
-
         if (sizeof($checkDoctor) > 0) {
             echo 0;
         } else {
@@ -32,9 +37,7 @@ class DocList extends MY_Controller {
     
     public function checkClinicReg() {
         $checkClinic = $this->input->get("regisId");
-       // echo $checkClinic;
         $checkClinic = $this->DoctorListModel->checkClinicRegistration($checkClinic);
-
         if (sizeof($checkClinic) > 0) {
             echo 0;
         } else {
@@ -44,9 +47,7 @@ class DocList extends MY_Controller {
     
     public function checkDoctorContactNo() {
         $checkDoctor = $this->input->get("contactNo");
-
         $checkDoctor = $this->DoctorListModel->checkDoctorContactNo($checkDoctor);
-
         if (sizeof($checkDoctor) > 0) {
             echo 0;
         } else {
@@ -55,38 +56,29 @@ class DocList extends MY_Controller {
     }
 
     public function doctorList() {
-        //$data = array();
         $data['header'] = "Doctor List";
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-
         $data['listView'] = $this->DoctorListModel->selectDoctorList();
-
         $this->load->view('doctor/doctorList', $data);
     }
     
     public function clinicTypeList() {
-        //$data = array();
         $data['header'] = "Clinic Type List";
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-
         $data['listView'] = $this->DoctorListModel->selectClinicTypeList();
-
         $this->load->view('doctor/clinicTypeList', $data);
     }
     
     public function clinicList() {
-        //$data = array();
         $data['header'] = "Clinic List";
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-
         $data['listView'] = $this->DoctorListModel->selectClinicList();
-
         $this->load->view('doctor/clinicList', $data);
     }
 
@@ -95,36 +87,36 @@ class DocList extends MY_Controller {
         $data['doctorData'] = $this->DoctorListModel->checkDoctorId($doctorId);
         $data['allDoctor'] = $this->DoctorListModel->getAllDoctor();
         $doctorEditFrom = $this->load->view('doctor/doctor_edit', $data, TRUE);
-
         echo $doctorEditFrom;
+    }
+    
+    public function getDoctorEducationData() {
+        $doctorId = $this->input->get("doctorId", TRUE);
+        $data['doctorEducationData'] = $this->DoctorListModel->checkDoctorEducationId($doctorId);
+        //$data['allDoctor'] = $this->DoctorListModel->getAllDoctor();
+        $doctorEducationEditFrom = $this->load->view('doctor/doctor_education_edit', $data, TRUE);
+        echo $doctorEducationEditFrom;
     }
     
     public function getClinicData2() {
         $clinicId = $this->input->get("clinicId", TRUE);
         $data['clinicData'] = $this->DoctorListModel->checkClinicId2($clinicId);
-        //$data['allDoctor'] = $this->DoctorListModel->getAllDoctor();
         $clinicEditFrom = $this->load->view('doctor/clinic_edit', $data, TRUE);
-
         echo $clinicEditFrom;
     }
     
     public function getClinicTypeData2() {
         $clinicId = $this->input->get("clinicId", TRUE);
         $data['clinicData'] = $this->DoctorListModel->checkClinicTypeId2($clinicId);
-        //$data['allDoctor'] = $this->DoctorListModel->getAllDoctor();
         $clinicTypeEditFrom = $this->load->view('doctor/clinic_type_edit', $data, TRUE);
-
         echo $clinicTypeEditFrom;
     }
     
      public function getClinicData() {
         $clinicId = $this->input->get("clinicId", TRUE);
-        
         $data['clinicData'] = $this->DoctorListModel->checkClinicId($clinicId);
-       $data['allClinic'] = $this->DoctorListModel->getAllClinic();
-        
+        $data['allClinic'] = $this->DoctorListModel->getAllClinic();
         $clinicEditFrom = $this->load->view('doctor/clinic_edit', $data, TRUE);
-
         echo $clinicEditFrom;
     }
 
@@ -132,19 +124,15 @@ class DocList extends MY_Controller {
         $doctorId = $this->input->get("doctorId", TRUE);
         $data['doctorData'] = $this->DoctorListModel->checkDoctorId($doctorId);
         $data['allDoctor'] = $this->DoctorListModel->getAllDoctor();
-
         $doctorDeleteFrom = $this->load->view('doctor/doctor_delete', $data, TRUE);
-
         echo $doctorDeleteFrom;
     }
     
     public function getClinicDataDelete() {
         $clinicId =  $this->input->get("clinicId", TRUE);
-        //echo $clinicId;
         $data['clinicData'] = $this->DoctorListModel->checkClinicId($clinicId);
         $clinicDeleteFrom = $this->load->view('doctor/clinic_delete', $data, TRUE);
-        echo $clinicDeleteFrom;
-        
+        echo $clinicDeleteFrom;       
     }
 
     public function doctorInfo() {
@@ -156,7 +144,6 @@ class DocList extends MY_Controller {
             'DoctorContactNo' => $this->input->post('DoctorContactNo'),
             'EntryBy' => $this->session->userdata()['UserId'],
         );
-
         $data = array();
         $data['page_title'] = "Doctor List";
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
@@ -177,16 +164,45 @@ class DocList extends MY_Controller {
             'EntryBy' => $this->input->post('EntryBy'),
             'EditedBy' => $this->session->userdata()['UserId']
         );
-
-
         $data = array();
         $data['header'] = "Doctor List";
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
         $data['listView'] = $this->DoctorListModel->updateDoctor($updateDoctorSave);
-
         $this->load->view('doctor/doctorList', $data);
+    }
+    
+    public function updateDoctorEducation() {
+        $updateDoctorEducationSave = array(
+            'EducationId' => $this->input->post('EducationId'),
+            'EducationName' => $this->input->post('EducationName'),
+            'EducationShortName' => $this->input->post('EducationShortName'),
+            'EducationWeight' => $this->input->post('EducationWeight'),
+            'EditedBy' => $this->session->userdata()['UserId']
+        );
+        $data = array();
+        $data['header'] = "Doctor List";
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['listView'] = $this->DoctorListModel->updateDoctorEducation($updateDoctorEducationSave);
+        $result = $this->DoctorListModel->updateDoctorEducation($updateDoctorEducationSave);
+        //$this->load->view('doctor/doctorEducationList', $data);
+        $notice = array();
+         if ($result) {
+             $notice = array(
+                 'type' => 1,
+                 'message' => 'Education Updated Successfully'
+             );
+         } else {
+             $notice = array(
+                 'type' => 0,
+                 'message' => 'Error Has Occurred, Please Insert Right Info'
+             );
+         }
+         $this->session->set_userdata('notifyuser', $notice);
+         redirect('DocList/showDoctorEducation');
     }
     
     public function updateClinic() {
@@ -200,15 +216,12 @@ class DocList extends MY_Controller {
             'EntryBy' => $this->input->post('EntryBy'),
             'EditedBy' => $this->session->userdata()['UserId']
         );
-
-
         $data = array();
         $data['header'] = "Doctor List";
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
         $data['listView'] = $this->DoctorListModel->updateClinic($updateClinicSave);
-
         $this->load->view('doctor/clinicList', $data);
     }
     
@@ -218,20 +231,15 @@ class DocList extends MY_Controller {
             'ClinicType' => $this->input->post('ClinicType'),
             'EditedBy' => $this->session->userdata()['UserId']
         );
-
-
         $data = array();
         $data['header'] = "Doctor List";
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
         $data['listView'] = $this->DoctorListModel->updateClinicType($updateClinicTypeSave);
-
         $this->load->view('doctor/clinicTypeList', $data);
     }
-
     public function deleteDoctor() {
-
         $deleteDoctorSave = array(
             'DoctorId' => $this->input->post('DoctorId')
         );
@@ -241,12 +249,10 @@ class DocList extends MY_Controller {
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
         $data['listView'] = $this->DoctorListModel->deleteDoctor($deleteDoctorSave);
-
         $this->load->view('doctor/doctorList', $data);
     }
     
     public function deleteClinic() {
-
         $deleteClinicSave = array(
             'ClinicId' => $this->input->post('ClinicId')
         );
@@ -256,10 +262,8 @@ class DocList extends MY_Controller {
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
         $data['listView'] = $this->DoctorListModel->deleteClinic($deleteClinicSave);
-        
         $this->load->view('doctor/clinicList', $data);
     }
-    
     public function clinicInfoCreate(){
         $data['header'] = 'Clinic Info';
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
@@ -267,7 +271,6 @@ class DocList extends MY_Controller {
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
         $this->load->view('doctor/clinicInfoCreation', $data);
     }
-    
     public function clinicInfo() {
         $clinicSave = array(
             'ClinicName' => $this->input->post('ClinicName'),
@@ -276,14 +279,12 @@ class DocList extends MY_Controller {
             'ClinicContactNumber' => $this->input->post('ClinicContactNumber'),
             'EntryBy' => $this->session->userdata()['UserId']
         );
-
         $data = array();
         $data['header'] = "Clinic Info";
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
         $data['listView'] = $this->DoctorListModel->insertClinic($clinicSave);
-       
         $this->load->view('doctor/clinicList', $data);
     }
     
@@ -296,8 +297,7 @@ class DocList extends MY_Controller {
         $this->load->view('doctor/clinicType', $data);
     }
     
-     public function clinicTypeSave(){
-        
+     public function clinicTypeSave(){ 
        $typedata = array(
             'ClinicType' => $this->input->post('ClinicType', TRUE),
             'EntryBy' => $this->session->userdata()['UserId'],
@@ -317,20 +317,76 @@ class DocList extends MY_Controller {
              );
          }
          $this->session->set_userdata('notifyuser', $notice);
-
          redirect('DocList/clinicTypeCreate');
+    }
+    
+    public function doctorEducationInfo(){ 
+       $typedata = array(
+            'EducationName' => $this->input->post('EducationName', TRUE),
+            'EducationShortName' => $this->input->post('EducationShortName', TRUE),
+            'EducationWeight' =>  $this->input->post('EducationWeight', TRUE),
+            'EntryBy' => $this->session->userdata()['UserId'],
+            'EditedBy' => '0'
+        );
+        $result = $this->DoctorListModel->saveDoctorEducation($typedata);
+        $notice = array();
+         if ($result) {
+             $notice = array(
+                 'type' => 1,
+                 'message' => 'Education Insertion Success'
+             );
+         } else {
+             $notice = array(
+                 'type' => 0,
+                 'message' => 'Error Has Occurred, Please Insert Right Info'
+             );
+         }
+         $this->session->set_userdata('notifyuser', $notice);
+         redirect('DocList/doctorEducation');
     }
     
     public function checkClinicType(){
         $checkClinicType = $this->input->get("regisId");
-        //echo $checkDoctor;
         $checkClinicType = $this->DoctorListModel->checkClinicType2($checkClinicType);
-
         if (sizeof($checkClinicType) > 0) {
             echo 0;
         } else {
             echo 1;
         }
+    }
+    
+    public function showDoctorEducation(){
+        $data['header'] = "Doctor Education List";
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['listView'] = $this->DoctorListModel->selectDoctorEducationList();
+        $this->load->view('doctor/doctorEducationList', $data);
+    }
+    
+    public function doctorEducationList(){
+        $data['header'] = "Doctor Education List";
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['listView'] = $this->DoctorListModel->selectDoctorEducationList();
+        //$this->load->view('doctor/doctorEducationList', $data);
+        $result = $this->DoctorListModel->selectDoctorEducationList();
+//        $notice = array();
+//         if ($result) {
+//             $notice = array(
+//                 'type' => 1,
+//                 'message' => 'Information Edited Successfully !!'
+//             );
+//         } else {
+//             $notice = array(
+//                 'type' => 0,
+//                 'message' => 'Error Has Occurred, Please Insert Right Info'
+//             );
+//         }
+//         $this->session->set_userdata('notifyuser', $notice);
+         redirect('DocList/showDoctorEducation');
+        // $this->load->view('doctor/doctorEducationList', $data);
     }
 
 }

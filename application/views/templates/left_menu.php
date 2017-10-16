@@ -76,10 +76,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <li>
                                     <a href="<?php echo site_url('DocList') ?>">New Doctor Info Creation</a>
                                 </li>
-
+                                
                                 <li>
                                     <a href="<?php echo site_url('DocList/doctorList') ?>">Doctor List</a>
                                 </li>
+                                
+                                <li>
+                                    <a href="<?php echo site_url('DocList/doctorEducation') ?>">Doctor Education</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="<?php echo site_url('DocList/doctorEducationList') ?>">Doctor Education List</a>
+                                </li>
+                                
                             </ul>
                         </li>
                         

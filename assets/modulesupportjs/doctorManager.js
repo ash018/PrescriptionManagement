@@ -131,6 +131,29 @@ function editDoctor(url){
     });
 }
 
+function editDoctorEducation(url){
+    
+    $(".btn-info").on('click',function(){
+        var doctorId = $(this).attr("data-node");
+        console.log("hello"+doctorId);
+        $("#editDoctorEducationModuleData").empty();
+        $.ajax({
+                url: url+"DocList/getDoctorEducationData",
+                type: "get",
+                data: "doctorId="+doctorId,
+                cache: false,
+                success: function(data){
+                    console.log('Return Data' + data);
+                    $("#editDoctorEducationModuleData").append(data);
+//                    if(data == 0){
+//                        $("#divUserId").attr('style','display : block');
+//                        $("#saveUser").prop("disabled",true);
+//                    }
+                }
+            });
+    });
+}
+
 function deleteDoctor(url){
     
     $(".deleteDoctorGetData").on('click',function(){
