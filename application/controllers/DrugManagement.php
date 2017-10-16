@@ -409,23 +409,96 @@ class DrugManagement extends MY_Controller {
     }
     
     public function drugSubCategoryCreate(){
-        
+        $data['header'] = 'New Sub Category';
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['allCategory'] = $this->DrugManagementModel->getAllCategory();
+        $this->load->view('drug_management/sub_category/sub_category_create', $data); 
     }
     
     public function checkdrugSubCategoryName(){
+        $dSubName = $this->input->get('subCategoryName',TRUE);
+        $categoryId = $this->input->get('categoryId',TRUE);
         
+        $coun = $this->DrugManagementModel->checkDrugSubCategory($dSubName,$categoryId);
+        if (sizeof($coun) > 0) {
+            echo 0;
+        } else {
+            echo 1;
+        }
     }
     
     public function drugSubCategorySave(){
+        $drugStrengthName = $this->input->post('DrugSubcategoryName', TRUE);
+        $drugCatId = $this->input->post('DrugCategoryId', TRUE);
+        $drugStrengthIsActive = $this->input->post('DrugSubcategoryIsActive', TRUE);
+        $entryBy = $this->session->userdata()['UserId'];
         
+        $data = array(
+            'DrugSubcategoryName' => $drugStrengthName,
+            'DrugCategoryId' => $drugCatId,
+            'DrugSubcategoryIsActive' => $drugStrengthIsActive,
+            'EntryBy' => $entryBy,
+            'EditedBy' => '0'
+        );
+        
+        $result = $this->DrugManagementModel->saveSubCategory($data);
+        $notice = array();
+        if ($result) {
+            $notice = array(
+                'type' => 1,
+                'message' => 'Sub Category Creation Success'
+            );
+        } else {
+            $notice = array(
+                'type' => 0,
+                'message' => 'Sub Category Creation Fail, Please Give All Informatoin'
+            );
+        }
+        $this->session->set_userdata('notifyuser', $notice);
+        redirect('DrugManagement/drugSubCategoryCreate');
     }
     
     public function drugSubCategoryEdit(){
-        
+        $subCategoryId = $this->input->get('dSubCatId',TRUE);
+        $data['dSubCategory'] = $this->DrugManagementModel->getSubCategoryData($subCategoryId);
+        $data['allCategory'] = $this->DrugManagementModel->getAllCategory();
+        $dCategoryEditFrom = $this->load->view('drug_management/sub_category/sub_category_edit', $data, TRUE);
+
+        echo $dCategoryEditFrom;
     }
     
     public function drugSubCategoryUpdate(){
+        $dTypeId = $this->input->post('DrugSubcategoryId', TRUE);
+        $drugStrengthName = $this->input->post('DrugSubcategoryName', TRUE);
+        $drugCategoryId = $this->input->post('DrugCategoryId', TRUE);
+        $drugStrengthIsActive = $this->input->post('DrugSubcategoryIsActive', TRUE);
+        $editedBy = $this->session->userdata()['UserId'];
         
+        $data = array(
+            'DrugSubcategoryName' => $drugStrengthName,
+            'DrugCategoryId' => $drugCategoryId,
+            'DrugSubcategoryIsActive' => $drugStrengthIsActive,
+            'EditedBy' => $editedBy,
+            'EditedDate' => date('Y-m-d H:i:s')
+        );
+        
+        $result = $this->DrugManagementModel->updateSubCategory($data,$dTypeId);
+        $notice = array();
+        if ($result) {
+            $notice = array(
+                'type' => 1,
+                'message' => 'Update Sub Category Success'
+            );
+        } else {
+            $notice = array(
+                'type' => 0,
+                'message' => 'Sub Category Update Fail, Please Give All Informatoin'
+            );
+        }
+        $this->session->set_userdata('notifyuser', $notice);
+        redirect('DrugManagement/drugSubCategoryList');
     }
  }
 ?>
