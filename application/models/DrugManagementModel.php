@@ -231,5 +231,48 @@ class DrugManagementModel extends CI_Model {
             return false; 
         }
     }
+    
+    public function getAllManufacturer(){
+        $sql = "SELECT ManufacturerId, ManufacturerName, ManufacturerPhone, ManufacturerEmail, ManufacturerWebsite, ManufacturerIsActive, DATE_FORMAT(EntryDate,'%d/%m/%Y') as EntryDate FROM manufacturer;";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function checkManufacturerName($manufacturerName){
+        $sql = "SELECT ManufacturerId, ManufacturerName, ManufacturerPhone, ManufacturerEmail, ManufacturerWebsite, ManufacturerIsActive FROM manufacturer where ManufacturerName = '$manufacturerName';";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function saveManufacturer($data){
+        if($this->db->insert('manufacturer',$data)){
+            return true;
+        }
+        else{
+            return false; 
+        }
+    }
+    
+    public function getManufacturerIdData($manufacturerId){
+        $sql = "SELECT ManufacturerId, ManufacturerName, ManufacturerPhone, ManufacturerEmail, ManufacturerWebsite, ManufacturerAddress, ManufacturerIsActive FROM manufacturer where ManufacturerId = '$manufacturerId';";
+         $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function updateManufacturer($data,$dCategoryId){
+        $this->db->where('ManufacturerId', $dCategoryId);
+        if($this->db->update('manufacturer', $data)){
+            return true; 
+        }
+        else{
+            return false; 
+        }
+    }
 }
 ?>

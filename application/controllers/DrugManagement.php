@@ -1,14 +1,16 @@
 <?php
+
 class DrugManagement extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
         $this->load->model('DrugManagementModel');
     }
+
     public function index() {
-       
+        
     }
-    
+
     public function drugTypelist() {
         $data['header'] = 'Drug Type List';
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
@@ -17,18 +19,17 @@ class DrugManagement extends MY_Controller {
         $data['allDrugType'] = $this->DrugManagementModel->getAllDrugType();
         $this->load->view('drug_management/drug_type/drug_type_list', $data);
     }
-    
-    public function drugTypeCreate(){
+
+    public function drugTypeCreate() {
         $data['header'] = 'Create Drug Type';
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
         $data['allDrugType'] = $this->DrugManagementModel->getAllDrugType();
         $this->load->view('drug_management/drug_type/drug_type_create', $data);
-        
     }
-    
-    public function checkDrugTypeName(){
+
+    public function checkDrugTypeName() {
         $checkDtypeName = $this->input->get("drugTypeName");
         $dTypename = $this->DrugManagementModel->checkDtypeName($checkDtypeName);
         if (sizeof($dTypename) > 0) {
@@ -37,8 +38,8 @@ class DrugManagement extends MY_Controller {
             echo 1;
         }
     }
-    
-    public function drugTypeSave(){
+
+    public function drugTypeSave() {
         $drugTypeName = $this->input->post('DrugTypeName', TRUE);
         $drugTypeIsActive = $this->input->post('DrugTypeIsActive', TRUE);
         $entryBy = $this->session->userdata()['UserId'];
@@ -49,7 +50,7 @@ class DrugManagement extends MY_Controller {
             'EntryBy' => $entryBy,
             'EditedBy' => '0'
         );
-        
+
         $result = $this->DrugManagementModel->saveDtype($data);
         $notice = array();
         if ($result) {
@@ -67,17 +68,17 @@ class DrugManagement extends MY_Controller {
 
         redirect('DrugManagement/drugTypeCreate');
     }
-    
-    public function drugTypeEdit(){
+
+    public function drugTypeEdit() {
         $dTypeId = $this->input->get("dTypeId", TRUE);
         $data['dType'] = $this->DrugManagementModel->getDrugTypeData($dTypeId);
-       
+
         $dTypeEditFrom = $this->load->view('drug_management/drug_type/drug_type_edit', $data, TRUE);
 
         echo $dTypeEditFrom;
     }
-    
-    public function drugTypeUpdate(){
+
+    public function drugTypeUpdate() {
         $dTypeId = $this->input->post('DrugTypeId', TRUE);
         $drugTypeName = $this->input->post('DrugTypeName', TRUE);
         $drugTypeIsActive = $this->input->post('DrugTypeIsActive', TRUE);
@@ -89,8 +90,8 @@ class DrugManagement extends MY_Controller {
             'EditedBy' => $editedBy,
             'EditedDate' => date('Y-m-d H:i:s')
         );
-        
-        $result = $this->DrugManagementModel->updateDtype($data,$dTypeId);
+
+        $result = $this->DrugManagementModel->updateDtype($data, $dTypeId);
         $notice = array();
         if ($result) {
             $notice = array(
@@ -107,25 +108,24 @@ class DrugManagement extends MY_Controller {
         redirect('DrugManagement/drugTypelist');
     }
 
-    public function drugCategoryList(){
+    public function drugCategoryList() {
         $data['header'] = 'Drug Type List';
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
         $data['allDrugCategory'] = $this->DrugManagementModel->getAllDrugCategory();
         $this->load->view('drug_management/drug_category/drug_category_list', $data);
-        
     }
-    
-    public function drugCategoryCreate(){
+
+    public function drugCategoryCreate() {
         $data['header'] = 'Create Drug Category';
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
         $this->load->view('drug_management/drug_category/drug_category_create', $data);
     }
-    
-    public function checkDrugCategoryName(){
+
+    public function checkDrugCategoryName() {
         $checkDcategoryName = $this->input->get("drugCategoryName");
         $dCategoryName = $this->DrugManagementModel->checkDcategoryName($checkDcategoryName);
         if (sizeof($dCategoryName) > 0) {
@@ -134,8 +134,8 @@ class DrugManagement extends MY_Controller {
             echo 1;
         }
     }
-    
-    public function drugCategorySave(){
+
+    public function drugCategorySave() {
         $drugCategoryName = $this->input->post('DrugCategoryName', TRUE);
         $drugCategoryIsActive = $this->input->post('DrugCategoryIsActive', TRUE);
         $entryBy = $this->session->userdata()['UserId'];
@@ -146,7 +146,7 @@ class DrugManagement extends MY_Controller {
             'EntryBy' => $entryBy,
             'EditedBy' => '0'
         );
-        
+
         $result = $this->DrugManagementModel->saveDcategory($data);
         $notice = array();
         if ($result) {
@@ -164,17 +164,17 @@ class DrugManagement extends MY_Controller {
 
         redirect('DrugManagement/drugCategoryCreate');
     }
-    
-    public function drugCategoryEdit(){
+
+    public function drugCategoryEdit() {
         $dCategoryId = $this->input->get("dCategoryId", TRUE);
         $data['dCategory'] = $this->DrugManagementModel->getDrugCategoryData($dCategoryId);
-       
+
         $dCategoryEditFrom = $this->load->view('drug_management/drug_category/drug_category_edit', $data, TRUE);
 
         echo $dCategoryEditFrom;
     }
-    
-    public function drugCategoryUpdate(){
+
+    public function drugCategoryUpdate() {
         $dTypeId = $this->input->post('DrugCategoryId', TRUE);
         $drugTypeName = $this->input->post('DrugCategoryName', TRUE);
         $drugTypeIsActive = $this->input->post('DrugCategoryIsActive', TRUE);
@@ -186,8 +186,8 @@ class DrugManagement extends MY_Controller {
             'EditedBy' => $editedBy,
             'EditedDate' => date('Y-m-d H:i:s')
         );
-        
-        $result = $this->DrugManagementModel->updateDcategory($data,$dTypeId);
+
+        $result = $this->DrugManagementModel->updateDcategory($data, $dTypeId);
         $notice = array();
         if ($result) {
             $notice = array(
@@ -203,8 +203,8 @@ class DrugManagement extends MY_Controller {
         $this->session->set_userdata('notifyuser', $notice);
         redirect('DrugManagement/drugCategorylist');
     }
-    
-    public function drugStrengthList(){
+
+    public function drugStrengthList() {
         $data['header'] = 'Drug Strength List';
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
@@ -212,8 +212,8 @@ class DrugManagement extends MY_Controller {
         $data['allDrugStrength'] = $this->DrugManagementModel->getAllDrugStrength();
         $this->load->view('drug_management/drug_strength/drug_strength_list', $data);
     }
-    
-    public function drugStrengthCreate(){
+
+    public function drugStrengthCreate() {
         $data['header'] = 'Create Drug Strength';
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
@@ -221,9 +221,9 @@ class DrugManagement extends MY_Controller {
         //$data['allDrugStrength'] = $this->DrugManagementModel->getAllDrugStrength();
         $this->load->view('drug_management/drug_strength/drug_strength_create', $data);
     }
-    
-    public function checkDrugStrengthName(){
-        $drugStrengthName = $this->input->get("drugStrengthName",TRUE);
+
+    public function checkDrugStrengthName() {
+        $drugStrengthName = $this->input->get("drugStrengthName", TRUE);
         $dCategoryName = $this->DrugManagementModel->checkDstrengthName($drugStrengthName);
         if (sizeof($dCategoryName) > 0) {
             echo 0;
@@ -231,13 +231,13 @@ class DrugManagement extends MY_Controller {
             echo 1;
         }
     }
-    
-    public function drugStrengthSave(){
+
+    public function drugStrengthSave() {
         $drugStrengthName = $this->input->post('DrugStrengthUnitName', TRUE);
         $drugStrengthCode = $this->input->post('DrugStrengthUnitCode', TRUE);
         $drugStrengthIsActive = $this->input->post('DrugStrengthUnitIsActive', TRUE);
         $entryBy = $this->session->userdata()['UserId'];
-        
+
         $data = array(
             'DrugStrengthUnitName' => $drugStrengthName,
             'DrugStrengthUnitCode' => $drugStrengthCode,
@@ -245,7 +245,7 @@ class DrugManagement extends MY_Controller {
             'EntryBy' => $entryBy,
             'EditedBy' => '0'
         );
-        
+
         $result = $this->DrugManagementModel->saveDstrengrh($data);
         $notice = array();
         if ($result) {
@@ -262,23 +262,23 @@ class DrugManagement extends MY_Controller {
         $this->session->set_userdata('notifyuser', $notice);
         redirect('DrugManagement/drugStrengthCreate');
     }
-    
-    public function drugStrengthEdit(){
+
+    public function drugStrengthEdit() {
         $dStrengthId = $this->input->get("dStrengthId", TRUE);
         $data['dStrength'] = $this->DrugManagementModel->getDrugStrengthData($dStrengthId);
-       
+
         $dCategoryEditFrom = $this->load->view('drug_management/drug_strength/drug_strength_edit', $data, TRUE);
 
         echo $dCategoryEditFrom;
     }
-    
-    public function drugStrengthUpdate(){
+
+    public function drugStrengthUpdate() {
         $dTypeId = $this->input->post('DrugStrengthUnitId', TRUE);
         $drugTypeName = $this->input->post('DrugStrengthUnitName', TRUE);
         $drugTypeCode = $this->input->post('DrugStrengthUnitCode', TRUE);
         $drugTypeIsActive = $this->input->post('DrugStrengthUnitIsActive', TRUE);
         $editedBy = $this->session->userdata()['UserId'];
-        
+
         $data = array(
             'DrugStrengthUnitName' => $drugTypeName,
             'DrugStrengthUnitCode' => $drugTypeCode,
@@ -286,8 +286,8 @@ class DrugManagement extends MY_Controller {
             'EditedBy' => $editedBy,
             'EditedDate' => date('Y-m-d H:i:s')
         );
-        
-        $result = $this->DrugManagementModel->updateDstrengrh($data,$dTypeId);
+
+        $result = $this->DrugManagementModel->updateDstrengrh($data, $dTypeId);
         $notice = array();
         if ($result) {
             $notice = array(
@@ -303,37 +303,36 @@ class DrugManagement extends MY_Controller {
         $this->session->set_userdata('notifyuser', $notice);
         redirect('DrugManagement/drugStrengthlist');
     }
-    
-    public function drugFromList(){
+
+    public function drugFromList() {
         $data['header'] = 'Country List';
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
         $data['allCountry'] = $this->DrugManagementModel->getAllCountry();
-        $this->load->view('drug_management/drug_country/drug_country_list', $data); 
+        $this->load->view('drug_management/drug_country/drug_country_list', $data);
     }
-    
-    public function drugFromCreate(){
+
+    public function drugFromCreate() {
         $data['header'] = 'New Country';
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-        $this->load->view('drug_management/drug_country/drug_country_create', $data); 
-        
+        $this->load->view('drug_management/drug_country/drug_country_create', $data);
     }
-    
-    public function drugFromSave(){
+
+    public function drugFromSave() {
         $drugStrengthName = $this->input->post('DrugFormName', TRUE);
         $drugStrengthIsActive = $this->input->post('DrugFormIsActive', TRUE);
         $entryBy = $this->session->userdata()['UserId'];
-        
+
         $data = array(
             'DrugFormName' => $drugStrengthName,
             'DrugFormIsActive' => $drugStrengthIsActive,
             'EntryBy' => $entryBy,
             'EditedBy' => '0'
         );
-        
+
         $result = $this->DrugManagementModel->saveCountry($data);
         $notice = array();
         if ($result) {
@@ -350,9 +349,9 @@ class DrugManagement extends MY_Controller {
         $this->session->set_userdata('notifyuser', $notice);
         redirect('DrugManagement/drugFromCreate');
     }
-    
-    public function drugFromCheck(){
-        $dCountryName = $this->input->get('dCountryName',TRUE);
+
+    public function drugFromCheck() {
+        $dCountryName = $this->input->get('dCountryName', TRUE);
         $coun = $this->DrugManagementModel->checkCountryName($dCountryName);
         if (sizeof($coun) > 0) {
             echo 0;
@@ -360,29 +359,29 @@ class DrugManagement extends MY_Controller {
             echo 1;
         }
     }
-    
-    public function drugFromEdit(){
+
+    public function drugFromEdit() {
         $dStrengthId = $this->input->get("dCountryId", TRUE);
         $data['dCountry'] = $this->DrugManagementModel->getCountryData($dStrengthId);
         $dCategoryEditFrom = $this->load->view('drug_management/drug_country/drug_country_edit', $data, TRUE);
 
         echo $dCategoryEditFrom;
     }
-    
-    public function drugFromUpdate(){
+
+    public function drugFromUpdate() {
         $dTypeId = $this->input->post('DrugFormId', TRUE);
         $drugStrengthName = $this->input->post('DrugFormName', TRUE);
         $drugStrengthIsActive = $this->input->post('DrugFormIsActive', TRUE);
         $editedBy = $this->session->userdata()['UserId'];
-        
+
         $data = array(
             'DrugFormName' => $drugStrengthName,
             'DrugFormIsActive' => $drugStrengthIsActive,
             'EditedBy' => $editedBy,
             'EditedDate' => date('Y-m-d H:i:s')
         );
-        
-        $result = $this->DrugManagementModel->updateCountry($data,$dTypeId);
+
+        $result = $this->DrugManagementModel->updateCountry($data, $dTypeId);
         $notice = array();
         if ($result) {
             $notice = array(
@@ -398,43 +397,43 @@ class DrugManagement extends MY_Controller {
         $this->session->set_userdata('notifyuser', $notice);
         redirect('DrugManagement/drugFromList');
     }
-    
-    public function drugSubCategoryList(){
+
+    public function drugSubCategoryList() {
         $data['header'] = 'Sub Category List';
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
         $data['allSubCategory'] = $this->DrugManagementModel->getAllSubCategory();
-        $this->load->view('drug_management/sub_category/sub_category_list', $data); 
+        $this->load->view('drug_management/sub_category/sub_category_list', $data);
     }
-    
-    public function drugSubCategoryCreate(){
+
+    public function drugSubCategoryCreate() {
         $data['header'] = 'New Sub Category';
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
         $data['allCategory'] = $this->DrugManagementModel->getAllCategory();
-        $this->load->view('drug_management/sub_category/sub_category_create', $data); 
+        $this->load->view('drug_management/sub_category/sub_category_create', $data);
     }
-    
-    public function checkdrugSubCategoryName(){
-        $dSubName = $this->input->get('subCategoryName',TRUE);
-        $categoryId = $this->input->get('categoryId',TRUE);
-        
-        $coun = $this->DrugManagementModel->checkDrugSubCategory($dSubName,$categoryId);
+
+    public function checkdrugSubCategoryName() {
+        $dSubName = $this->input->get('subCategoryName', TRUE);
+        $categoryId = $this->input->get('categoryId', TRUE);
+
+        $coun = $this->DrugManagementModel->checkDrugSubCategory($dSubName, $categoryId);
         if (sizeof($coun) > 0) {
             echo 0;
         } else {
             echo 1;
         }
     }
-    
-    public function drugSubCategorySave(){
+
+    public function drugSubCategorySave() {
         $drugStrengthName = $this->input->post('DrugSubcategoryName', TRUE);
         $drugCatId = $this->input->post('DrugCategoryId', TRUE);
         $drugStrengthIsActive = $this->input->post('DrugSubcategoryIsActive', TRUE);
         $entryBy = $this->session->userdata()['UserId'];
-        
+
         $data = array(
             'DrugSubcategoryName' => $drugStrengthName,
             'DrugCategoryId' => $drugCatId,
@@ -442,7 +441,7 @@ class DrugManagement extends MY_Controller {
             'EntryBy' => $entryBy,
             'EditedBy' => '0'
         );
-        
+
         $result = $this->DrugManagementModel->saveSubCategory($data);
         $notice = array();
         if ($result) {
@@ -459,23 +458,23 @@ class DrugManagement extends MY_Controller {
         $this->session->set_userdata('notifyuser', $notice);
         redirect('DrugManagement/drugSubCategoryCreate');
     }
-    
-    public function drugSubCategoryEdit(){
-        $subCategoryId = $this->input->get('dSubCatId',TRUE);
+
+    public function drugSubCategoryEdit() {
+        $subCategoryId = $this->input->get('dSubCatId', TRUE);
         $data['dSubCategory'] = $this->DrugManagementModel->getSubCategoryData($subCategoryId);
         $data['allCategory'] = $this->DrugManagementModel->getAllCategory();
         $dCategoryEditFrom = $this->load->view('drug_management/sub_category/sub_category_edit', $data, TRUE);
 
         echo $dCategoryEditFrom;
     }
-    
-    public function drugSubCategoryUpdate(){
+
+    public function drugSubCategoryUpdate() {
         $dTypeId = $this->input->post('DrugSubcategoryId', TRUE);
         $drugStrengthName = $this->input->post('DrugSubcategoryName', TRUE);
         $drugCategoryId = $this->input->post('DrugCategoryId', TRUE);
         $drugStrengthIsActive = $this->input->post('DrugSubcategoryIsActive', TRUE);
         $editedBy = $this->session->userdata()['UserId'];
-        
+
         $data = array(
             'DrugSubcategoryName' => $drugStrengthName,
             'DrugCategoryId' => $drugCategoryId,
@@ -483,8 +482,8 @@ class DrugManagement extends MY_Controller {
             'EditedBy' => $editedBy,
             'EditedDate' => date('Y-m-d H:i:s')
         );
-        
-        $result = $this->DrugManagementModel->updateSubCategory($data,$dTypeId);
+
+        $result = $this->DrugManagementModel->updateSubCategory($data, $dTypeId);
         $notice = array();
         if ($result) {
             $notice = array(
@@ -500,6 +499,117 @@ class DrugManagement extends MY_Controller {
         $this->session->set_userdata('notifyuser', $notice);
         redirect('DrugManagement/drugSubCategoryList');
     }
- }
+
+    public function manufacturerList() {
+        $data['header'] = 'Manufacturer List';
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['allManufacturer'] = $this->DrugManagementModel->getAllManufacturer();
+        $this->load->view('drug_management/manufacturer/manufacturer_list', $data);
+    }
+
+    public function manufacturerCreate() {
+        $data['header'] = 'New Manufacturer';
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $this->load->view('drug_management/manufacturer/manufacturer_create', $data);
+    }
+
+    public function checkManufacturerName() {
+        $manufacturerName = $this->input->get('manufacturerName', TRUE);
+        $coun = $this->DrugManagementModel->checkManufacturerName($manufacturerName);
+        if (sizeof($coun) > 0) {
+            echo 0;
+        } else {
+            echo 1;
+        }
+    }
+
+    public function manufacturerSave() {
+        $manufacturerName = $this->input->post('ManufacturerName', TRUE);
+        $manufacturerPhone = $this->input->post('ManufacturerPhone', TRUE);
+        $manufacturerEmail = $this->input->post('ManufacturerEmail', TRUE);
+        $manufacturerWebsite = $this->input->post('ManufacturerWebsite', TRUE);
+        $manufacturerAddress = $this->input->post('ManufacturerAddress', TRUE);
+        $manufacturerIsActive = $this->input->post('ManufacturerIsActive', TRUE);
+        $entryBy = $this->session->userdata()['UserId'];
+
+        $data = array(
+            'ManufacturerName' => $manufacturerName,
+            'ManufacturerPhone' => $manufacturerPhone,
+            'ManufacturerEmail' => $manufacturerEmail,
+            'ManufacturerWebsite' => $manufacturerWebsite,
+            'ManufacturerAddress' => $manufacturerAddress,
+            'ManufacturerIsActive' => $manufacturerIsActive,
+            'EntryBy' => $entryBy,
+            'EditedBy' => '0'
+        );
+
+        $result = $this->DrugManagementModel->saveManufacturer($data);
+        $notice = array();
+        if ($result) {
+            $notice = array(
+                'type' => 1,
+                'message' => 'Manufacturer Creation Success'
+            );
+        } else {
+            $notice = array(
+                'type' => 0,
+                'message' => 'Manufacturer Creation Fail, Please Give All Informatoin'
+            );
+        }
+        $this->session->set_userdata('notifyuser', $notice);
+        redirect('DrugManagement/manufacturerCreate');
+    }
+
+    public function manufacturerEdit() {
+        $manufacturerId = $this->input->get('manufacturerId', TRUE);
+        $data['dManufacturer'] = $this->DrugManagementModel->getManufacturerIdData($manufacturerId);
+        $dCategoryEditFrom = $this->load->view('drug_management/manufacturer/manufacturer_edit', $data, TRUE);
+
+        echo $dCategoryEditFrom;
+    }
+
+    public function manufacturerUpdate() {
+        $manufacturerId = $this->input->post('ManufacturerId', TRUE);
+        $manufacturerName = $this->input->post('ManufacturerName', TRUE);
+        $manufacturerPhone = $this->input->post('ManufacturerPhone', TRUE);
+        $manufacturerEmail = $this->input->post('ManufacturerEmail', TRUE);
+        $manufacturerWebsite = $this->input->post('ManufacturerWebsite', TRUE);
+        $manufacturerAddress = $this->input->post('ManufacturerAddress', TRUE);
+        $manufacturerIsActive = $this->input->post('ManufacturerIsActive', TRUE);
+        $editedBy = $this->session->userdata()['UserId'];
+
+        $data = array(
+            'ManufacturerName' => $manufacturerName,
+            'ManufacturerPhone' => $manufacturerPhone,
+            'ManufacturerEmail' => $manufacturerEmail,
+            'ManufacturerWebsite' => $manufacturerWebsite,
+            'ManufacturerAddress' => $manufacturerAddress,
+            'ManufacturerIsActive' => $manufacturerIsActive,
+            'EditedBy' => $editedBy,
+            'EditedDate' => date('Y-m-d H:i:s')
+        );
+
+        $result = $this->DrugManagementModel->updateManufacturer($data, $manufacturerId);
+        $notice = array();
+        if ($result) {
+            $notice = array(
+                'type' => 1,
+                'message' => 'Manufacturer Update Success'
+            );
+        } else {
+            $notice = array(
+                'type' => 0,
+                'message' => 'Manufacturer Update Fail, Please Give All Informatoin'
+            );
+        }
+        $this->session->set_userdata('notifyuser', $notice);
+        redirect('DrugManagement/manufacturerList');
+    }
+
+}
 ?>
 

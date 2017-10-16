@@ -205,6 +205,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </li>
                             </ul>
                         </li>
+                        
+                        
+                        <li class="">
+                            <a href="#">
+                                Manufacturer
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-third-level" aria-expanded="true" style="">
+                                <li>
+                                    <a href="<?php echo base_url() . 'DrugManagement/manufacturerList' ?>">Manufacturer List</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url() . 'DrugManagement/manufacturerCreate' ?>">Create Manufacturer</a>
+                                </li>
+                            </ul>
+                        </li>
 
                     </ul>
                 </li>
