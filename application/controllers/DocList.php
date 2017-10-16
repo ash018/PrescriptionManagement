@@ -308,21 +308,28 @@ class DocList extends MY_Controller {
     }
     
      public function clinicTypeSave(){
-       
-       $data['header'] = "Clinic Type Create";
-       $data['Header'] = $this->load->view('templates/header', $data, TRUE);
-       $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
-       $data['footer'] = $this->load->view('templates/footer', '', TRUE); 
         
        $typedata = array(
             'ClinicType' => $this->input->post('ClinicType', TRUE),
             'EntryBy' => $this->session->userdata()['UserId'],
-           
             'EditedBy' => '0'
         );
         $result = $this->DoctorListModel->saveClinicType($typedata);
-        $data['typeAdd'] = 1;
-        $this->load->view('doctor/clinicType',$data);
+        $notice = array();
+         if ($result) {
+             $notice = array(
+                 'type' => 1,
+                 'message' => 'Clinic Type Creation Success'
+             );
+         } else {
+             $notice = array(
+                 'type' => 0,
+                 'message' => 'Clinic Type Creation Fail, Please Give All Informatoin'
+             );
+         }
+         $this->session->set_userdata('notifyuser', $notice);
+
+         redirect('DocList/clinicTypeCreate');
     }
     
     public function checkClinicType(){
