@@ -44,6 +44,34 @@ class DoctorListModel extends CI_Model {
         $result['editCheck'] = 0;
         return $result;
     }
+    
+    public function selectDoctorEducationGradeList(){
+        
+        $sql = "Select * FROM educationgrade";
+
+        $query = $this->db->query($sql);
+
+        $result = $query->result_array();
+
+        $nsize = sizeof($result);
+        $result['size'] = $nsize;
+        $result['editCheck'] = 0;
+        return $result;
+    }
+    
+    public function selectDoctorEducationInstituteList(){
+        
+        $sql = "Select * FROM educationinstitute";
+
+        $query = $this->db->query($sql);
+
+        $result = $query->result_array();
+
+        $nsize = sizeof($result);
+        $result['size'] = $nsize;
+        $result['editCheck'] = 0;
+        return $result;
+    }
 
     public function selectClinicTypeList() {
 
@@ -87,9 +115,23 @@ class DoctorListModel extends CI_Model {
 
         return $result;
     }
+    
+    public function checkDoctorGradeId($doctorId) {
+        $sql = "SELECT * FROM educationgrade where EducationGradeId = '$doctorId';";
+        $query = $this->db->query($sql);
+        $result = $query->result_array();
+        return $result;
+    }
 
     public function checkDoctorEducationId($EducationId) {
         $sql = "SELECT * FROM education where EducationId = '$EducationId';";
+        $query = $this->db->query($sql);
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function checkDoctorInstituteId($EducationId) {
+        $sql = "SELECT * FROM educationinstitute where EducationInstituteId = '$EducationId';";
         $query = $this->db->query($sql);
         $result = $query->result_array();
         return $result;
@@ -129,6 +171,16 @@ class DoctorListModel extends CI_Model {
     public function checkDoctorRegistration($doctorRegId) {
 
         $sql = "SELECT * FROM doctor where DoctorRegistrationNo = '$doctorRegId';";
+        $query = $this->db->query($sql);
+
+        $result = $query->result_array();
+
+        return $result;
+    }
+    
+    public function checkDoctorInstitute($doctorRegId) {
+
+        $sql = "SELECT * FROM educationinstitute where EducationInstituteName LIKE '%$doctorRegId%';";
         $query = $this->db->query($sql);
 
         $result = $query->result_array();
@@ -241,6 +293,37 @@ class DoctorListModel extends CI_Model {
         $ndata['editCheck'] = 1;
         return $ndata;
     }
+    
+    public function updateDoctorEducationGrade($data) {
+        $EducationGradeId = $data['EducationGradeId'];
+        $EducationMaxGrade = $data['EducationMaxGrade'];
+        $EducationMinGrade = $data['EducationMinGrade'];
+        $EducationShortName = $data['EducationShortName'];
+        $EditedBy = $data['EditedBy'];
+        $sql = "UPDATE educationgrade SET EducationMaxGrade='$EducationMaxGrade',EducationMinGrade='$EducationMinGrade',EducationShortName='$EducationShortName',EditedBy='$EditedBy' where EducationGradeId='$EducationGradeId'";
+        $query = $this->db->query($sql);
+        $ndata = $this->DoctorListModel->selectDoctorEducationGradeList();
+        $nsize = sizeof($ndata);
+        $ndata['size'] = $nsize;
+        $ndata['editCheck'] = 1;
+        return $ndata;
+    }
+    
+    public function updateDoctorEducationInstitute($data) {
+        $EducationInstituteId = $data['EducationInstituteId'];
+        $EducationInstituteName = $data['EducationInstituteName'];
+        $EducationInstituteAddress = $data['EducationInstituteAddress'];
+        $EducationInstituteContactNo = $data['EducationInstituteContactNo'];
+        $EducationInstituteEmail = $data['EducationInstituteEmail'];
+        $EditedBy = $data['EditedBy'];
+        $sql = "UPDATE educationinstitute SET EducationInstituteName='$EducationInstituteName',EducationInstituteAddress='$EducationInstituteAddress',EducationInstituteContactNo='$EducationInstituteContactNo',EditedBy='$EditedBy' where EducationInstituteId='$EducationInstituteId'";
+        $query = $this->db->query($sql);
+        $ndata = $this->DoctorListModel->selectDoctorEducationInstituteList();
+        $nsize = sizeof($ndata);
+        $ndata['size'] = $nsize;
+        $ndata['editCheck'] = 1;
+        return $ndata;
+    }
 
     public function updateClinic($data) {
         $ClinicId = $data['ClinicId'];
@@ -333,6 +416,22 @@ class DoctorListModel extends CI_Model {
 
     public function saveDoctorEducation($data) {
         if ($this->db->insert('education', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function saveDoctorEducationGrade($data) {
+        if ($this->db->insert('educationgrade', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function saveDoctorEducationInstitute($data) {
+        if ($this->db->insert('educationinstitute', $data)) {
             return true;
         } else {
             return false;

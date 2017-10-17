@@ -2,7 +2,7 @@
 <html lang="en">
 
     <?php
-        
+       // var_dump($leftMenu);
         echo $Header;
     ?>
     <body>
@@ -15,7 +15,8 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <br>
+                        
+                         <br>
                             <?php
                             $notify = $this->session->userdata('notifyuser');
 
@@ -40,7 +41,8 @@
                             }
                             ?>
                         
-                        <h1 class="page-header">Doctor Education Entry Form</h1>
+                        
+                        <h1 class="page-header">Add Doctor Education Grade</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -53,17 +55,17 @@
                             </div>
                             <div class="panel-body">
                                 <div class="row">
-                                    <form role="form" action="<?php echo base_url(); ?>DocList/doctorEducationInfo" method="post">
+                                    <form role="form" action="<?php echo base_url(); ?>DocList/doctorGrade" method="post">
                                         <div class="col-lg-6">
 
                                             <div class="form-group">
-                                                <label>Education Degree</label>
-                                                <input class="form-control" placeholder="Education Degree" name="EducationName" required="true">
+                                                <label>Education Max Grade</label>
+                                                <input class="form-control" placeholder="Education Max Grade" name="EducationMaxGrade" required="">
                                             </div>
 
                                             <div class="form-group">
-                                                <label>Education Short Name</label>
-                                                <input id="EducationShortName" class="form-control" placeholder="Education Short Name" name="EducationShortName">
+                                                <label>Education Min Grade</label>
+                                                <input id="EducationMinGrade" class="form-control" placeholder="Education Min Grade" name="EducationMinGrade">
                                             </div>
                                             
                                             <div class="form-group">
@@ -74,10 +76,10 @@
 
 
                                             <div class="form-group">
-                                                <label>Education Weight</label>
-                                                <input type="number" min="1" max="5" class="form-control" placeholder="Education Weight" name="EducationWeight" required="">
+                                                <label>Education Short Name</label>
+                                                <input class="form-control" placeholder="Education Short Name" name="EducationShortName" required="">
                                             </div>
-                                            
+
                                             <button id="saveDoctor" style="float: right" type="submit" class="btn btn-success right">Submit Button</button>
                                             <button style="float: right" type="reset" class="btn btn-bitbucket">Reset Button</button>        
 

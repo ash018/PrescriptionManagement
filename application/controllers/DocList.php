@@ -35,6 +35,16 @@ class DocList extends MY_Controller {
         }
     }
     
+    public function checkDoctorInstitute() {
+        $checkDoctor = $this->input->get("regisId");
+        $checkDoctor = $this->DoctorListModel->checkDoctorInstitute($checkDoctor);
+        if (sizeof($checkDoctor) > 0) {
+            echo 0;
+        } else {
+            echo 1;
+        }
+    }
+    
     public function checkClinicReg() {
         $checkClinic = $this->input->get("regisId");
         $checkClinic = $this->DoctorListModel->checkClinicRegistration($checkClinic);
@@ -87,6 +97,23 @@ class DocList extends MY_Controller {
         $data['doctorData'] = $this->DoctorListModel->checkDoctorId($doctorId);
         $data['allDoctor'] = $this->DoctorListModel->getAllDoctor();
         $doctorEditFrom = $this->load->view('doctor/doctor_edit', $data, TRUE);
+        echo $doctorEditFrom;
+    }
+    
+    public function getDoctorGradeData() {
+        $doctorGradeId = $this->input->get("doctorGradeId", TRUE);
+        $data['doctorData'] = $this->DoctorListModel->checkDoctorGradeId($doctorGradeId);
+       // $data['allDoctor'] = $this->DoctorListModel->getAllDoctor();
+        $doctorEditFrom = $this->load->view('doctor/doctor_grade_edit', $data, TRUE);
+        echo $doctorEditFrom;
+    }
+    
+    
+    public function getDoctorInstituteData() {
+        $doctorInstituteId = $this->input->get("doctorInstituteId", TRUE);
+        $data['doctorData'] = $this->DoctorListModel->checkDoctorInstituteId($doctorInstituteId);
+       // $data['allDoctor'] = $this->DoctorListModel->getAllDoctor();
+        $doctorEditFrom = $this->load->view('doctor/doctor_institute_edit', $data, TRUE);
         echo $doctorEditFrom;
     }
     
@@ -203,6 +230,71 @@ class DocList extends MY_Controller {
          }
          $this->session->set_userdata('notifyuser', $notice);
          redirect('DocList/showDoctorEducation');
+    }
+    
+    public function updateDoctorEducationGrade() {
+        $updateDoctorEducationGradeSave = array(
+            'EducationGradeId' => $this->input->post('EducationGradeId'),
+            'EducationMaxGrade' => $this->input->post('EducationMaxGrade'),
+            'EducationMinGrade' => $this->input->post('EducationMinGrade'),
+            'EducationShortName' => $this->input->post('EducationShortName'),
+            'EditedBy' => $this->session->userdata()['UserId']
+        );
+        $data = array();
+        $data['header'] = "Doctor Education Grade List";
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['listView'] = $this->DoctorListModel->updateDoctorEducationGrade($updateDoctorEducationGradeSave);
+        $result = $this->DoctorListModel->updateDoctorEducationGrade($updateDoctorEducationGradeSave);
+        //$this->load->view('doctor/doctorEducationList', $data);
+        $notice = array();
+         if ($result) {
+             $notice = array(
+                 'type' => 1,
+                 'message' => 'Education Grade Updated Successfully'
+             );
+         } else {
+             $notice = array(
+                 'type' => 0,
+                 'message' => 'Error Has Occurred, Please Insert Right Info'
+             );
+         }
+         $this->session->set_userdata('notifyuser', $notice);
+         redirect('DocList/doctorEducationGradeList');
+    }
+    
+    public function updateDoctorEducationInstitute() {
+        $updateDoctorEducationInstituteSave = array(
+            'EducationInstituteId' => $this->input->post('EducationInstituteId'),
+            'EducationInstituteName' => $this->input->post('EducationInstituteName'),
+            'EducationInstituteAddress' => $this->input->post('EducationInstituteAddress'),
+            'EducationInstituteContactNo' => $this->input->post('EducationInstituteContactNo'),
+            'EducationInstituteEmail' => $this->input->post('EducationInstituteEmail'),
+            'EditedBy' => $this->session->userdata()['UserId']
+        );
+        $data = array();
+        $data['header'] = "Doctor Education Grade List";
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['listView'] = $this->DoctorListModel->updateDoctorEducationInstitute($updateDoctorEducationInstituteSave);
+        $result = $this->DoctorListModel->updateDoctorEducationInstitute($updateDoctorEducationInstituteSave);
+        //$this->load->view('doctor/doctorEducationList', $data);
+        $notice = array();
+         if ($result) {
+             $notice = array(
+                 'type' => 1,
+                 'message' => 'Education Institute Updated Successfully'
+             );
+         } else {
+             $notice = array(
+                 'type' => 0,
+                 'message' => 'Error Has Occurred, Please Insert Right Info'
+             );
+         }
+         $this->session->set_userdata('notifyuser', $notice);
+         redirect('DocList/doctorEducationInstituteList');
     }
     
     public function updateClinic() {
@@ -370,23 +462,99 @@ class DocList extends MY_Controller {
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
         $data['listView'] = $this->DoctorListModel->selectDoctorEducationList();
-        //$this->load->view('doctor/doctorEducationList', $data);
         $result = $this->DoctorListModel->selectDoctorEducationList();
-//        $notice = array();
-//         if ($result) {
-//             $notice = array(
-//                 'type' => 1,
-//                 'message' => 'Information Edited Successfully !!'
-//             );
-//         } else {
-//             $notice = array(
-//                 'type' => 0,
-//                 'message' => 'Error Has Occurred, Please Insert Right Info'
-//             );
-//         }
-//         $this->session->set_userdata('notifyuser', $notice);
-         redirect('DocList/showDoctorEducation');
-        // $this->load->view('doctor/doctorEducationList', $data);
+        redirect('DocList/showDoctorEducation');
+    }
+    
+    public function doctorEducationGrade(){
+        $data['header'] = "Doctor Education Grade";
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        
+        $this->load->view('doctor/doctorEducationGrade',$data);
+    }
+    
+    public function doctorGrade(){
+        $typedata = array(
+            'EducationMaxGrade' => $this->input->post('EducationMaxGrade', TRUE),
+            'EducationMinGrade' => $this->input->post('EducationMinGrade', TRUE),
+            'EducationShortName' =>  $this->input->post('EducationShortName', TRUE),
+            'EntryBy' => $this->session->userdata()['UserId'],
+            'EditedBy' => '0'
+        );
+        
+        $result = $this->DoctorListModel->saveDoctorEducationGrade($typedata);
+        
+        $notice = array();
+         if ($result) {
+             $notice = array(
+                 'type' => 1,
+                 'message' => 'Education Grade Insertion Success'
+             );
+         } else {
+             $notice = array(
+                 'type' => 0,
+                 'message' => 'Error Has Occurred, Please Insert Right Info'
+             );
+         }
+         $this->session->set_userdata('notifyuser', $notice);
+         redirect('DocList/doctorEducationGrade');
+    }
+    
+    public function doctorEducationInstitute(){
+        $data['header'] = "Doctor Education Institute";
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        
+        $this->load->view('doctor/doctorEducationInstitute',$data);
+    }
+    
+    public function doctorInstitute(){
+        $typedata = array(
+            'EducationInstituteName' => $this->input->post('EducationInstituteName', TRUE),
+            'EducationInstituteAddress' => $this->input->post('EducationInstituteAddress', TRUE),
+            'EducationInstituteContactNo' =>  $this->input->post('EducationInstituteContactNo', TRUE),
+            'EducationInstituteEmail' =>  $this->input->post('EducationInstituteEmail', TRUE),
+            'EntryBy' => $this->session->userdata()['UserId'],
+            'EditedBy' => '0'
+        );
+        
+        $result = $this->DoctorListModel->saveDoctorEducationInstitute($typedata);
+        
+        $notice = array();
+         if ($result) {
+             $notice = array(
+                 'type' => 1,
+                 'message' => 'Education Institute Insertion Success'
+             );
+         } else {
+             $notice = array(
+                 'type' => 0,
+                 'message' => 'Error Has Occurred, Please Insert Right Info'
+             );
+         }
+         $this->session->set_userdata('notifyuser', $notice);
+         redirect('DocList/doctorEducationInstitute');
+    }
+    
+    public function doctorEducationGradeList(){
+        $data['header'] = "Doctor Education Grade List";
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['listView'] = $this->DoctorListModel->selectDoctorEducationGradeList();
+        $this->load->view('doctor/doctorEducationGradeList',$data);
+    }
+    
+    public function doctorEducationInstituteList(){
+        $data['header'] = "Doctor Education Institute List";
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['listView'] = $this->DoctorListModel->selectDoctorEducationInstituteList();
+        $this->load->view('doctor/doctorEducationInstituteList',$data);
     }
 
 }

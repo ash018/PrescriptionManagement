@@ -2,7 +2,7 @@
 <html lang="en">
 
     <?php
-        
+       // var_dump($leftMenu);
         echo $Header;
     ?>
     <body>
@@ -15,7 +15,8 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <br>
+                        
+                         <br>
                             <?php
                             $notify = $this->session->userdata('notifyuser');
 
@@ -40,7 +41,8 @@
                             }
                             ?>
                         
-                        <h1 class="page-header">Doctor Education Entry Form</h1>
+                        
+                        <h1 class="page-header">Add Doctor Education Institute</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -53,32 +55,37 @@
                             </div>
                             <div class="panel-body">
                                 <div class="row">
-                                    <form role="form" action="<?php echo base_url(); ?>DocList/doctorEducationInfo" method="post">
+                                    <form role="form" action="<?php echo base_url(); ?>DocList/doctorInstitute" method="post">
                                         <div class="col-lg-6">
 
                                             <div class="form-group">
-                                                <label>Education Degree</label>
-                                                <input class="form-control" placeholder="Education Degree" name="EducationName" required="true">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Education Short Name</label>
-                                                <input id="EducationShortName" class="form-control" placeholder="Education Short Name" name="EducationShortName">
+                                                <label>Education Institute Name</label>
+                                                <input class="form-control" placeholder="Education Institute Name" id="EducationInstituteName" name="EducationInstituteName" required="true">
                                             </div>
                                             
                                             <div class="form-group">
-                                                <div id="divDoctorRegistration" class="alert alert-danger" style="display: none;">
-                                                        This Registration ID Already Exist in the system
+                                                <div id="divDoctorEducationInstitute" class="alert alert-danger" style="display: none;">
+                                                        This Education Institute Already Exist in the system
                                                 </div>  
                                             </div>
 
-
                                             <div class="form-group">
-                                                <label>Education Weight</label>
-                                                <input type="number" min="1" max="5" class="form-control" placeholder="Education Weight" name="EducationWeight" required="">
+                                                <label>Education Institute Address</label>
+                                                <input id="EducationInstituteAddress" class="form-control" placeholder="Education Institute Address" name="EducationInstituteAddress">
                                             </div>
                                             
-                                            <button id="saveDoctor" style="float: right" type="submit" class="btn btn-success right">Submit Button</button>
+
+                                            <div class="form-group">
+                                                <label>Education Institute Contact No</label>
+                                                <input class="form-control" placeholder="Education Institute Contact No" name="EducationInstituteContactNo" required="">
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label>Education Institute Email</label>
+                                                <input id="EducationInstituteEmail" class="form-control" placeholder="Education Institute Email" name="EducationInstituteEmail">
+                                            </div>
+
+                                            <button id="saveDoctorInstitute" style="float: right" type="submit" class="btn btn-success right">Submit Button</button>
                                             <button style="float: right" type="reset" class="btn btn-bitbucket">Reset Button</button>        
 
                                         </div>
@@ -119,8 +126,8 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 var baseUrl = "<?php echo base_url(); ?>";
-                checkDoctorId(baseUrl);
-                checkContactNoId(baseUrl);
+                checkDoctorEducationInstituteName(baseUrl);
+                //checkContactNoId(baseUrl);
             });
         </script>
     </body>
