@@ -2,48 +2,52 @@
 <html lang="en">
 
     <?php
-       // var_dump($leftMenu);
-        echo $Header;
+    // var_dump($leftMenu);
+    echo $Header;
     ?>
-<body>
+    <body>
 
         <div id="wrapper">
 
-            <?php echo $leftMenu;?>
+            <?php echo $leftMenu; ?>
 
             <!-- Navigation -->
 
-             
+
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                    <?php if ($listView['editCheck'] == 1) { ?>
-                                <div class="alert alert-success alert-dismissable">
-                                    <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
-
-                                    <?php echo 'Successfully Updated Doctor Information'; ?>
-                                </div>
-                            <?php } ?>
-
-                            <?php if ($listView['editCheck'] == 2) { ?>
-                                <div class="alert alert-success alert-dismissable">
-                                    <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
-
-                                    <?php echo 'Successfully New Doctor Information Added'; ?>
-                                </div>
-                            <?php } ?>
-                            
-                             <?php if ($listView['editCheck'] == 3) { ?>
-                                <div class="alert alert-success alert-dismissable">
-                                    <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
-
-                                    <?php echo 'Successfully Deleted Doctor Information'; ?>
-                                </div>
-                            <?php } ?>
+                       
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
+                        
+                        <br>
+                            <?php
+                            $notify = $this->session->userdata('notifyuser');
+
+                            if (sizeof($notify) > 0 && $notify != '') {
+                                if ($notify['type'] == 1) {
+                                    ?>
+                                    <div class="alert alert-success alert-dismissable">
+                                        <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <?php echo $notify['message']; ?>
+                                    </div>
+                                    <?php
+                                }
+                                if ($notify['type'] == 0) {
+                                    ?>
+                                    <div class="alert alert-danger alert-dismissable">
+                                        <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <?php echo $notify['message']; ?>
+                                    </div>
+                                <?php
+                                }
+                                $this->session->unset_userdata('notifyuser');
+                            }
+                            ?>
+                        
                         <h1 class="page-header"> Doctor List </h1>
                     </div>
                     <!-- /.col-lg-12 -->
@@ -55,7 +59,7 @@
                             <div class="panel-heading">
                                 Basic Doctor Information 
                             </div>
-                            
+
 
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -67,7 +71,7 @@
                                             <th>Doctor Address</th>
                                             <th>Contact No</th>
                                             <th>Email Address</th>
-                                            <th colspan="2" style="text-align:center">Action</th>
+                                            <th colspan="3" style="text-align:center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -97,9 +101,12 @@
                                                         </button>
                                                     </td>
                                                     <td>
-                                                       
-                                                            <button id="<?php echo $row['DoctorId']; ?>"  class="btn btn-danger deleteDoctorGetData" data-toggle="modal" data-target="#myModalDelete" data-node="<?php echo $row['DoctorId']; ?>" style="margin-left: 30%">Delete</button>
-                                                        </form>
+
+                                                        <button id="<?php echo $row['DoctorId']; ?>"  class="btn btn-primary educationDoctorGetData" data-toggle="modal" data-target="#myModalDelete" data-node="<?php echo $row['DoctorId']; ?>" style="margin-left: 20%">Education Entry</button>
+                                                    </td>
+
+                                                    <td>
+                                                        <button id="<?php echo $row['DoctorId']; ?>"  class="btn btn-warning detailsDoctorGetData" data-toggle="modal" data-target="#myModalDetails" data-node="<?php echo $row['DoctorId']; ?>" style="margin-left: 20%">Details</button>
                                                     </td>
                                                 </tr>
                                                 <?php
@@ -127,17 +134,34 @@
 
                                     </div>
                                 </div>
-                                
+
                                 <div class="modal fade" id="myModalDelete" role="dialog">
                                     <div class="modal-dialog">
 
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title" style="text-align: center">Delete Doctor Information</h4>
+                                                <h4 class="modal-title" style="text-align: center">Enter Doctor Information</h4>
                                             </div>
                                             <div id="deleteDoctorModuleData" class="modal-body">
-                                                
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                <div class="modal fade" id="myModalDetails" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title" style="text-align: center">Doctor Details</h4>
+                                            </div>
+                                            <div id="detailsDoctorModuleData" class="modal-body">
+
                                             </div>
 
                                         </div>
@@ -171,7 +195,8 @@
             $(document).ready(function () {
                 var baseUrl = "<?php echo base_url(); ?>";
                 editDoctor(baseUrl);
-                deleteDoctor(baseUrl);
+                educationEntryDoctor(baseUrl);
+                detailsEducationDoctor(baseUrl)
             });
         </script>
 

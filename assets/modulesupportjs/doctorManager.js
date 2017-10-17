@@ -236,18 +236,14 @@ function editDoctorEducation(url){
                 success: function(data){
                     console.log('Return Data' + data);
                     $("#editDoctorEducationModuleData").append(data);
-//                    if(data == 0){
-//                        $("#divUserId").attr('style','display : block');
-//                        $("#saveUser").prop("disabled",true);
-//                    }
                 }
             });
     });
 }
 
-function deleteDoctor(url){
+function educationEntryDoctor(url){
     
-    $(".deleteDoctorGetData").on('click',function(){
+    $(".educationDoctorGetData").on('click',function(){
         var doctorId = $(this).attr("data-node");
         console.log("hello"+doctorId);
         $("#deleteDoctorModuleData").empty();
@@ -259,10 +255,24 @@ function deleteDoctor(url){
                 success: function(data){
                     console.log('Return Data' + data);
                     $("#deleteDoctorModuleData").append(data);
-//                    if(data == 0){
-//                        $("#divUserId").attr('style','display : block');
-//                        $("#saveUser").prop("disabled",true);
-//                    }
+                }
+            });
+    });
+}
+
+function detailsEducationDoctor(url){
+    $(".detailsDoctorGetData").on('click',function(){
+        var doctorId = $(this).attr("data-node");
+        console.log("details"+doctorId);
+        $("#detailsDoctorModuleData").empty();
+        $.ajax({
+                url: url+"DocList/getDoctorDataEducation",
+                type: "get",
+                data: "doctorId="+doctorId,
+                cache: false,
+                success: function(data){
+                    console.log('Return Data' + data);
+                    $("#detailsDoctorModuleData").append(data);
                 }
             });
     });
