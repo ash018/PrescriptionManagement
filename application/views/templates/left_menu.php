@@ -76,12 +76,67 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <li>
                                     <a href="<?php echo site_url('DocList') ?>">New Doctor Info Creation</a>
                                 </li>
-
+                                
                                 <li>
                                     <a href="<?php echo site_url('DocList/doctorList') ?>">Doctor List</a>
                                 </li>
+                                
+                                
                             </ul>
                         </li>
+                        
+                        
+                        <li class="">
+                            <a href="#">
+                                Education
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-third-level" aria-expanded="true" style="">
+                                <li>
+                                    <a href="<?php echo site_url('DocList/doctorEducation') ?>">Doctor Education</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="<?php echo site_url('DocList/doctorEducationList') ?>">Doctor Education List</a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        
+                        <li class="">
+                            <a href="#">
+                                Education Grade
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-third-level" aria-expanded="true" style="">
+                                <li>
+                                    <a href="<?php echo site_url('DocList/doctorEducationGrade') ?>">Doctor Education Grade</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="<?php echo site_url('DocList/doctorEducationGradeList') ?>">Doctor Education Grade List</a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        
+                        <li class="">
+                            <a href="#">
+                                Education Institute
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-third-level" aria-expanded="true" style="">
+                                <li>
+                                    <a href="<?php echo site_url('DocList/doctorEducationInstitute') ?>">Doctor Education Institute</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="<?php echo site_url('DocList/doctorEducationInstituteList') ?>">Doctor Education Institute List</a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+                        
                         
                         <li class="">
                             <a href="#">
