@@ -703,6 +703,85 @@ class DrugManagement extends MY_Controller {
         $this->session->set_userdata('notifyuser', $notice);
         redirect('DrugManagement/drugAppMethodList');
     }
+    
+    public function drugList(){
+        $data['header'] = 'Drug List';
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['allDrug'] = $this->DrugManagementModel->getAllDrug();
+        $this->load->view('drug_management/drug/drug_list', $data);
+    }
+    
+    public function drugCreate(){
+        $data['header'] = 'New Drug';
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['allCategory'] = $this->DrugManagementModel->getAllActiveCategoiry();
+        $data['allSubCategory'] = $this->DrugManagementModel->getAllActiveSubCategoiry();
+        $this->load->view('drug_management/drug/drug_create', $data);
+    }
+    
+    public function subCategoryAccordingToCategory(){
+        $categoryId = $this->input->get('categoryId', TRUE);
+        $data['allSubCategory'] = $this->DrugManagementModel->activeSubCategoiryToCategory($categoryId);
+        $dCategoryEditFrom = $this->load->view('drug_management/drug/category_wise_subcategory', $data, TRUE);
+        echo $dCategoryEditFrom;
+    }
+    
+    public function checkDrugName(){
+        $drugName = $this->input->post('drugName', TRUE);
+        $subCategoryId = $this->input->post('subCategoryId', TRUE);
+        $count = $this->DrugManagementModel->checkDrugName($drugName, $subCategoryId);
+         if (sizeof($count) > 0) {
+            echo 0;
+        } else {
+            echo 1;
+        }
+    }
+    
+    public function drugSave(){
+        $drugName = $this->input->post('DrugName', TRUE);
+        $drugSubcategoryId = $this->input->post('DrugSubcategoryId', TRUE);
+        $drugIsActive = $this->input->post('DrugIsActive', TRUE);
+        $entryBy = $this->session->userdata()['UserId'];
+
+        $data = array(
+            'DrugName' => $drugName,
+            'DrugSubcategoryId' => $drugSubcategoryId,
+            'DrugIsActive' => $drugIsActive,
+            'EntryBy' => $entryBy,
+            'EditedBy' => '0'
+        );
+
+        $result = $this->DrugManagementModel->saveDrug($data);
+        $notice = array();
+        if ($result) {
+            $notice = array(
+                'type' => 1,
+                'message' => 'Drug Create Successfully'
+            );
+        } else {
+            $notice = array(
+                'type' => 0,
+                'message' => 'Drug Creation Fail, Please Give All Informatoin'
+            );
+        }
+        $this->session->set_userdata('notifyuser', $notice);
+        redirect('DrugManagement/drugCreate');
+    }
+    
+    public function drugEdit(){
+        $drugId = $this->input->get('drugId', TRUE);
+        $data['drugEdit'] = $this->DrugManagementModel->getDrugData($drugId);
+        $dCategoryEditFrom = $this->load->view('drug_management/drug/drug_edit', $data, TRUE);
+        echo $dCategoryEditFrom;
+    }
+    
+    public function drugUpdate(){
+        
+    }
 }
 ?>
 

@@ -318,5 +318,65 @@ class DrugManagementModel extends CI_Model {
             return false; 
         }
     }
+    
+    public function getAllDrug(){
+        $sql = "SELECT A.DrugId as DrugId, A.DrugName as DrugName, A.DrugIsActive as DrugIsActive,  DATE_FORMAT(A.EntryDate,'%d/%m/%Y') as EntryDate, B.DrugSubcategoryName as DrugSubcategoryName FROM drug A , drugsubcategory as B where A.DrugSubcategoryId = B.DrugSubcategoryId;";
+        
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function getAllActiveCategoiry(){
+        $sql = "select DrugCategoryId, DrugCategoryName from drugcategory where DrugCategoryIsActive = '1';";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result; 
+    }
+    
+    public function getAllActiveSubCategoiry(){
+        $sql = "select DrugSubcategoryId, DrugSubcategoryName from drugsubcategory where DrugSubcategoryIsActive = '1';";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function activeSubCategoiryToCategory($categoryId){
+        $sql = "select DrugSubcategoryId, DrugSubcategoryName from drugsubcategory where DrugSubcategoryIsActive = '1' and DrugCategoryId = '$categoryId';";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+        
+    }
+    
+    public function saveDrug($data){
+        if($this->db->insert('drug',$data)){
+            return true;
+        }
+        else{
+            return false; 
+        }
+    }
+    
+    public function checkDrugName($dName, $dSunCategory){
+        $sql = "select * from drug where DrugName = '$dName' and DrugSubcategoryId = '$dSunCategory';";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function getDrugData($drugId){
+        $sql = "select A.DrugId as DrugId, A.DrugName as DrugName, A.DrugSubcategoryId as DrugSubcategoryId, B.DrugCategoryId as DrugCategoryId, A.DrugIsActive as DrugIsActive  from drug as A, drugcategory as B, drugsubcategory as C where  A.DrugSubcategoryId = C.DrugSubcategoryId and C.DrugCategoryId = B.DrugCategoryId and A.DrugId = '$drugId'; ";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
 }
 ?>
