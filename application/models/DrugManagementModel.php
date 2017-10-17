@@ -259,7 +259,7 @@ class DrugManagementModel extends CI_Model {
     
     public function getManufacturerIdData($manufacturerId){
         $sql = "SELECT ManufacturerId, ManufacturerName, ManufacturerPhone, ManufacturerEmail, ManufacturerWebsite, ManufacturerAddress, ManufacturerIsActive FROM manufacturer where ManufacturerId = '$manufacturerId';";
-         $query=$this->db->query($sql);
+        $query=$this->db->query($sql);
 
         $result = $query->result_array();
         return $result;
@@ -268,6 +268,50 @@ class DrugManagementModel extends CI_Model {
     public function updateManufacturer($data,$dCategoryId){
         $this->db->where('ManufacturerId', $dCategoryId);
         if($this->db->update('manufacturer', $data)){
+            return true; 
+        }
+        else{
+            return false; 
+        }
+    }
+    
+    public function getAllDrugAppliactionMethod(){
+        $sql = "SELECT DrugApplicationMethodId,DrugApplicationMethodName,DrugApplicationMethodIsActive, DATE_FORMAT(EntryDate,'%d/%m/%Y') as EntryDate FROM drugapplicationmethod;";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function checkDrugApplicationMethod($dAppName){
+        $sql = "SELECT DrugApplicationMethodId,DrugApplicationMethodName,DrugApplicationMethodIsActive FROM drugapplicationmethod where DrugApplicationMethodName = '$dAppName';";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function saveDrugAppMethod($data){
+        if($this->db->insert('drugapplicationmethod',$data)){
+            return true;
+        }
+        else{
+            return false; 
+        }
+    }
+    
+    public function getDrugAppMethodData($dAppMethodId){
+        $sql = "SELECT DrugApplicationMethodId,DrugApplicationMethodName,DrugApplicationMethodIsActive FROM drugapplicationmethod where DrugApplicationMethodId = '$dAppMethodId';";
+        
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function updateDrugAppMethod($data,$dCategoryId){
+        $this->db->where('DrugApplicationMethodId', $dCategoryId);
+        if($this->db->update('drugapplicationmethod', $data)){
             return true; 
         }
         else{

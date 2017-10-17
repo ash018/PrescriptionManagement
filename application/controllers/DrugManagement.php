@@ -611,27 +611,97 @@ class DrugManagement extends MY_Controller {
     }
     
     public function drugAppMethodList(){
-        
+        $data['header'] = 'Drug Application Method List';
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $data['allAppMethod'] = $this->DrugManagementModel->getAllDrugAppliactionMethod();
+        $this->load->view('drug_management/drug_app_method/app_method_list', $data);
     }
     
     public function drugAppMethodCreate(){
-        
+        $data['header'] = 'New Application Method';
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $this->load->view('drug_management/drug_app_method/app_method_create', $data); 
     }
     
     public function checkdrugAppMethodName(){
-        
+        $drugAppMethod = $this->input->get('drugAppMethod',TRUE);
+        $count = $this->DrugManagementModel->checkDrugApplicationMethod($drugAppMethod);
+        if (sizeof($count) > 0) {
+            echo 0;
+        } else {
+            echo 1;
+        }
     }
     
     public function drugAppMethodSave(){
-        
+        $manufacturerName = $this->input->post('DrugApplicationMethodName', TRUE);
+        $manufacturerIsActive = $this->input->post('DrugApplicationMethodIsActive', TRUE);
+        $entryBy = $this->session->userdata()['UserId'];
+
+        $data = array(
+            'DrugApplicationMethodName' => $manufacturerName,
+            'DrugApplicationMethodIsActive' => $manufacturerIsActive,
+            'EntryBy' => $entryBy,
+            'EditedBy' => '0'
+        );
+
+        $result = $this->DrugManagementModel->saveDrugAppMethod($data);
+        $notice = array();
+        if ($result) {
+            $notice = array(
+                'type' => 1,
+                'message' => 'Drug Application Method Creation Success'
+            );
+        } else {
+            $notice = array(
+                'type' => 0,
+                'message' => 'Drug Application Method Creation Fail, Please Give All Informatoin'
+            );
+        }
+        $this->session->set_userdata('notifyuser', $notice);
+        redirect('DrugManagement/drugAppMethodCreate');
     }
     
     public function drugAppMethodEdit(){
-        
+        $dAppMethodId = $this->input->get('dAppMethodId', TRUE);
+        $data['dAppMethod'] = $this->DrugManagementModel->getDrugAppMethodData($dAppMethodId);
+        $dCategoryEditFrom = $this->load->view('drug_management/drug_app_method/app_method_edit', $data, TRUE);
+
+        echo $dCategoryEditFrom;
     }
     
     public function drugAppMethodUpdate(){
-        
+        $manufacturerId = $this->input->post('DrugApplicationMethodId', TRUE);
+        $manufacturerName = $this->input->post('DrugApplicationMethodName', TRUE);
+        $manufacturerIsActive = $this->input->post('DrugApplicationMethodIsActive', TRUE);
+        $editedBy = $this->session->userdata()['UserId'];
+
+        $data = array(
+            'DrugApplicationMethodName' => $manufacturerName,
+            'DrugApplicationMethodIsActive' => $manufacturerIsActive,
+            'EditedBy' => $editedBy,
+            'EditedDate' => date('Y-m-d H:i:s')
+        );
+
+        $result = $this->DrugManagementModel->updateDrugAppMethod($data, $manufacturerId);
+        $notice = array();
+        if ($result) {
+            $notice = array(
+                'type' => 1,
+                'message' => 'Drug Application Method Update Successfully'
+            );
+        } else {
+            $notice = array(
+                'type' => 0,
+                'message' => 'Drug Application Method Update Fail, Please Give All Informatoin'
+            );
+        }
+        $this->session->set_userdata('notifyuser', $notice);
+        redirect('DrugManagement/drugAppMethodList');
     }
 }
 ?>
