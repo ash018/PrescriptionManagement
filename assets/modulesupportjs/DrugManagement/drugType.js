@@ -26,7 +26,6 @@ function checkDrugTypeName(url){
 function editDrugType(url){
     $(".editDTypeData").on('click',function(){
         var dTypeId = $(this).attr("data-node");
-        
         $("#editDtypeModuleData").empty();
         $.ajax({
                 url: url+"DrugManagement/drugTypeEdit",

@@ -150,6 +150,21 @@ class DocList extends MY_Controller {
     public function getDoctorDataDelete() {
         $doctorId = $this->input->get("doctorId", TRUE);
         $data['doctorData'] = $this->DoctorListModel->checkDoctorId($doctorId);
+        $data['educationData'] = $this->DoctorListModel->getAllDoctorEducation();
+        $data['educationGradeData'] = $this->DoctorListModel->selectDoctorEducationGradeList();
+        $data['educationInstituteData'] = $this->DoctorListModel->selectDoctorEducationInstituteList();
+        $data['allDoctor'] = $this->DoctorListModel->getAllDoctor();
+        $doctorDeleteFrom = $this->load->view('doctor/doctor_delete', $data, TRUE);
+        echo $doctorDeleteFrom;
+    }
+    
+    public function getDoctorDataEducation() {
+        $doctorId = $this->input->get("doctorId", TRUE);
+        $data['doctorData'] = $this->DoctorListModel->checkDoctorId($doctorId);
+        $data['doctorEducation'] = $this->DoctorListModel->checkDoctorEducation($doctorId);
+        $data['educationData'] = $this->DoctorListModel->getAllDoctorEducation();
+        $data['educationGradeData'] = $this->DoctorListModel->selectDoctorEducationGradeList();
+        $data['educationInstituteData'] = $this->DoctorListModel->selectDoctorEducationInstituteList();
         $data['allDoctor'] = $this->DoctorListModel->getAllDoctor();
         $doctorDeleteFrom = $this->load->view('doctor/doctor_delete', $data, TRUE);
         echo $doctorDeleteFrom;
@@ -555,6 +570,39 @@ class DocList extends MY_Controller {
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
         $data['listView'] = $this->DoctorListModel->selectDoctorEducationInstituteList();
         $this->load->view('doctor/doctorEducationInstituteList',$data);
+    }
+    
+    public function enterDoctorEducation(){
+        $typedata = array(
+            'DoctorId' => $this->input->post('DoctorId', TRUE),
+            'EducationId' => $this->input->post('EducationId', TRUE),
+            'EducationGradeId' =>  $this->input->post('EducationGradeId', TRUE),
+            'EducationInstituteId' =>  $this->input->post('EducationInstituteId', TRUE),
+            'PassingYear' => $this->input->post('PassingYear',TRUE),
+            'Campus' => $this->input->post('Campus',TRUE),
+            'DoctorGrade' => $this->input->post('DoctorGrade',TRUE),
+            'EntryBy' => $this->session->userdata()['UserId'],
+            'EditedBy' => '0'
+        );
+        
+        
+        
+        $result = $this->DoctorListModel->saveDoctorEducationData($typedata);
+        
+        $notice = array();
+         if ($result) {
+             $notice = array(
+                 'type' => 1,
+                 'message' => 'Doctor Education Insertion Success'
+             );
+         } else {
+             $notice = array(
+                 'type' => 0,
+                 'message' => 'Error Has Occurred, Please Insert Right Info'
+             );
+         }
+         $this->session->set_userdata('notifyuser', $notice);
+         redirect('DocList/doctorList');
     }
 
 }

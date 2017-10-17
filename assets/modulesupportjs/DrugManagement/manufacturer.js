@@ -8,8 +8,6 @@ function checkDrugCategoryName(url){
     });
     $("#ManufacturerName").focusout(function(){
         var manufacturerName = $(this).val();
-        
-        
         $.ajax({
                 url: url+"DrugManagement/checkManufacturerName",
                 type: "get",

@@ -68,8 +68,8 @@ class DoctorListModel extends CI_Model {
         $result = $query->result_array();
 
         $nsize = sizeof($result);
-        $result['size'] = $nsize;
-        $result['editCheck'] = 0;
+        //$result['size'] = $nsize;
+        //$result['editCheck'] = 0;
         return $result;
     }
 
@@ -125,6 +125,13 @@ class DoctorListModel extends CI_Model {
 
     public function checkDoctorEducationId($EducationId) {
         $sql = "SELECT * FROM education where EducationId = '$EducationId';";
+        $query = $this->db->query($sql);
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function checkDoctorEducationDetails($DoctorId) {
+        $sql = "SELECT * FROM doctoreducation where DoctorId = '$DoctorId';";
         $query = $this->db->query($sql);
         $result = $query->result_array();
         return $result;
@@ -416,6 +423,14 @@ class DoctorListModel extends CI_Model {
 
     public function saveDoctorEducation($data) {
         if ($this->db->insert('education', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function saveDoctorEducationData($data) {
+        if ($this->db->insert('doctoreducation', $data)) {
             return true;
         } else {
             return false;

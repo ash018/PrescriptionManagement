@@ -1,5 +1,5 @@
 <?php
-//var_dump($doctorData[0]);
+//var_dump($educationInstituteData);
 //exit();
 
 $doctorId = $doctorData[0]['DoctorId'];
@@ -12,64 +12,94 @@ $EntryBy = $doctorData[0]['EntryBy'];
 ?>
 <div class="panel panel-default">
     <div class="panel-heading">
-        Doctor - <?php echo  $doctorName;?>
+        Doctor - <?php echo $doctorName; ?>
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body">
-        <form id="editUser" class="form-group" method="post" enctype="multipart/form-data" action="<?php base_url() ?>deleteDoctor">
+        <form id="editUser" class="form-group" method="post" enctype="multipart/form-data" action="<?php base_url() ?>enterDoctorEducation">
 
             <div class="form-group center">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6">
-                        
+
                         <input type="hidden" class="form-control" id="DoctorId" name="DoctorId" value="<?php echo $doctorId; ?>" placeholder="Doctor Id" required="True">
                     </div>
 
                 </div>
             </div>
-            
-            <div class="form-group center">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        
-                        <h3>You Sure you want to delete all the information regarding <?php echo $doctorName?> ?</h3>
-                    </div>
 
-                </div>
-            </div>
-            
-            
-            <button type="submit" id="editUser" class="btn btn-danger">Delete</button>
-        </form>
-    </div>
-</div>
-<!--
             <div class="form-group">
+                <label>Education</label>
+                <select class="form-control" id="EducationId" name="EducationId">
+                    <?php 
+                        $i = sizeof($educationData);
+                        for($x=0;$x<$i;$x++){
+                        ?>
+                    <option  value="<?php echo $educationData[$x]["EducationId"];?>"><?php echo $educationData[$x]["EducationName"]?></option>
+                        <?php }?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Education Grade</label>
+                <select class="form-control" id="EducationGradeId" name="EducationGradeId">
+                    <?php 
+                        $i = sizeof($educationGradeData)-2;
+                        for($x=0;$x<$i;$x++){
+                        ?>
+                    <option  value="<?php echo $educationGradeData[$x]["EducationGradeId"];?>"><?php echo $educationGradeData[$x]["EducationShortName"]?></option>
+                        <?php }?>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Education Institute</label>
+                <select class="form-control" id="EducationInstituteId" name="EducationInstituteId">
+                    <?php 
+                        $i = sizeof($educationInstituteData);
+                        //for($x=0;$x<$i;$x++){
+                        foreach($educationInstituteData as $educationInstitute){
+                        ?>
+                    <option value="<?php echo $educationInstitute['EducationInstituteId'];?>"><?php echo $educationInstitute["EducationInstituteName"]?></option>
+                        <?php }?>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Passing Year</label>
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <label>Selects Doctor</label>
-                        <select class="form-control" id="DoctorId" name="DoctorId"  required="True">
-                            <option value="0" //<?php //if ($doctorId == 0) {
-//                                echo 'selected="selected"';
-//                            } ?> >Select</option>
-                            //<?php //foreach ($allDoctor as $doctor) { ?>
-                                <option value="//<?php //echo $doctor['DoctorId']; ?>" <?php //if ($doctorId != 0 && $doctorId == $doctor['DoctorId']) {
-//                                echo 'selected="selected"';
-//                            } ?>><?php //echo $doctor['DoctorName']; ?></option>
-                            //<?php //} ?>
-                        </select>
+                    <div class="col-sm-12">
+
+                        <input type="text" class="form-control" id="PassingYear" name="PassingYear"  placeholder="Passing Year" required="True">
                     </div>
+
+                </div>
+            </div>
+            
+            
+            <div class="form-group">
+                <label>Doctor Grade</label>
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        <input type="text" class="form-control" id="DoctorGrade" name="DoctorGrade"  placeholder="Doctor Grade" required="True">
+                    </div>
+
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Campus</label>
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        <input type="text" class="form-control" id="Campus" name="Campus"  placeholder="Campus" required="">
+                    </div>
+
                 </div>
             </div>
 
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="1" <?php //if ($isAdmin != '' && $isAdmin == 1) {echo 'checked="True"';
-//} ?> id="IsAdmin" name="IsAdmin">Is Admin
-                </label>
-            </div>
-
-            <button type="submit" id="editUser" class="btn btn-primary">Update</button>
+            <button type="submit" id="editUser" class="btn btn-danger">Enter</button>
         </form>
     </div>
 </div>
