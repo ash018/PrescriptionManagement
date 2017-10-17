@@ -2,12 +2,13 @@
  * Drug Module Related js
  */
 function checkDrugCategoryName(url) {
-    $("#DrugSubcategoryId").focusin(function () {
+    $("#selectItemCategory , DrugSubcategoryId").focusin(function () {
         $("#divDcategoryName").attr('style', 'display : none');
         $("#saveDcategory").prop("disabled", false);
+
     });
-    $("#DrugSubcategoryId").focusout(function () {
-        var dSubCategoryId = $(this).select().val();
+    $("#selectItemCategory , DrugSubcategoryId").focusout(function () {
+        var dSubCategoryId = $("#DrugSubcategoryId").select().val();
         var drugName = $("#DrugName").val();
 
         $.ajax({
@@ -24,7 +25,35 @@ function checkDrugCategoryName(url) {
         });
     });
 }
+function checkDrugName(baseUrl, drugName, dSubCategoryId) {
+    $("#selectItemCategory , DrugSubcategoryId").focusin(function () {
+        $("#divDcategoryName").attr('style', 'display : none');
+        $("#saveDcategory").prop("disabled", false);
 
+    });
+    $("#selectItemCategory , DrugSubcategoryId").focusout(function () {
+        var dSubCatId = $("#DrugSubcategoryId").select().val();
+        var dName = $("#DrugName").val();
+
+        if (drugName != dName && dSubCategoryId != dSubCatId) {
+            console.log(dName + "--" + dSubCatId);
+            $.ajax({
+                url: baseUrl + "DrugManagement/checkDrugName?",
+                type: "get",
+                data: "drugName=" + dName + "&subCategoryId=" + dSubCatId,
+                cache: false,
+                success: function (data) {
+                    if (data == 0) {
+                        $("#divDcategoryName").attr('style', 'display : block');
+                        $("#saveDcategory").prop("disabled", true);
+                    }
+                }
+            });
+        }
+
+    });
+
+}
 function subCategoryAccordingtoCategory(url) {
     $("#DrugCategoryId").change(function () {
         var categoryId = $(this).select().val();
@@ -34,12 +63,11 @@ function subCategoryAccordingtoCategory(url) {
             type: "get",
             data: "categoryId=" + categoryId,
             cache: false,
-            success: function(data) {
-                
+            success: function (data) {
+
                 $("#selectItemCategory").append(data);
             }
         });
-
     });
 }
 
@@ -48,7 +76,7 @@ function editDrug(url) {
         var drugId = $(this).attr("data-node");
         $("#editDcategoryModuleData").empty();
         $.ajax({
-            url: url + "DrugManagement/",
+            url: url + "DrugManagement/drugEdit",
             type: "get",
             data: "drugId=" + drugId,
             cache: false,

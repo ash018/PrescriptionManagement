@@ -378,5 +378,14 @@ class DrugManagementModel extends CI_Model {
         return $result;
     }
     
+    public function drugUpdate($data, $drugId){
+        $this->db->where('DrugId', $drugId);
+        if($this->db->update('drug', $data)){
+            return true; 
+        }
+        else{
+            return false; 
+        }
+    }
 }
 ?>

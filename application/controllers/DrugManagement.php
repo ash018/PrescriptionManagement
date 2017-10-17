@@ -731,8 +731,9 @@ class DrugManagement extends MY_Controller {
     }
     
     public function checkDrugName(){
-        $drugName = $this->input->post('drugName', TRUE);
-        $subCategoryId = $this->input->post('subCategoryId', TRUE);
+        $drugName = $this->input->get('drugName', TRUE);
+        $subCategoryId = $this->input->get('subCategoryId', TRUE);
+        
         $count = $this->DrugManagementModel->checkDrugName($drugName, $subCategoryId);
          if (sizeof($count) > 0) {
             echo 0;
@@ -775,12 +776,42 @@ class DrugManagement extends MY_Controller {
     public function drugEdit(){
         $drugId = $this->input->get('drugId', TRUE);
         $data['drugEdit'] = $this->DrugManagementModel->getDrugData($drugId);
+        $data['allCategory'] = $this->DrugManagementModel->getAllActiveCategoiry();
+        $data['allSubCategory'] = $this->DrugManagementModel->getAllActiveSubCategoiry();
         $dCategoryEditFrom = $this->load->view('drug_management/drug/drug_edit', $data, TRUE);
         echo $dCategoryEditFrom;
     }
     
     public function drugUpdate(){
-        
+        $drugId = $this->input->post('DrugId', TRUE);
+        $drugName = $this->input->post('DrugName', TRUE);
+        $drugSubcategoryId = $this->input->post('DrugSubcategoryId', TRUE);
+        $drugIsActive = $this->input->post('DrugIsActive', TRUE);
+        $editedBy = $this->session->userdata()['UserId'];
+
+        $data = array(
+            'DrugName' => $drugName,
+            'DrugSubcategoryId' => $drugSubcategoryId,
+            'DrugIsActive' => $drugIsActive,
+            'EditedBy' => $editedBy,
+            'EditedDate' => date('Y-m-d H:i:s')
+        );
+
+        $result = $this->DrugManagementModel->drugUpdate($data, $drugId);
+        $notice = array();
+        if ($result) {
+            $notice = array(
+                'type' => 1,
+                'message' => 'Drug Update Successfully'
+            );
+        } else {
+            $notice = array(
+                'type' => 0,
+                'message' => 'Drug Update Fail, Please Give All Informatoin'
+            );
+        }
+        $this->session->set_userdata('notifyuser', $notice);
+        redirect('DrugManagement/drugList');
     }
 }
 ?>
