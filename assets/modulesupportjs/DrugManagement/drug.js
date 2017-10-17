@@ -73,6 +73,9 @@ function subCategoryAccordingtoCategory(url) {
 
 function editDrug(url) {
     $(".editDrug").on('click', function () {
+        //$("#modalTitleControll").empty();
+        $("#editDcategoryModuleData").empty();
+        $("#modalTitleControll").text("Edit Drug");
         var drugId = $(this).attr("data-node");
         $("#editDcategoryModuleData").empty();
         $.ajax({
@@ -111,4 +114,15 @@ function checkDrugSubCategory(url, subCategoryName, categoryId) {
         }
 
     });
+}
+
+function drugDetails(url){
+    $(".drugDetail").on('click',function(){
+         $("#modalTitleControll").text("Drug Detail");
+         $("#editDcategoryModuleData").empty();
+    });
+}
+
+function addManufacturer(url){
+    
 }

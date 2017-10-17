@@ -64,6 +64,5 @@ function checkDrugSubCategory(url, subCategoryName, categoryId){
                 }
             }); 
         }
-        
     });
 }

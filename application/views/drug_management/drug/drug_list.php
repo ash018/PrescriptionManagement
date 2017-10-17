@@ -77,7 +77,7 @@
                                                     <td class="center"><?php echo $dsub['EntryDate']; ?></td>
                                                     <td class="center">
                                                         <input type="button" class="btn btn-primary editDrug" data-toggle="modal" data-target="#myModal" data-node="<?php echo $dsub['DrugId']; ?>" value="Edit"/>
-                                                        <input type="button" class="btn btn-info drugDetail" data-toggle="modal" data-target="#myModal" data-node="<?php echo $dsub['DrugId']; ?>" value="Details"/>
+                                                        <input type="button" class="btn btn-info drugDetail" data-toggle="modal" data-target="#myModal" data-node="<?php echo $dsub['DrugId']; ?>" value="view"/>
                                                         <input type="button" class="btn  btn-warning addManufacturer" data-toggle="modal" data-target="#myModal" data-node="<?php echo $dsub['DrugId']; ?>" value="Add Manufacturer"/>
                                                     </td>
                                                 </tr>
@@ -94,7 +94,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 id="modalTitleControll" class="modal-title" style="text-align: center">Edit Drug</h4>
+                                                    <h4 id="modalTitleControll" class="modal-title" style="text-align: center"></h4>
                                                 </div>
                                                 <div id="editDcategoryModuleData" class="modal-body">
 
@@ -123,6 +123,8 @@
             $(document).ready(function () {
                 var baseUrl = "<?php echo base_url(); ?>";
                 editDrug(baseUrl);
+                drugDetails(baseUrl);
+                addManufacturer(baseUrl);    
 
             });
         </script>
