@@ -428,5 +428,22 @@ class DrugManagementModel extends CI_Model {
             return false; 
         }
     }
+    
+    public function drugWiseManufacturerList($drugId){
+        
+        $sql = "SELECT A.ManufacturerDrugId as ManufacturerDrugId, F.ManufacturerName as ManufacturerName,
+                C.DrugTypeName as  DrugTypeName, D.DrugFormName as DrugFormName, B.DrugName as DrugName, 
+                A.ManufacturerDrugName as ManufacturerDrugName, A.DrugStrengthUnit as DrugStrengthUnit, 
+                E.DrugStrengthUnitCode as DrugStrengthUnitCode,  DATE_FORMAT(A.EntryDate,'%d/%m/%Y') as EntryDate FROM manufacturerdrug as A, 
+                drug as B, drugtype as C, drugform as D,
+                drugstrengthunit as E, manufacturer as F where A.DrugId = B.DrugId 
+                and B.DrugId = '$drugId' and A.ManufacturerDrugId = F.ManufacturerId 
+                and A.DrugStrengthUnitID = E.DrugStrengthUnitId and A.DrugFormId = D.DrugFormId 
+                and A.DrugTypeId = C.DrugTypeId;";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+      }
 }
 ?>

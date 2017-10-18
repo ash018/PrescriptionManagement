@@ -833,29 +833,17 @@ class DrugManagement extends MY_Controller {
         $data['allDrugStrengthUnit']= $this->DrugManagementModel->allDrugStrengthUnit();
         
         $this->load->view('drug_management/drug/add_manufacturer', $data);
-        
-        //`ManufacturerId`,
-        //`DrugTypeId`,
-        //`DrugFormId`,
-        //`DrugId`,
-        //`ManufacturerDrugName`,
-        //`DrugStrengthUnitID`,
-        //`DrugStrengthUnit`,
-        
-        
-//        `ManufacturerId`,
-//        `DrugTypeId`,
-//        `DrugFormId`,
-//        `DrugId`,
-//        `ManufacturerDrugName`,
-//        `DrugStrengthUnitID`,
-//        `DrugStrengthUnit`,
-//        `EntryBy`,
-//        `EditedBy`
-        
     }
     
     public function drugDetail(){
+        $drugId = $this->input->get('drugId',TRUE);
+        
+        $data['header'] = 'Drug Manufacturer Information';
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        
+        
         
     }
     
@@ -899,6 +887,21 @@ class DrugManagement extends MY_Controller {
         $this->session->set_userdata('notifyuser', $notice);
         redirect('DrugManagement/drugList');
     }
+    
+    public function drugWiseManufacturerList(){
+        $drugId = $this->input->get('drugId',TRUE);
+        
+        $data['header'] = 'Drug Wise ManufactureList';
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        
+        $data['drug'] = $this->DrugManagementModel->getDrugData($drugId);
+        $data['dManuFacturerList'] = $this->DrugManagementModel->drugWiseManufacturerList($drugId);
+        
+        $this->load->view('drug_management/drug/drug_wise_manufacturer_list', $data);
+    }
+    
 }
 ?>
 
