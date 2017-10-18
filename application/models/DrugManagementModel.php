@@ -387,5 +387,63 @@ class DrugManagementModel extends CI_Model {
             return false; 
         }
     }
+    
+    public function allManufacturer(){
+        $sql = "SELECT ManufacturerId, ManufacturerName FROM manufacturer  where ManufacturerIsActive = '1' ;";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function allDrugType(){
+        $sql = "SELECT DrugTypeId, DrugTypeName FROM drugtype where DrugTypeIsActive = '1';";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function allDrugForm(){
+        $sql = "SELECT DrugFormId, DrugFormName FROM drugform where DrugFormIsActive = '1' ;";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function allDrugStrengthUnit(){
+        $sql = "SELECT DrugStrengthUnitId, DrugStrengthUnitName, DrugStrengthUnitCode FROM drugstrengthunit where DrugStrengthUnitIsActive = '1' ;";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function saveDrugManufacturer($data){
+        if($this->db->insert('manufacturerdrug',$data)){
+            return true;
+        }
+        else{
+            return false; 
+        }
+    }
+    
+    public function drugWiseManufacturerList($drugId){
+        
+        $sql = "SELECT A.ManufacturerDrugId as ManufacturerDrugId, F.ManufacturerName as ManufacturerName,
+                C.DrugTypeName as  DrugTypeName, D.DrugFormName as DrugFormName, B.DrugName as DrugName, 
+                A.ManufacturerDrugName as ManufacturerDrugName, A.DrugStrengthUnit as DrugStrengthUnit, 
+                E.DrugStrengthUnitCode as DrugStrengthUnitCode,  DATE_FORMAT(A.EntryDate,'%d/%m/%Y') as EntryDate FROM manufacturerdrug as A, 
+                drug as B, drugtype as C, drugform as D,
+                drugstrengthunit as E, manufacturer as F where A.DrugId = B.DrugId 
+                and B.DrugId = '$drugId' and A.ManufacturerDrugId = F.ManufacturerId 
+                and A.DrugStrengthUnitID = E.DrugStrengthUnitId and A.DrugFormId = D.DrugFormId 
+                and A.DrugTypeId = C.DrugTypeId;";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+      }
 }
 ?>

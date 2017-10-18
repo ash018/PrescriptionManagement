@@ -33,16 +33,18 @@
                                 $this->session->unset_userdata('notifyuser');
                             }
                             ?>
-                            <h1 class="page-header">Drug List</h1>
+                            <h1 class="page-header">Manufacturer List</h1>
                             
                             <ol class="breadcrumb">
                             <li>
                                 <a href="<?php echo base_url().'Dashboard'?>">Home</a>
                             </li>
-                            <li class="active">
-                                <a href="<?php echo base_url().'DrugManagement/drugList'?>"><strong>Drug List</strong></a>
+                            <li>
+                                <a href="<?php echo base_url().'DrugManagement/drugList'?>">Drug List</a>
                             </li>
-                            
+                            <li class="active">
+                                <strong>Drug Wise Manufacturer List</strong>
+                            </li>
                         </ol>
                         </div>
                     </div>
@@ -52,7 +54,7 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    All Drug
+                                   Drug - Manufacturer List
                                 </div>
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
@@ -61,9 +63,13 @@
                                         <thead>
                                             <tr>
                                                 <th class="center">SL</th>
-                                                <th class="center">Drug Name</th>
-                                                <th class="center">Drug Sub Category</th>
-                                                <th class="center">Status</th>
+                                                <th class="center">Manufacturer</th>
+                                                <th class="center">Type</th>
+                                                <th class="center">Drug</th>
+                                                <th class="center">Manufacturer Drug</th>
+                                                <th class="center">Strength</th>
+                                                <th class="center">Unit</th>
+                                                <th class="center">Country</th>
                                                 <th class="center">Creation Date</th>
                                                 <th class="center">Actions</th>
                                             </tr>
@@ -71,26 +77,24 @@
                                         <tbody>
                                             <?php
                                             $c = 1;
-                                            foreach ($allDrug as $dsub) {
+                                            foreach ($dManuFacturerList as $dManu) {
                                                 ?>
                                                 <tr class="odd gradeX">
+                                                    
                                                     <td class="center"><?php echo $c; ?></td>
-                                                    <td class="center"><?php echo $dsub['DrugName']; ?></td>
-                                                    <td class="center"><?php echo $dsub['DrugSubcategoryName']; ?></td>
-                                                    <td class="center"><?php
-                                                        if ($dsub['DrugIsActive'] == 1) {
-                                                            echo 'Active';
-                                                        } else {
-                                                            echo 'Inactive';
-                                                        }
-                                                        ?></td>
-                                                    <td class="center"><?php echo $dsub['EntryDate']; ?></td>
+                                                    <td class="center"><?php echo $dManu['ManufacturerName']; ?></td>
+                                                    <td class="center"><?php echo $dManu['DrugTypeName']; ?></td>
+                                                    
+                                                    <td class="center"><?php echo $dManu['DrugName']; ?></td>
+                                                    <td class="center"><?php echo $dManu['ManufacturerDrugName']; ?></td>
+                                                    <td class="center"><?php echo $dManu['DrugStrengthUnit']; ?></td>
+                                                    
+                                                    <td class="center"><?php echo $dManu['DrugStrengthUnitCode']; ?></td>
+                                                    <td class="center"><?php echo $dManu['DrugFormName']; ?></td>
+                                                    
+                                                    <td class="center"><?php echo $dManu['EntryDate']; ?></td>
                                                     <td class="center">
-                                                        <input type="button" class="btn btn-outline btn-primary editDrug" data-toggle="modal" data-target="#myModal" data-node="<?php echo $dsub['DrugId']; ?>" value="Edit"/>
-<!--                                                        <input type="button" class="btn btn-info drugDetail" data-toggle="modal" data-target="#myModal" data-node="<?php //echo $dsub['DrugId']; ?>" value="view"/>-->
-                                                        <a href="<?php echo base_url().'DrugManagement/drugDetail?drugId='.$dsub['DrugId']?>" class="btn btn-outline btn-primary" type="button">view</a>
-                                                        <a href="<?php echo base_url().'DrugManagement/addManufacturer?drugId='.$dsub['DrugId']?>" class="btn btn-outline btn-primary" type="button">Add Manufacturer</a>
-                                                        <a href="<?php echo base_url().'DrugManagement/drugWiseManufacturerList?drugId='.$dsub['DrugId']?>" class="btn btn-outline btn-primary" type="button">Drug wise Manufacturer List</a>
+                                                        <input type="button" class="btn btn-outline btn-primary editDrug" data-toggle="modal" data-target="#myModal" data-node="<?php echo $dManu['ManufacturerDrugId']; ?>" value="Edit"/>
                                                     </td>
                                                 </tr>
                                                 <?php

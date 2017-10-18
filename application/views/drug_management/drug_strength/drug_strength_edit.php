@@ -6,7 +6,7 @@ $isActive = $dStrength[0]['DrugStrengthUnitIsActive'];
 ?>
 <div class="panel panel-default">
     <div class="panel-heading">
-        Drug Strength Name - <?php echo $dTypeName; ?>
+        Strength Name - <?php echo $dTypeName; ?>
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body">
