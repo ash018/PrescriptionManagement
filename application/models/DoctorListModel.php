@@ -30,6 +30,13 @@ class DoctorListModel extends CI_Model {
 
         return $result;
     }
+    
+    public function selectDoctorWithId($doctorId) {
+        $sql = "Select * FROM doctor where DoctorId='$doctorId'";
+        $query = $this->db->query($sql);
+        $result = $query->result_array();
+        return $result;
+    }
 
     public function selectDoctorEducationList() {
 
@@ -461,5 +468,7 @@ class DoctorListModel extends CI_Model {
 
         return $result;
     }
+    
+    
 
 }

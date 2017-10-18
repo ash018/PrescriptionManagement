@@ -156,12 +156,13 @@ class DocList extends MY_Controller {
         $data['allDoctor'] = $this->DoctorListModel->getAllDoctor();
         $doctorDeleteFrom = $this->load->view('doctor/doctor_delete', $data, TRUE);
         echo $doctorDeleteFrom;
+        $this->load->view('doctor/doctor_delete', $data, TRUE);
     }
     
     public function getDoctorDataEducation() {
         $doctorId = $this->input->get("doctorId", TRUE);
         $data['doctorData'] = $this->DoctorListModel->checkDoctorId($doctorId);
-        $data['doctorEducation'] = $this->DoctorListModel->checkDoctorEducation($doctorId);
+        $data['doctorEducation'] = $this->DoctorListModel->checkDoctorEducationDetails($doctorId);
         $data['educationData'] = $this->DoctorListModel->getAllDoctorEducation();
         $data['educationGradeData'] = $this->DoctorListModel->selectDoctorEducationGradeList();
         $data['educationInstituteData'] = $this->DoctorListModel->selectDoctorEducationInstituteList();
@@ -575,7 +576,7 @@ class DocList extends MY_Controller {
     public function enterDoctorEducation(){
         $typedata = array(
             'DoctorId' => $this->input->post('DoctorId', TRUE),
-            'EducationId' => $this->input->post('EducationId', TRUE),
+            'EducationId' => $this->input->post('EducationId[]', TRUE),
             'EducationGradeId' =>  $this->input->post('EducationGradeId', TRUE),
             'EducationInstituteId' =>  $this->input->post('EducationInstituteId', TRUE),
             'PassingYear' => $this->input->post('PassingYear',TRUE),
@@ -584,8 +585,13 @@ class DocList extends MY_Controller {
             'EntryBy' => $this->session->userdata()['UserId'],
             'EditedBy' => '0'
         );
+        $na = array();
+        $na["educationInstitute"] =  $_POST["educationInstitute"];
+        $na["DoctorGrade"] = $_POST["DoctorGrade"];
         
-        
+        var_dump($na);
+        var_dump($typedata);
+        exit();
         
         $result = $this->DoctorListModel->saveDoctorEducationData($typedata);
         
@@ -603,6 +609,20 @@ class DocList extends MY_Controller {
          }
          $this->session->set_userdata('notifyuser', $notice);
          redirect('DocList/doctorList');
+    }
+    
+    public function entryEduDocWithId(){  
+      $id = $this->uri->segment(3);
+      $data =  array();
+      $data['header'] = "Doctor Education Grade List";
+      $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+      $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+      $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+      $data['listView'] = $this->DoctorListModel->selectDoctorWithId($id);
+      $data['educationData'] = $this->DoctorListModel->getAllDoctorEducation();
+      $data['educationGradeData'] = $this->DoctorListModel->selectDoctorEducationGradeList();
+      $data['educationInstituteData'] = $this->DoctorListModel->selectDoctorEducationInstituteList();
+      $this->load->view('doctor/viewDoctor',$data);
     }
 
 }
