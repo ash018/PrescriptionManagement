@@ -7,7 +7,7 @@
             <?php echo $leftMenu; ?>
             <div id="page-wrapper">
                 <div class="container-fluid">
-                    <div class="row">
+                    <div class="row wrapper border-bottom white-bg page-heading">
                         <div class="col-lg-12">
                             <br/>
                             <?php
@@ -34,6 +34,16 @@
                             }
                             ?>
                             <h1 class="page-header">Drug List</h1>
+                            
+                            <ol class="breadcrumb">
+                            <li>
+                                <a href="<?php echo base_url().'Dashboard'?>">Home</a>
+                            </li>
+                            <li class="active">
+                                <a href="<?php echo base_url().'DrugManagement/drugList'?>"><strong>Drug List</strong></a>
+                            </li>
+                            
+                        </ol>
                         </div>
                     </div>
                     <?php ?>
@@ -76,9 +86,11 @@
                                                         ?></td>
                                                     <td class="center"><?php echo $dsub['EntryDate']; ?></td>
                                                     <td class="center">
-                                                        <input type="button" class="btn btn-primary editDrug" data-toggle="modal" data-target="#myModal" data-node="<?php echo $dsub['DrugId']; ?>" value="Edit"/>
-                                                        <input type="button" class="btn btn-info drugDetail" data-toggle="modal" data-target="#myModal" data-node="<?php echo $dsub['DrugId']; ?>" value="view"/>
-                                                        <input type="button" class="btn  btn-warning addManufacturer" data-toggle="modal" data-target="#myModal" data-node="<?php echo $dsub['DrugId']; ?>" value="Add Manufacturer"/>
+                                                        <input type="button" class="btn btn-outline btn-primary editDrug" data-toggle="modal" data-target="#myModal" data-node="<?php echo $dsub['DrugId']; ?>" value="Edit"/>
+<!--                                                        <input type="button" class="btn btn-info drugDetail" data-toggle="modal" data-target="#myModal" data-node="<?php //echo $dsub['DrugId']; ?>" value="view"/>-->
+                                                        <a href="<?php echo base_url().'DrugManagement/drugDetail?drugId='.$dsub['DrugId']?>" class="btn btn-outline btn-primary" type="button">view</a>
+                                                        <a href="<?php echo base_url().'DrugManagement/addManufacturer?drugId='.$dsub['DrugId']?>" class="btn btn-outline btn-primary" type="button">Add Manufacturer</a>
+                                                        <a href="<?php echo base_url().'DrugManagement/drugWiseManufacturerList?drugId='.$dsub['DrugId']?>" class="btn btn-outline btn-primary" type="button">Drug wise Manufacturer List</a>
                                                     </td>
                                                 </tr>
                                                 <?php
@@ -123,8 +135,7 @@
             $(document).ready(function () {
                 var baseUrl = "<?php echo base_url(); ?>";
                 editDrug(baseUrl);
-                drugDetails(baseUrl);
-                addManufacturer(baseUrl);    
+                    
 
             });
         </script>

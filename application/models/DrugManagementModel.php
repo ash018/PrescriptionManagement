@@ -387,5 +387,46 @@ class DrugManagementModel extends CI_Model {
             return false; 
         }
     }
+    
+    public function allManufacturer(){
+        $sql = "SELECT ManufacturerId, ManufacturerName FROM manufacturer  where ManufacturerIsActive = '1' ;";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function allDrugType(){
+        $sql = "SELECT DrugTypeId, DrugTypeName FROM drugtype where DrugTypeIsActive = '1';";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function allDrugForm(){
+        $sql = "SELECT DrugFormId, DrugFormName FROM drugform where DrugFormIsActive = '1' ;";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function allDrugStrengthUnit(){
+        $sql = "SELECT DrugStrengthUnitId, DrugStrengthUnitName, DrugStrengthUnitCode FROM drugstrengthunit where DrugStrengthUnitIsActive = '1' ;";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function saveDrugManufacturer($data){
+        if($this->db->insert('manufacturerdrug',$data)){
+            return true;
+        }
+        else{
+            return false; 
+        }
+    }
 }
 ?>

@@ -813,6 +813,92 @@ class DrugManagement extends MY_Controller {
         $this->session->set_userdata('notifyuser', $notice);
         redirect('DrugManagement/drugList');
     }
+    
+    public function addManufacturer(){
+        
+        $drugId = $this->input->get('drugId',TRUE);
+        
+        $data['header'] = 'Add Drug Manufacturer';
+        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
+        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        
+        $data['drug'] = $this->DrugManagementModel->getDrugData($drugId);
+        $data['allCategory'] = $this->DrugManagementModel->getAllActiveCategoiry();
+        $data['allSubCategory'] = $this->DrugManagementModel->getAllActiveSubCategoiry();
+        
+        $data['allManufacturer']= $this->DrugManagementModel->allManufacturer();
+        $data['allDrugType']= $this->DrugManagementModel->allDrugType();
+        $data['allDrugForm']= $this->DrugManagementModel->allDrugForm();
+        $data['allDrugStrengthUnit']= $this->DrugManagementModel->allDrugStrengthUnit();
+        
+        $this->load->view('drug_management/drug/add_manufacturer', $data);
+        
+        //`ManufacturerId`,
+        //`DrugTypeId`,
+        //`DrugFormId`,
+        //`DrugId`,
+        //`ManufacturerDrugName`,
+        //`DrugStrengthUnitID`,
+        //`DrugStrengthUnit`,
+        
+        
+//        `ManufacturerId`,
+//        `DrugTypeId`,
+//        `DrugFormId`,
+//        `DrugId`,
+//        `ManufacturerDrugName`,
+//        `DrugStrengthUnitID`,
+//        `DrugStrengthUnit`,
+//        `EntryBy`,
+//        `EditedBy`
+        
+    }
+    
+    public function drugDetail(){
+        
+    }
+    
+    public function drugManufacturerSave(){
+        
+        $manufacturerId = $this->input->post('ManufacturerId', TRUE);
+        $drugTypeId = $this->input->post('DrugTypeId', TRUE);
+        $drugFormId = $this->input->post('DrugFormId', TRUE);
+        $drugId = $this->input->post('DrugId', TRUE);
+        $manufacturerDrugName = $this->input->post('ManufacturerDrugName', TRUE);
+        $drugStrengthUnitID = $this->input->post('DrugStrengthUnitID', TRUE);
+        $drugStrengthUnit = $this->input->post('DrugStrengthUnit', TRUE);
+        
+        $entryBy = $this->session->userdata()['UserId'];
+
+        $data = array(
+            'ManufacturerId' => $manufacturerId,
+            'DrugTypeId' => $drugTypeId,
+            'DrugFormId' => $drugFormId,
+            'DrugId' => $drugId,
+            'ManufacturerDrugName' => $manufacturerDrugName,
+            'DrugStrengthUnitID' => $drugStrengthUnitID,
+            'DrugStrengthUnit' => $drugStrengthUnit,
+            'EntryBy' => $entryBy,
+            'EditedBy' => '0'
+        );
+
+        $result = $this->DrugManagementModel->saveDrugManufacturer($data);
+        $notice = array();
+        if ($result) {
+            $notice = array(
+                'type' => 1,
+                'message' => 'Drug Manufacturer Create Successfully'
+            );
+        } else {
+            $notice = array(
+                'type' => 0,
+                'message' => 'Drug Manufacturer Fail, Please Give All Informatoin'
+            );
+        }
+        $this->session->set_userdata('notifyuser', $notice);
+        redirect('DrugManagement/drugList');
+    }
 }
 ?>
 

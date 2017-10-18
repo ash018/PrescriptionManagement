@@ -116,7 +116,7 @@ function checkDrugSubCategory(url, subCategoryName, categoryId) {
     });
 }
 
-function drugDetails(url){
+/*function drugDetails(url){
     $(".drugDetail").on('click',function(){
          $("#modalTitleControll").text("Drug Detail");
          $("#editDcategoryModuleData").empty();
@@ -124,5 +124,21 @@ function drugDetails(url){
 }
 
 function addManufacturer(url){
-    
-}
+    $(".addManufacturer").on('click',function(){
+         $("#modalTitleControll").text("Add Manufacturer");
+         $("#editDcategoryModuleData").empty();
+         var drugId = $(this).attr("data-node");
+         $.ajax({
+                url: url + "DrugManagement/addManufacturer",
+                type: "get",
+                data: "drugId=" + drugId ,
+                cache: false,
+                success: function (data) {
+                    if (data == 0) {
+                        $("#divDcategoryName").attr('style', 'display : block');
+                        $("#saveDcategory").prop("disabled", true);
+                    }
+                }
+            });
+    });
+}*/
