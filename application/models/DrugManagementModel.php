@@ -445,5 +445,27 @@ class DrugManagementModel extends CI_Model {
         $result = $query->result_array();
         return $result;
       }
+      
+      public function drugManufecturereEdit($dManufeId){
+        $sql = "SELECT ManufacturerDrugId, ManufacturerId, DrugTypeId, DrugFormId, DrugId, ManufacturerDrugName, DrugStrengthUnitID, DrugStrengthUnit FROM manufacturerdrug where ManufacturerDrugId = '$dManufeId';";
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+      }
+      
+      public function getDrugAccordingToManufecturer($drugManuId){
+        $sql = "select A.DrugId as DrugId, 
+                A.DrugName as DrugName, A.DrugSubcategoryId as DrugSubcategoryId, 
+                B.DrugCategoryId as DrugCategoryId, A.DrugIsActive as DrugIsActive  
+                from drug as A, drugcategory as B, drugsubcategory as C 
+                where  A.DrugSubcategoryId = C.DrugSubcategoryId and 
+                C.DrugCategoryId = B.DrugCategoryId and A.DrugId = ( SELECT DrugId FROM manufacturerdrug where ManufacturerDrugId = '$drugManuId' limit 1); ";
+        
+        $query=$this->db->query($sql);
+
+        $result = $query->result_array();
+        return $result;
+      }
 }
 ?>

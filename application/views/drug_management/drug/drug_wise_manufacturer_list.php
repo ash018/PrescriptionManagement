@@ -33,7 +33,7 @@
                                 $this->session->unset_userdata('notifyuser');
                             }
                             ?>
-                            <h1 class="page-header">Manufacturer List</h1>
+                            <h1 class="page-header"><?php echo $drug[0]['DrugName'];?> Manufacturer List</h1>
                             
                             <ol class="breadcrumb">
                             <li>
@@ -110,7 +110,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 id="modalTitleControll" class="modal-title" style="text-align: center"></h4>
+                                                    <h4 id="modalTitleControll" class="modal-title" style="text-align: center">Edit <?php echo $drug[0]['DrugName'];?>  Manufacture</h4>
                                                 </div>
                                                 <div id="editDcategoryModuleData" class="modal-body">
 
@@ -138,9 +138,7 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 var baseUrl = "<?php echo base_url(); ?>";
-                editDrug(baseUrl);
-                    
-
+                editDrugManufacturer(baseUrl);
             });
         </script>
     </body>
