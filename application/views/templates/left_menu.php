@@ -170,13 +170,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </li>
                             </ul>
                         </li>
-                        
-                        
-
                     </ul>
 
                 </li>
-                <li class="">
+                <li <?php if(isset($active) && $active == 'drug' ){echo 'class="active"';}?>>
                     <a href="#">
                         <i class="fa fa-sitemap fa-fw"></i>
                         Drug Management
@@ -231,7 +228,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </ul>
                         </li>
                         
-                        <li class="">
+                        <li <?php if(isset($active) && $active == 'drug' ){echo 'class="active"';}?> >
                             <a href="#">
                                 Drug
                                 <span class="fa arrow"></span>
