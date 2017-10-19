@@ -14,6 +14,8 @@ class DocList extends MY_Controller {
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        
+        $data['allClinic'] = $this->DoctorListModel->getAllClinic();
         $this->load->view('doctor/docInfoCreation', $data);
     }
     
@@ -96,6 +98,8 @@ class DocList extends MY_Controller {
         $doctorId = $this->input->get("doctorId", TRUE);
         $data['doctorData'] = $this->DoctorListModel->checkDoctorId($doctorId);
         $data['allDoctor'] = $this->DoctorListModel->getAllDoctor();
+        $data['allClinic'] = $this->DoctorListModel->getAllClinic();
+        $data['doctorClinic'] = $this->DoctorListModel->getDoctorClinic($doctorId);
         $doctorEditFrom = $this->load->view('doctor/doctor_edit', $data, TRUE);
         echo $doctorEditFrom;
     }
@@ -178,41 +182,59 @@ class DocList extends MY_Controller {
     }
 
     public function doctorInfo() {
+        $clinicList = $this->input->post('DoctorClinic',TRUE);
+        
         $doctorSave = array(
-            'DoctorName' => $this->input->post('DoctorName'),
-            'DoctorAddress' => $this->input->post('DoctorAddress'),
-            'DoctorEmailAddress' => $this->input->post('DoctorEmailAddress'),
-            'DoctorRegistrationNo' => $this->input->post('DoctorRegistrationNo'),
-            'DoctorContactNo' => $this->input->post('DoctorContactNo'),
+            'DoctorName' => $this->input->post('DoctorName',TRUE),
+            'DoctorAddress' => $this->input->post('DoctorAddress',TRUE),
+            'DoctorEmailAddress' => $this->input->post('DoctorEmailAddress',TRUE),
+            'DoctorRegistrationNo' => $this->input->post('DoctorRegistrationNo',TRUE),
+            'DoctorContactNo' => $this->input->post('DoctorContactNo',TRUE),
             'EntryBy' => $this->session->userdata()['UserId'],
         );
+        
+        
         $data = array();
         $data['page_title'] = "Doctor List";
         $data['Header'] = $this->load->view('templates/header', $data, TRUE);
         $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
         $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-        $data['listView'] = $this->DoctorListModel->insertDoctor($doctorSave);
+        $data['listView'] = $this->DoctorListModel->insertDoctor($doctorSave,$clinicList);
         $this->load->view('doctor/doctorList', $data);
+        
+        redirect('doctor/doctorList');
     }
 
     public function updateDoctor() {
-        $updateDoctorSave = array(
-            'DoctorId' => $this->input->post('DoctorId'),
+        $doctorId = $this->input->post('DoctorId',TRUE);
+        $clinicList = $this->input->post('DoctorClinic',TRUE);
+        $data = array(
             'DoctorName' => $this->input->post('DoctorName'),
             'DoctorRegistrationNo' => $this->input->post('DoctorRegistrationNo'),
             'DoctorAddress' => $this->input->post('DoctorAddress'),
             'DoctorContactNo' => $this->input->post('DoctorContactNo'),
             'DoctorEmailAddress' => $this->input->post('DoctorEmailAddress'),
-            'EntryBy' => $this->input->post('EntryBy'),
-            'EditedBy' => $this->session->userdata()['UserId']
+            'EditedBy' => $this->session->userdata()['UserId'],
+            'EditedDate' => date('Y-m-d H:i:s')
         );
-        $data = array();
-        $data['header'] = "Doctor List";
-        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
-        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
-        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-        $data['listView'] = $this->DoctorListModel->updateDoctor($updateDoctorSave);
-        $this->load->view('doctor/doctorList', $data);
+        
+        $result = $this->DoctorListModel->updateDoctor($data,$doctorId);
+        $updateResult = $this->DoctorListModel->updateDoctorClinic($doctorId, $clinicList);
+        
+        $notice = array();
+        if ($result && $updateResult) {
+            $notice = array(
+                'type' => 1,
+                'message' => 'Update Doctor  Successfully'
+            );
+        } else {
+            $notice = array(
+                'type' => 0,
+                'message' => 'Doctor Update Fail, Please Give All Informatoin'
+            );
+        }
+        $this->session->set_userdata('notifyuser', $notice);
+        redirect('DocList/doctorList');
     }
     
     public function updateDoctorEducation() {

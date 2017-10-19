@@ -58,13 +58,7 @@
                                             <button style="float: right" type="reset" class="btn btn-bitbucket">Reset Button</button>     
 
                                         </div>
-                                        <!-- /.col-lg-6 (nested) -->
-                                        <div class="col-lg-6">
-                                            
-                                            
-
-                                        </div>
-                                        <!-- /.col-lg-6 (nested) -->
+                                        
                                     </form>
                                 </div>
                                 <!-- /.row (nested) -->
