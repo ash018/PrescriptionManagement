@@ -49,15 +49,11 @@ class DoctorListModel extends CI_Model {
 
     public function selectDoctorEducationList() {
 
-        $sql = "Select * FROM education";
+        $sql = "Select EducationId, EducationName, EducationShortName, EducationWeight, DATE_FORMAT(EntryDate,'%d/%m/%Y') as EntryDate FROM education;";
 
         $query = $this->db->query($sql);
 
         $result = $query->result_array();
-
-        $nsize = sizeof($result);
-        $result['size'] = $nsize;
-        $result['editCheck'] = 0;
         return $result;
     }
     
@@ -76,46 +72,26 @@ class DoctorListModel extends CI_Model {
     }
     
     public function selectDoctorEducationInstituteList(){
-        
-        $sql = "Select * FROM educationinstitute";
-
+        $sql = "Select EducationInstituteId, EducationInstituteName, EducationInstituteContactNo, EducationInstituteEmail,  DATE_FORMAT(EntryDate,'%d/%m/%Y') as EntryDate FROM educationinstitute;";
         $query = $this->db->query($sql);
-
         $result = $query->result_array();
-
-        $nsize = sizeof($result);
-        //$result['size'] = $nsize;
-        //$result['editCheck'] = 0;
+        
         return $result;
     }
 
     public function selectClinicTypeList() {
-
-        $sql = "Select * FROM clinictype";
+        $sql = "Select ClinicTypeId, ClinicType, DATE_FORMAT(EntryDate,'%d/%m/%Y') as EntryDate FROM clinictype ;";
 
         $query = $this->db->query($sql);
-
         $result = $query->result_array();
-
-        $nsize = sizeof($result);
-        $result['size'] = $nsize;
-        $result['editCheck'] = 0;
 
         return $result;
     }
 
     public function selectClinicList() {
-
-        $sql = "Select * FROM clinic";
-
+        $sql = "Select ClinicId, ClinicRegistrationNo, ClinicName, ClinicContactNumber, ClinicEmailAddress, DATE_FORMAT(EntryDate,'%d/%m/%Y') as EntryDate  FROM clinic;";
         $query = $this->db->query($sql);
-
         $result = $query->result_array();
-
-        $nsize = sizeof($result);
-        $result['size'] = $nsize;
-        $result['editCheck'] = 0;
-
 
         return $result;
     }
@@ -437,17 +413,8 @@ class DoctorListModel extends CI_Model {
     }
 
     public function insertClinic($data) {
-
-
         if ($this->db->insert('clinic', $data)) {
-
-
-            $ndata = $this->DoctorListModel->getAllClinic();
-            $nsize = sizeof($ndata);
-            $ndata['size'] = $nsize;
-            $ndata['editCheck'] = 4;
-            return $ndata;
-            
+            return true;
         } else {
             return false;
         }

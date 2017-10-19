@@ -84,9 +84,10 @@
                                                 <label>Education Institute Email</label>
                                                 <input id="EducationInstituteEmail" class="form-control" placeholder="Education Institute Email" name="EducationInstituteEmail">
                                             </div>
-
-                                            <button id="saveDoctorInstitute" style="float: right" type="submit" class="btn btn-success right">Submit Button</button>
-                                            <button style="float: right" type="reset" class="btn btn-bitbucket">Reset Button</button>        
+                                            
+                                            <button type="reset" class="btn btn-danger">Reset</button> 
+                                            <button id="saveDoctorInstitute" type="submit" class="btn btn-primary">Submit</button>
+                                                   
 
                                         </div>
                                         <!-- /.col-lg-6 (nested) -->

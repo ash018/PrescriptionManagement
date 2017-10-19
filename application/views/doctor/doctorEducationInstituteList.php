@@ -2,52 +2,52 @@
 <html lang="en">
 
     <?php
-       // var_dump($leftMenu);
-        echo $Header;
+    // var_dump($leftMenu);
+    echo $Header;
     ?>
-<body>
+    <body>
 
         <div id="wrapper">
 
-            <?php echo $leftMenu;?>
+            <?php echo $leftMenu; ?>
 
             <!-- Navigation -->
 
-             
+
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                   
+
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        
-                         <br>
-                            <?php
-                            $notify = $this->session->userdata('notifyuser');
 
-                            if (sizeof($notify) > 0 && $notify != '') {
-                                if ($notify['type'] == 1) {
-                                    ?>
-                                    <div class="alert alert-success alert-dismissable">
-                                        <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
-                                        <?php echo $notify['message']; ?>
-                                    </div>
-                                    <?php
-                                }
-                                if ($notify['type'] == 0) {
-                                    ?>
-                                    <div class="alert alert-danger alert-dismissable">
-                                        <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
+                        <br>
+                        <?php
+                        $notify = $this->session->userdata('notifyuser');
+
+                        if (sizeof($notify) > 0 && $notify != '') {
+                            if ($notify['type'] == 1) {
+                                ?>
+                                <div class="alert alert-success alert-dismissable">
+                                    <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
                                     <?php echo $notify['message']; ?>
-                                    </div>
+                                </div>
                                 <?php
-                                }
-                                $this->session->unset_userdata('notifyuser');
                             }
-                            ?>
-                        
+                            if ($notify['type'] == 0) {
+                                ?>
+                                <div class="alert alert-danger alert-dismissable">
+                                    <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <?php echo $notify['message']; ?>
+                                </div>
+                                <?php
+                            }
+                            $this->session->unset_userdata('notifyuser');
+                        }
+                        ?>
+
                         <h1 class="page-header"> Doctor Education Institute List </h1>
                     </div>
                     <!-- /.col-lg-12 -->
@@ -59,7 +59,7 @@
                             <div class="panel-heading">
                                 Basic Doctor Information 
                             </div>
-                            
+
 
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -68,7 +68,6 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Education Institute Name</th>
-                                            <th>Education Institute Address</th>
                                             <th>Education Institute Contact No</th>
                                             <th>Education Institute Email</th>
                                             <th>Entry By</th>
@@ -76,40 +75,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php
-                                        //echo $size;
-                                        $x = 0;
-                                        //var_dump($listView['editCheck']);
-                                        $size = ($listView['size']);
-                                        //while($x<$size){        
-
-                                        $i = sizeof($listView) - 2;
-                                        //var_dump(sizeof($listView));
-                                        //exit();
+                                        <?php $x = 1;
                                         foreach ($listView as $row) {
-                                            if ($i > 0) {
-                                                $x+=1;
-                                                ?>
-                                            <tbody>
-                                                <tr>
-                                                    <td><?php echo $x; ?></td>
-                                                    <td><?php echo $row['EducationInstituteName']; ?></td>
-                                                    <td><?php echo $row['EducationInstituteAddress']; ?></td>
-                                                    <td><?php echo $row['EducationInstituteContactNo']; ?></td>
-                                                     <td><?php echo $row['EducationInstituteEmail']; ?></td>
-                                                    <td><?php echo $row['EntryBy']; ?></td>
-                                                    <td>
-                                                        <button id="<?php echo $row['EducationInstituteId']; ?>" class="btn btn-info btn-adn  editDoctorGetData" style="margin-left: 30%" data-toggle="modal"
-                                                                data-target="#myModal" data-node="<?php echo $row['EducationInstituteId']; ?>">Edit
-                                                        </button>
-                                                    </td>
-
-                                                </tr>
-                                                <?php
-                                            }
-
-                                            $i -= 1;
-                                        }
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $x; ?></td>
+                                                <td><?php echo $row['EducationInstituteName']; ?></td>
+                                                <td><?php echo $row['EducationInstituteContactNo']; ?></td>
+                                                <td><?php echo $row['EducationInstituteEmail']; ?></td>
+                                                <td><?php echo $row['EntryDate']; ?></td>
+                                                <td>
+                                                    <button id="<?php echo $row['EducationInstituteId']; ?>" class="btn btn-info btn-adn  editDoctorGetData" style="margin-left: 30%" data-toggle="modal"
+                                                            data-target="#myModal" data-node="<?php echo $row['EducationInstituteId']; ?>">Edit
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        <?php $x++;}
                                         ?>
                                     </tbody>
                                 </table>
@@ -120,7 +101,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title" style="text-align: center">Edit Doctor Education Grade List Information</h4>
+                                                <h4 class="modal-title" style="text-align: center">Edit Doctor Education Grade Information</h4>
                                             </div>
                                             <div id="editDoctorEducationInstituteListModuleData" class="modal-body">
 
@@ -130,9 +111,6 @@
 
                                     </div>
                                 </div>
-                                
-                                
-
                                 <div class="well">
 
                                 </div>

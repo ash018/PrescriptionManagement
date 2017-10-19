@@ -80,8 +80,9 @@
                                                 <input class="form-control" placeholder="Education Short Name" name="EducationShortName" required="">
                                             </div>
 
-                                            <button id="saveDoctor" style="float: right" type="submit" class="btn btn-success right">Submit Button</button>
-                                            <button style="float: right" type="reset" class="btn btn-bitbucket">Reset Button</button>        
+                                            <button  type="reset" class="btn btn-danger">Reset</button>        
+                                            <button id="saveDoctor" type="submit" class="btn btn-primary right">Submit</button>
+                                            
 
                                         </div>
                                         <!-- /.col-lg-6 (nested) -->

@@ -402,20 +402,29 @@ class DocList extends MY_Controller {
         $this->load->view('doctor/clinicInfoCreation', $data);
     }
     public function clinicInfo() {
-        $clinicSave = array(
+        $data = array(
             'ClinicName' => $this->input->post('ClinicName'),
             'ClinicAddress' => $this->input->post('ClinicAddress'),
             'ClinicEmailAddress' => $this->input->post('ClinicEmailAddress'),
             'ClinicContactNumber' => $this->input->post('ClinicContactNumber'),
             'EntryBy' => $this->session->userdata()['UserId']
         );
-        $data = array();
-        $data['header'] = "Clinic Info";
-        $data['Header'] = $this->load->view('templates/header', $data, TRUE);
-        $data['leftMenu'] = $this->load->view('templates/left_menu', '', TRUE);
-        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-        $data['listView'] = $this->DoctorListModel->insertClinic($clinicSave);
-        $this->load->view('doctor/clinicList', $data);
+        
+        $result = $this->DoctorListModel->insertClinic($data);
+        $notice = array();
+        if ($result) {
+            $notice = array(
+                'type' => 1,
+                'message' => 'Drug Type Creation Success'
+            );
+        } else {
+            $notice = array(
+                'type' => 0,
+                'message' => 'Drug Type Creation Fail, Please Give All Informatoin'
+            );
+        }
+        $this->session->set_userdata('notifyuser', $notice);
+        redirect('DocList/clinicInfoCreate');
     }
     
     public function clinicTypeCreate(){
@@ -611,8 +620,6 @@ class DocList extends MY_Controller {
         $dedu["EntryBy"] = $this->session->userdata()['UserId'];
         $dedu["EditedBy"] = '0';
         $isize = sizeof($dedu["education"]);
-//        var_dump($dedu);
-//        exit();
         
         $result = $this->DoctorListModel->saveDoctorEducationData($dedu,$isize);
         
@@ -668,13 +675,11 @@ class DocList extends MY_Controller {
                  'message' => 'No Education has inserted for this Doctor'
              );
          }
-      
-//      var_dump($data);
-//      exit();
+
       $data['educationData'] = $this->DoctorListModel->getAllDoctorEducation();
       $data['educationGradeData'] = $this->DoctorListModel->selectDoctorEducationGradeList();
       $data['educationInstituteData'] = $this->DoctorListModel->selectDoctorEducationInstituteList();
-      //$this->load->view('doctor/doctorEducationDetails',$data);
+      
       $this->session->set_userdata('notifyuser', $notice);
       $this->load->view('doctor/doctorEducationDetails',$data);
     }
