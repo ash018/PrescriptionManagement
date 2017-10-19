@@ -100,17 +100,14 @@
                                                                 data-target="#myModal" data-node="<?php echo $row['DoctorId']; ?>">Edit
                                                         </button>
                                                     </td>
-                                                    <td>
-
-                                                        <button id="<?php echo $row['DoctorId']; ?>"  class="btn btn-primary educationDoctorGetData" data-toggle="modal" data-target="#myModalDelete" data-node="<?php echo $row['DoctorId']; ?>" style="margin-left: 20%">Education Entry</button>
-                                                    </td>
+                                                   
                                                     
                                                     <td>
                                                         <a href="<?php echo base_url() ?>DocList/entryEduDocWithId/<?php echo $row['DoctorId'];?>" id="<?php echo $row['DoctorId']; ?>"  class="btn btn-primary educationDoctorGetData" data-toggle="modal"  data-node="<?php echo $row['DoctorId']; ?>" style="margin-left: 20%">Education Entry</a>
                                                     </td>
 
                                                     <td>
-                                                        <button id="<?php echo $row['DoctorId']; ?>"  class="btn btn-warning detailsDoctorGetData" data-toggle="modal" data-target="#myModalDetails" data-node="<?php echo $row['DoctorId']; ?>" style="margin-left: 20%">Details</button>
+                                                        <a href="<?php echo base_url() ?>DocList/detailsEduDocWithId/<?php echo $row['DoctorId'];?>" id="<?php echo $row['DoctorId']; ?>"  class="btn btn-warning detailsDoctorGetData" data-toggle="modal" data-node="<?php echo $row['DoctorId']; ?>" style="margin-left: 20%">Details</a>
                                                     </td>
                                                 </tr>
                                                 <?php
