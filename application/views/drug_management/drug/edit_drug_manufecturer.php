@@ -69,7 +69,7 @@
                     <select id="DrugTypeId" name="DrugTypeId" class="form-control" required="True">
                         <option value="0">Select</option>
                         <?php foreach ($allDrugType as $dType) { ?>
-                            <option value="<?php echo $dType['DrugTypeId']; ?>"><?php echo $dType['DrugTypeName'] ?></option>
+                            <option value="<?php echo $dType['DrugTypeId']; ?>" <?php if($drugTypeId == $dType['DrugTypeId']){echo 'selected="selected"';}?> ><?php echo $dType['DrugTypeName'] ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -114,8 +114,8 @@
                     </select>
                 </div>
 
-                <button type="reset" class="btn btn-danger">Reset</button>
-                <button type="submit" id="saveDcategory" class="btn btn-primary">Save</button>
+                
+                <button type="submit" id="saveDcategory" class="btn btn-primary">Update</button>
             </form>
         </div>
     </div>

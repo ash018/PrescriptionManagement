@@ -907,8 +907,6 @@ class DrugManagement extends MY_Controller {
     public function editDrugManufecturer(){
         $drugManuId = $this->input->get('drugManuId',TRUE);
         
-        
-        
         $data['drugEdit'] = $this->DrugManagementModel->getDrugAccordingToManufecturer($drugManuId);
         $data['allCategory'] = $this->DrugManagementModel->getAllActiveCategoiry();
         $data['allSubCategory'] = $this->DrugManagementModel->getAllActiveSubCategoiry();
@@ -916,6 +914,7 @@ class DrugManagement extends MY_Controller {
         $data['allManufacturer']= $this->DrugManagementModel->allManufacturer();
         $data['allDrugType']= $this->DrugManagementModel->allDrugType();
         $data['allDrugForm']= $this->DrugManagementModel->allDrugForm();
+        $data['allDrugStrengthUnit']= $this->DrugManagementModel->allDrugStrengthUnit();
         $data['dManuFe'] = $this->DrugManagementModel->drugManufecturereEdit($drugManuId);
         $editpage = $this->load->view('drug_management/drug/edit_drug_manufecturer',$data,TRUE);
         
@@ -923,7 +922,45 @@ class DrugManagement extends MY_Controller {
     }
     
     public function drugManufacturerUpdate(){
+        $manufacturerDrugId =  $this->input->post('ManufacturerDrugId', TRUE);
+        $manufacturerId = $this->input->post('ManufacturerId', TRUE);
+        $drugTypeId = $this->input->post('DrugTypeId', TRUE);
+        $drugFormId = $this->input->post('DrugFormId', TRUE);
+        $drugId = $this->input->post('DrugId', TRUE);
+        $manufacturerDrugName = $this->input->post('ManufacturerDrugName', TRUE);
+        $drugStrengthUnitID = $this->input->post('DrugStrengthUnitID', TRUE);
+        $drugStrengthUnit = $this->input->post('DrugStrengthUnit', TRUE);
         
+        $editedBy = $this->session->userdata()['UserId'];
+
+        $data = array(
+            'ManufacturerId' => $manufacturerId,
+            'DrugTypeId' => $drugTypeId,
+            'DrugFormId' => $drugFormId,
+            'DrugId' => $drugId,
+            'ManufacturerDrugName' => $manufacturerDrugName,
+            'DrugStrengthUnitID' => $drugStrengthUnitID,
+            'DrugStrengthUnit' => $drugStrengthUnit,
+            'EditedBy' => $editedBy,
+            'EditedDate' => date('Y-m-d H:i:s')
+        );
+        
+        $result = $this->DrugManagementModel->drugManufacturerUpdate($data, $manufacturerDrugId);
+        
+        $notice = array();
+        if ($result) {
+            $notice = array(
+                'type' => 1,
+                'message' => 'Drug Manufacturer Updated Successfully'
+            );
+        } else {
+            $notice = array(
+                'type' => 0,
+                'message' => 'Drug Manufacturer Update Fail, Please Give All Informatoin'
+            );
+        }
+        $this->session->set_userdata('notifyuser', $notice);
+        redirect('DrugManagement/drugWiseManufacturerList?drugId='.$drugId);
     }
 }
 ?>

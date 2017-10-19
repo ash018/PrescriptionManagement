@@ -467,5 +467,15 @@ class DrugManagementModel extends CI_Model {
         $result = $query->result_array();
         return $result;
       }
+      
+      public function drugManufacturerUpdate($data, $drugId){
+           $this->db->where('ManufacturerDrugId', $drugId);
+        if($this->db->update('manufacturerdrug', $data)){
+            return true; 
+        }
+        else{
+            return false; 
+        }
+      }
 }
 ?>
