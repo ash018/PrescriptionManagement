@@ -77,6 +77,7 @@
                                         <?php
                                         $x = 1;
                                         foreach ($listView as $row) {
+
                                             ?>
                                             <tr class="odd gradeX">
                                                 <td><?php echo $x; ?></td>
@@ -93,6 +94,7 @@
                                             </tr>
                                             <?php $x++;
                                         } ?>
+
                                     </tbody>
                                 </table>
 
