@@ -30,18 +30,30 @@ class DoctorListModel extends CI_Model {
 
         return $result;
     }
+    
+    public function selectDoctorWithId($doctorId) {
+        $sql = "Select * FROM doctor where DoctorId='$doctorId'";
+        $query = $this->db->query($sql);
+        $result = $query->result_array();
+        return $result;
+    }
+    
+    public function selectDoctorEducationDetailsWithId($doctorId) {
+        $sql = "select c.DoctorName,b.EducationName,a.DoctorId,a.EducationId,d.EducationInstituteName,a.DoctorGrade,a.PassingYear,a.Campus
+                from education b , doctoreducation a, doctor c, educationinstitute d, educationgrade e
+                where b.EducationId = a.EducationId and c.DoctorId=a.DoctorId and d.EducationInstituteId=a.EducationInstituteId and a.EducationGradeId = e.EducationGradeId and a.DoctorId='$doctorId'";
+        $query = $this->db->query($sql);
+        $result = $query->result_array();
+        return $result;
+    }
 
     public function selectDoctorEducationList() {
 
-        $sql = "Select * FROM education";
+        $sql = "Select EducationId, EducationName, EducationShortName, EducationWeight, DATE_FORMAT(EntryDate,'%d/%m/%Y') as EntryDate FROM education;";
 
         $query = $this->db->query($sql);
 
         $result = $query->result_array();
-
-        $nsize = sizeof($result);
-        $result['size'] = $nsize;
-        $result['editCheck'] = 0;
         return $result;
     }
     
@@ -60,59 +72,35 @@ class DoctorListModel extends CI_Model {
     }
     
     public function selectDoctorEducationInstituteList(){
-        
-        $sql = "Select * FROM educationinstitute";
-
+        $sql = "Select EducationInstituteId, EducationInstituteName, EducationInstituteContactNo, EducationInstituteEmail,  DATE_FORMAT(EntryDate,'%d/%m/%Y') as EntryDate FROM educationinstitute;";
         $query = $this->db->query($sql);
-
         $result = $query->result_array();
-
-        $nsize = sizeof($result);
-        //$result['size'] = $nsize;
-        //$result['editCheck'] = 0;
+        
         return $result;
     }
 
     public function selectClinicTypeList() {
-
-        $sql = "Select * FROM clinictype";
+        $sql = "Select ClinicTypeId, ClinicType, DATE_FORMAT(EntryDate,'%d/%m/%Y') as EntryDate FROM clinictype ;";
 
         $query = $this->db->query($sql);
-
         $result = $query->result_array();
-
-        $nsize = sizeof($result);
-        $result['size'] = $nsize;
-        $result['editCheck'] = 0;
 
         return $result;
     }
 
     public function selectClinicList() {
-
-        $sql = "Select * FROM clinic";
-
+        $sql = "Select ClinicId, ClinicRegistrationNo, ClinicName, ClinicContactNumber, ClinicEmailAddress, DATE_FORMAT(EntryDate,'%d/%m/%Y') as EntryDate  FROM clinic;";
         $query = $this->db->query($sql);
-
         $result = $query->result_array();
-
-        $nsize = sizeof($result);
-        $result['size'] = $nsize;
-        $result['editCheck'] = 0;
-
 
         return $result;
     }
 
     public function checkDoctorId($doctorId) {
-
         $sql = "SELECT * FROM doctor where DoctorId = '$doctorId';";
         $query = $this->db->query($sql);
-
         $result = $query->result_array();
-
-
-
+        
         return $result;
     }
     
@@ -169,11 +157,9 @@ class DoctorListModel extends CI_Model {
         $query = $this->db->query($sql);
 
         $result = $query->result_array();
-
-
-
         return $result;
     }
+    
 
     public function checkDoctorRegistration($doctorRegId) {
 
@@ -250,7 +236,7 @@ class DoctorListModel extends CI_Model {
         return $result;
     }
 
-    public function insertDoctor($data) {
+    public function insertDoctor($data, $clinicList) {
         $DoctorName = $data['DoctorName'];
         $DoctorAddress = $data['DoctorAddress'];
         $DoctorEmailAddress = $data['DoctorEmailAddress'];
@@ -261,6 +247,19 @@ class DoctorListModel extends CI_Model {
         $EditedDate = null;
         $sql = "INSERT into doctor (DoctorName,DoctorRegistrationNo,DoctorAddress,DoctorContactNo,DoctorEmailAddress,EntryBy,EditedBy,EditedDate) values('$DoctorName','$DoctorRegistrationNo','$DoctorAddress','$DoctorContactNo','$DoctorEmailAddress','$EntryBy','$EditedBy','$EditedDate')";
         $query = $this->db->query($sql);
+        $doctorId = $this->db->insert_id();
+        
+        foreach($clinicList as $clinic){
+            $data = array(
+                'DoctorId' => $doctorId,
+                'ClinicId' => $clinic,
+                'EntryBy' => $data['EntryBy'],
+                'EditedBy' => '0'
+            );
+            
+            $this->db->insert('doctorclinic',$data);
+        }
+        
         $ndata = $this->DoctorListModel->getAllDoctor();
         $nsize = sizeof($ndata);
         $ndata['size'] = $nsize;
@@ -268,22 +267,35 @@ class DoctorListModel extends CI_Model {
         return $ndata;
     }
 
-    public function updateDoctor($data) {
-        $DoctorId = $data['DoctorId'];
-        $DoctorName = $data['DoctorName'];
-        $DoctorAddress = $data['DoctorAddress'];
-        $DoctorEmailAddress = $data['DoctorEmailAddress'];
-        $DoctorRegistrationNo = $data['DoctorRegistrationNo'];
-        $DoctorContactNo = $data['DoctorContactNo'];
-        $EntryBy = $data['EntryBy'];
-        $EditedBy = $data['EditedBy'];
-        $sql = "UPDATE doctor SET DoctorName='$DoctorName',DoctorRegistrationNo='$DoctorRegistrationNo',DoctorAddress='$DoctorAddress',DoctorContactNo='$DoctorContactNo',DoctorEmailAddress='$DoctorEmailAddress',EntryBy='$EntryBy',EditedBy='$EditedBy' where DoctorId='$DoctorId'";
-        $query = $this->db->query($sql);
-        $ndata = $this->DoctorListModel->getAllDoctor();
-        $nsize = sizeof($ndata);
-        $ndata['size'] = $nsize;
-        $ndata['editCheck'] = 1;
-        return $ndata;
+    public function updateDoctor($data, $dTypeId) {
+        $this->db->where('DoctorId', $dTypeId);
+        
+        if($this->db->update('doctor', $data)){
+            return true; 
+        }
+        else{
+            return false; 
+        }
+    }
+    
+    public function updateDoctorClinic($doctorId, $clinicList){
+        $this->db->where('DoctorId', $doctorId);
+        if($this->db->delete('doctorclinic')){
+            foreach($clinicList as $clinic){
+                $data = array(
+                    'DoctorId' => $doctorId,
+                    'ClinicId' => $clinic,
+                    'EntryBy' => $data['EntryBy'],
+                    'EditedBy' => '0'
+                );
+                $this->db->insert('doctorclinic',$data);
+            }
+            return true; 
+        }
+        else{
+            return false; 
+        }
+        
     }
 
     public function updateDoctorEducation($data) {
@@ -397,17 +409,8 @@ class DoctorListModel extends CI_Model {
     }
 
     public function insertClinic($data) {
-
-
         if ($this->db->insert('clinic', $data)) {
-
-
-            $ndata = $this->DoctorListModel->getAllClinic();
-            $nsize = sizeof($ndata);
-            $ndata['size'] = $nsize;
-            $ndata['editCheck'] = 4;
-            return $ndata;
-            
+            return true;
         } else {
             return false;
         }
@@ -429,12 +432,31 @@ class DoctorListModel extends CI_Model {
         }
     }
     
-    public function saveDoctorEducationData($data) {
-        if ($this->db->insert('doctoreducation', $data)) {
-            return true;
-        } else {
-            return false;
+    public function saveDoctorEducationData($data,$isize) {
+        
+        $DoctorId = $data["DoctorId"];
+        $EntryBy = $data["EntryBy"];
+        $EditedBy = $data["EditedBy"];
+        
+        for($i=0;$i<$isize;$i++){
+           $EducationId = $data["educationId"][$i];
+           $EducationGradeId = $data["educationGradeId"][$i];
+           $EducationInstituteId = $data["educationInstituteId"][$i];
+           $PassingYear = $data["passingYear"][$i];
+           $Campus = $data["Campus"][$i];
+           $DoctorGrade = $data["DoctorGrade"][$i];
+           $sql = "INSERT into doctoreducation (DoctorId,EducationId,EducationGradeId,EducationInstituteId,PassingYear,Campus,EntryBy,EditedBy,DoctorGrade) values('$DoctorId','$EducationId','$EducationGradeId','$EducationInstituteId','$PassingYear','$Campus','$EntryBy','$EditedBy','$DoctorGrade')";
+           $query = $this->db->query($sql);
+           //var_dump($query);
         }
+//        var_dump($data);
+//        exit();
+        return true;
+//        if ($this->db->insert('doctoreducation', $data)) {
+//            return true;
+//        } else {
+//            return false;
+//        }
     }
     
     public function saveDoctorEducationGrade($data) {
@@ -461,5 +483,16 @@ class DoctorListModel extends CI_Model {
 
         return $result;
     }
+    
+    public function getDoctorClinic($doctorId){
+        $sql = "select * from doctorclinic where  DoctorId = '$doctorId'";
+        $query = $this->db->query($sql);
+
+        $result = $query->result_array();
+
+        return $result;
+    }
+    
+
 
 }

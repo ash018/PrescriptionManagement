@@ -17,36 +17,30 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        
-                          <?php
-                            $notify = $this->session->userdata('notifyuser');
 
-                            if (sizeof($notify) > 0 && $notify != '') {
-                                if ($notify['type'] == 1) {
-                                    ?>
-                                    <div class="alert alert-success alert-dismissable">
-                                        <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
-                                        <?php echo $notify['message']; ?>
-                                    </div>
-                                    <?php
-                                }
-                                if ($notify['type'] == 0) {
-                                    ?>
-                                    <div class="alert alert-danger alert-dismissable">
-                                        <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
+                        <?php
+                        $notify = $this->session->userdata('notifyuser');
+
+                        if (sizeof($notify) > 0 && $notify != '') {
+                            if ($notify['type'] == 1) {
+                                ?>
+                                <div class="alert alert-success alert-dismissable">
+                                    <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
                                     <?php echo $notify['message']; ?>
-                                    </div>
+                                </div>
                                 <?php
-                                }
-                                $this->session->unset_userdata('notifyuser');
                             }
-                            ?>
-                            
-                            
-                             
-                        
-                        
-                        
+                            if ($notify['type'] == 0) {
+                                ?>
+                                <div class="alert alert-danger alert-dismissable">
+                                    <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <?php echo $notify['message']; ?>
+                                </div>
+                                <?php
+                            }
+                            $this->session->unset_userdata('notifyuser');
+                        }
+                        ?>
                     </div>
                 </div>
                 <div class="row">
@@ -73,49 +67,28 @@
                                             <th>Education Name</th>
                                             <th>Education Short Name</th>
                                             <th>Education Weight</th>
-                                            <th>Entry By</th>
+                                            <th>Creation Date</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        //echo $size;
-                                        $x = 0;
-                                        //var_dump($listView['editCheck']);
-                                        $size = ($listView['size']);
-                                        //while($x<$size){        
-
-                                        $i = sizeof($listView) - 2;
-                                        $x = 0;
-                                        //var_dump(sizeof($listView));
-                                        //exit();
+                                        $x = 1;
                                         foreach ($listView as $row) {
-                                            if ($i > 0) {
-                                                $x += 1;
-                                                ?>
-                                            <tbody>
-                                                <tr>
-                                                    <td><?php echo $x; ?></td>
-                                                    <td><?php echo $row['EducationName']; ?></td>
-                                                    <td><?php echo $row['EducationShortName']; ?></td>
-                                                    <td><?php echo $row['EducationWeight']; ?></td>
-                                                    <td><?php echo $row['EntryBy']; ?></td>
-                                                    <td>
-                                                        <button id="<?php echo $row['EducationId']; ?>" class="btn btn-info btn-adn  editDoctorGetData" style="margin-left: 0%" data-toggle="modal"
-                                                                data-target="#myModal" data-node="<?php echo $row['EducationId']; ?>">Edit
-                                                        </button>
-                                                    </td>
-        <!--                                                    <td>
-                                                       
-                                                            <button id="<?php //echo $row['DoctorId'];  ?>"  class="btn btn-danger deleteDoctorGetData" data-toggle="modal" data-target="#myModalDelete" data-node="<?php //echo $row['DoctorId'];  ?>" style="margin-left: 30%">Delete</button>
-                                                        </form>
-                                                    </td>-->
-                                                </tr>
-                                                <?php
-                                            }
-
-                                            $i -= 1;
-                                        }
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $x; ?></td>
+                                                <td><?php echo $row['EducationName']; ?></td>
+                                                <td><?php echo $row['EducationShortName']; ?></td>
+                                                <td><?php echo $row['EducationWeight']; ?></td>
+                                                <td><?php echo $row['EntryDate']; ?></td>
+                                                <td>
+                                                    <button id="<?php echo $row['EducationId']; ?>" class="btn btn-info btn-adn  editDoctorGetData" style="margin-left: 0%" data-toggle="modal"
+                                                            data-target="#myModal" data-node="<?php echo $row['EducationId']; ?>">Edit
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <?php $x++;}
                                         ?>
                                     </tbody>
                                 </table>
@@ -126,7 +99,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title" style="text-align: center">Edit Doctor Information</h4>
+                                                <h4 class="modal-title" style="text-align: center">Edit Education</h4>
                                             </div>
                                             <div id="editDoctorEducationModuleData" class="modal-body">
 
@@ -137,22 +110,7 @@
                                     </div>
                                 </div>
 
-                                <div class="modal fade" id="myModalDelete" role="dialog">
-                                    <div class="modal-dialog">
-
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title" style="text-align: center">Delete Doctor Information</h4>
-                                            </div>
-                                            <div id="deleteDoctorModuleData" class="modal-body">
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
+                                
 
                                 <div class="well">
 

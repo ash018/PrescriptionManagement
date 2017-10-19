@@ -31,40 +31,40 @@ $EntryBy = $doctorData[0]['EntryBy'];
             <div class="form-group">
                 <label>Education</label>
                 <select class="form-control" id="EducationId" name="EducationId">
-                    <?php 
-                        $i = sizeof($educationData);
-                        for($x=0;$x<$i;$x++){
+                    <?php
+                    $i = sizeof($educationData);
+                    for ($x = 0; $x < $i; $x++) {
                         ?>
-                    <option  value="<?php echo $educationData[$x]["EducationId"];?>"><?php echo $educationData[$x]["EducationName"]?></option>
-                        <?php }?>
+                        <option  value="<?php echo $educationData[$x]["EducationId"]; ?>"><?php echo $educationData[$x]["EducationName"] ?></option>
+                    <?php } ?>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Education Grade</label>
                 <select class="form-control" id="EducationGradeId" name="EducationGradeId">
-                    <?php 
-                        $i = sizeof($educationGradeData)-2;
-                        for($x=0;$x<$i;$x++){
+                    <?php
+                    $i = sizeof($educationGradeData) - 2;
+                    for ($x = 0; $x < $i; $x++) {
                         ?>
-                    <option  value="<?php echo $educationGradeData[$x]["EducationGradeId"];?>"><?php echo $educationGradeData[$x]["EducationShortName"]?></option>
-                        <?php }?>
+                        <option  value="<?php echo $educationGradeData[$x]["EducationGradeId"]; ?>"><?php echo $educationGradeData[$x]["EducationShortName"] ?></option>
+                    <?php } ?>
                 </select>
             </div>
-            
+
             <div class="form-group">
                 <label>Education Institute</label>
                 <select class="form-control" id="EducationInstituteId" name="EducationInstituteId">
-                    <?php 
-                        $i = sizeof($educationInstituteData);
-                        //for($x=0;$x<$i;$x++){
-                        foreach($educationInstituteData as $educationInstitute){
+                    <?php
+                    $i = sizeof($educationInstituteData);
+                    //for($x=0;$x<$i;$x++){
+                    foreach ($educationInstituteData as $educationInstitute) {
                         ?>
-                    <option value="<?php echo $educationInstitute['EducationInstituteId'];?>"><?php echo $educationInstitute["EducationInstituteName"]?></option>
-                        <?php }?>
+                        <option value="<?php echo $educationInstitute['EducationInstituteId']; ?>"><?php echo $educationInstitute["EducationInstituteName"] ?></option>
+                    <?php } ?>
                 </select>
             </div>
-            
+
             <div class="form-group">
                 <label>Passing Year</label>
                 <div class="row">
@@ -75,8 +75,8 @@ $EntryBy = $doctorData[0]['EntryBy'];
 
                 </div>
             </div>
-            
-            
+
+
             <div class="form-group">
                 <label>Doctor Grade</label>
                 <div class="row">
@@ -87,7 +87,7 @@ $EntryBy = $doctorData[0]['EntryBy'];
 
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label>Campus</label>
                 <div class="row">
@@ -98,8 +98,43 @@ $EntryBy = $doctorData[0]['EntryBy'];
 
                 </div>
             </div>
+            <table id="myTable">
+                <tr>
+                    <td><div class="form-group">
+                <label>Passing Year</label>
+                <div class="row">
+                    <div class="col-sm-12">
 
+                        <input type="text" class="form-control" id="PassingYear" name="PassingYear"  placeholder="Passing Year" required="True">
+                    </div>
+
+                </div>
+            </div></td>
+                    <td>Row1 cell2</td>
+                </tr>
+                <tr>
+                    <td>Row2 cell1</td>
+                    <td>Row2 cell2</td>
+                </tr>
+                <tr>
+                    <td>Row3 cell1</td>
+                    <td>Row3 cell2</td>
+                </tr>
+            </table>
+            <br>
             <button type="submit" id="editUser" class="btn btn-danger">Enter</button>
+            <button onClick="myFunction()"  id="addEdu" class="btn btn-primary">Add Row</button>
         </form>
     </div>
 </div>
+
+<script>
+function myFunction() {
+    var table = document.getElementById("myTable");
+    var row = table.insertRow(-1);
+    var cell1 = row.insertCell(-1);
+    var cell2 = row.insertCell(-1);
+    cell1.innerHTML = "";
+    cell2.innerHTML = "NEW CELL2";
+}
+</script>

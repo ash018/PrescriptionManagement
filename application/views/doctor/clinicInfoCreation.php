@@ -15,8 +15,32 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
+                        <br>
+                        <?php
+                        $notify = $this->session->userdata('notifyuser');
+
+                        if (sizeof($notify) > 0 && $notify != '') {
+                            if ($notify['type'] == 1) {
+                                ?>
+                                <div class="alert alert-success alert-dismissable">
+                                    <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <?php echo $notify['message']; ?>
+                                </div>
+                                <?php
+                            }
+                            if ($notify['type'] == 0) {
+                                ?>
+                                <div class="alert alert-danger alert-dismissable">
+                                    <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <?php echo $notify['message']; ?>
+                                </div>
+                                <?php
+                            }
+                            $this->session->unset_userdata('notifyuser');
+                        }
+                        ?>
+                        <h1 class="page-header">Add Clinic Information</h1>
                         
-                        <h1 class="page-header">Add Clinic Info</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -25,7 +49,7 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Enter Information Here
+                                New Clinic 
                             </div>
                             <div class="panel-body">
                                 <div class="row">
@@ -53,18 +77,12 @@
                                                 <input type="email" class="form-control" placeholder="E-mail Address" name="ClinicEmailAddress">
                                             </div>
 
-                                            
-                                            <button id="saveDoctor" style="float: right" type="submit" class="btn btn-success right">Submit Button</button>
-                                            <button style="float: right" type="reset" class="btn btn-bitbucket">Reset Button</button>     
-
-                                        </div>
-                                        <!-- /.col-lg-6 (nested) -->
-                                        <div class="col-lg-6">
-                                            
+                                            <button type="reset" class="btn btn-danger">Reset</button>     
+                                            <button id="saveDoctor" type="submit" class="btn btn-primary right">Submit</button>
                                             
 
                                         </div>
-                                        <!-- /.col-lg-6 (nested) -->
+                                        
                                     </form>
                                 </div>
                                 <!-- /.row (nested) -->

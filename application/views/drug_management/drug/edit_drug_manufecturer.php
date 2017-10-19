@@ -81,7 +81,7 @@
 
                 <div class="form-group">
                     <label>Strength</label>
-                    <input type="number" class="form-control" id="DrugStrengthUnit" name="DrugStrengthUnit" value="<?php echo $drugStrengthUnit;?>" placeholder="Drug Strength Unit" required="True">
+                    <input type="number" step="any" class="form-control" id="DrugStrengthUnit" name="DrugStrengthUnit" value="<?php echo $drugStrengthUnit;?>" placeholder="Drug Strength Unit" required="True">
                 </div>
 
                 <div class="form-group">

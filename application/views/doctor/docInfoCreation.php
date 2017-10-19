@@ -63,32 +63,26 @@
                                                         This Contact No Already Exist in the system
                                                 </div>  
                                             </div>
-
                                             <div class="form-group">
                                                 <label>E-mail Address</label>
                                                 <input type="email" class="form-control" placeholder="E-mail Address" name="DoctorEmailAddress">
                                             </div>
-
                                             
-                                            <button id="saveDoctor" style="float: right" type="submit" class="btn btn-success right">Submit Button</button>
-                                            <button style="float: right" type="reset" class="btn btn-bitbucket">Reset Button</button>        
+                                            <div class="form-group">
+                                            <label>Select Clinic</label>
+                                                <select id="DoctorClinic" name="DoctorClinic[]" multiple class="form-control">
+                                                    <?php  foreach ($allClinic as $dFrom) { ?>
+                                                        <option value="<?php echo $dFrom['ClinicId']; ?>"><?php echo $dFrom['ClinicName'] . '-' . $dFrom['ClinicAddress']; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                            
+                                            <button type="reset" class="btn btn-danger">Reset</button>
+                                            <button type="submit" id="saveDoctor" class="btn btn-primary">Save</button>
 
                                         </div>
                                         <!-- /.col-lg-6 (nested) -->
-                                        <div class="col-lg-6">
-                                            
-                                            <div class="form-group">
-                                                <label></label>
-                                                <input type="hidden" class="form-control" placeholder="E-mail Address" name="">
-                                            </div> 
-                                            
-                                            <div class="form-group">
-                                                <div id="divDoctorRegistration" class="alert alert-danger" style="display: none;">
-                                                        This Registration ID Already Exist in the system
-                                                </div>  
-                                            </div>
-
-                                        </div>
+                                        
                                         <!-- /.col-lg-6 (nested) -->
                                     </form>
                                 </div>
