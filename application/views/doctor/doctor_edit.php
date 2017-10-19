@@ -97,7 +97,6 @@
                     <?php } ?>
                 </select>
             </div>
-            
             <button type="submit" id="editDoctor" class="btn btn-primary">Update</button>
         </form>
     </div>

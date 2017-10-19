@@ -116,40 +116,6 @@
                                     </div>
                                 </div>
 
-                                <div class="modal fade" id="myModalDelete" role="dialog">
-                                    <div class="modal-dialog">
-
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title" style="text-align: center">Enter Doctor Information</h4>
-                                            </div>
-                                            <div id="deleteDoctorModuleData" class="modal-body">
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="modal fade" id="myModalDetails" role="dialog">
-                                    <div class="modal-dialog">
-
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title" style="text-align: center">Doctor Details</h4>
-                                            </div>
-                                            <div id="detailsDoctorModuleData" class="modal-body">
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
                                 <div class="well">
 
                                 </div>

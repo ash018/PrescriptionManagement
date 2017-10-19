@@ -211,7 +211,7 @@ function editDoctor(url){
                 cache: false,
                 success: function(data){
                    $("#editDoctorModuleData").append(data);
-}
+                }
             });
     });
 }

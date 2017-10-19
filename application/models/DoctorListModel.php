@@ -97,14 +97,10 @@ class DoctorListModel extends CI_Model {
     }
 
     public function checkDoctorId($doctorId) {
-
         $sql = "SELECT * FROM doctor where DoctorId = '$doctorId';";
         $query = $this->db->query($sql);
-
         $result = $query->result_array();
-
-
-
+        
         return $result;
     }
     
@@ -481,6 +477,15 @@ class DoctorListModel extends CI_Model {
 
     public function checkClinicType($clinicType) {
         $sql = "SELECT * FROM clinictype where ClinicType = '$clinicType';";
+        $query = $this->db->query($sql);
+
+        $result = $query->result_array();
+
+        return $result;
+    }
+    
+    public function getDoctorClinic($doctorId){
+        $sql = "select * from doctorclinic where  DoctorId = '$doctorId'";
         $query = $this->db->query($sql);
 
         $result = $query->result_array();

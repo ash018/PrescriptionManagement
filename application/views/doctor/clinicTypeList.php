@@ -66,7 +66,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $x = 0;
+                                        <?php $x = 1;
                                         foreach ($listView as $row) {
                                             ?>
                                             <tr>
