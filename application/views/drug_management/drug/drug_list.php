@@ -87,8 +87,8 @@
                                                     <td class="center"><?php echo $dsub['EntryDate']; ?></td>
                                                     <td class="center">
                                                         <input type="button" class="btn btn-outline btn-primary editDrug" data-toggle="modal" data-target="#myModal" data-node="<?php echo $dsub['DrugId']; ?>" value="Edit"/>
-<!--                                                        <input type="button" class="btn btn-info drugDetail" data-toggle="modal" data-target="#myModal" data-node="<?php //echo $dsub['DrugId']; ?>" value="view"/>-->
-                                                        <a href="<?php echo base_url().'DrugManagement/drugDetail?drugId='.$dsub['DrugId']?>" class="btn btn-outline btn-primary" type="button">view</a>
+                                                        <!-- <input type="button" class="btn btn-info drugDetail" data-toggle="modal" data-target="#myModal" data-node="<?php //echo $dsub['DrugId']; ?>" value="view"/>-->
+                                                        <!--<a href="<?php echo base_url().'DrugManagement/drugDetail?drugId='.$dsub['DrugId']?>" class="btn btn-outline btn-primary" type="button">view</a>-->
                                                         <a href="<?php echo base_url().'DrugManagement/addManufacturer?drugId='.$dsub['DrugId']?>" class="btn btn-outline btn-primary" type="button">Add Manufacturer</a>
                                                         <a href="<?php echo base_url().'DrugManagement/drugWiseManufacturerList?drugId='.$dsub['DrugId']?>" class="btn btn-outline btn-primary" type="button">Drug wise Manufacturer List</a>
                                                     </td>
